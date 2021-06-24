@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
+import '../todo_model.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  var todo = List<Todo>.filled(1, Todo()).obs;
 
   final count = 0.obs;
   @override
