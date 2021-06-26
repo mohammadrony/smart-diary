@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TodoWidget extends StatelessWidget {
-  const TodoWidget({Key? key}) : super(key: key);
+  const TodoWidget({Key? key, this.text, this.isDone}) : super(key: key);
+  final String? text;
+  final bool? isDone;
 
   @override
   Widget build(BuildContext context) {
@@ -15,18 +17,24 @@ class TodoWidget extends StatelessWidget {
             margin: EdgeInsets.only(right: 16.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6.0),
-              color: Color(0xFF7349FE),
+              color: isDone == true ? Color(0xFF7349FE) : Colors.transparent,
+              border: isDone == true
+                  ? null
+                  : Border.all(
+                      color: Color(0xFF86829D),
+                      width: 1.5,
+                    ),
             ),
             child: Image(
               image: AssetImage('assets/images/check_icon.png'),
             ),
           ),
           Text(
-            'todo widget',
+            text ?? '(Unnamed todo)',
             style: TextStyle(
-              color: Color(0xFF211551),
+              color: isDone == true ? Color(0xFF211551) : Color(0xFF86829D),
               fontSize: 16.0,
-              fontWeight: FontWeight.bold,
+              fontWeight: isDone == true ? FontWeight.bold : FontWeight.w500,
             ),
           ),
         ],

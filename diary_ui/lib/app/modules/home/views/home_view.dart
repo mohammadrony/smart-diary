@@ -29,21 +29,48 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ),
                 Expanded(
-                  child: ListView(
-                    children: [
-                      TaskCardWidget(
-                        title: 'Get Started!',
-                        desc:
-                            // ignore: lines_longer_than_80_chars
-                            'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
-                      ),
-                      TaskCardWidget(
-                        title: 'Get Started!',
-                        desc:
-                            // ignore: lines_longer_than_80_chars
-                            'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
-                      ),
-                    ],
+                  child: ScrollConfiguration(
+                    behavior: NoGlowBehavior(),
+                    child: ListView(
+                      children: [
+                        TaskCardWidget(
+                          title: 'Get Started!',
+                          desc:
+                              // ignore: lines_longer_than_80_chars
+                              'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
+                        ),
+                        TaskCardWidget(
+                          title: 'Get Started!',
+                          desc:
+                              // ignore: lines_longer_than_80_chars
+                              'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
+                        ),
+                        TaskCardWidget(
+                          title: 'Get Started!',
+                          desc:
+                              // ignore: lines_longer_than_80_chars
+                              'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
+                        ),
+                        TaskCardWidget(
+                          title: 'Get Started!',
+                          desc:
+                              // ignore: lines_longer_than_80_chars
+                              'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
+                        ),
+                        TaskCardWidget(
+                          title: 'Get Started!',
+                          desc:
+                              // ignore: lines_longer_than_80_chars
+                              'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
+                        ),
+                        TaskCardWidget(
+                          title: 'Get Started!',
+                          desc:
+                              // ignore: lines_longer_than_80_chars
+                              'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -59,7 +86,15 @@ class HomeView extends GetView<HomeController> {
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: Color(0xFF7349FE),
+                    // color: Color(0xFF7349FE),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xFF7349FE),
+                        Color(0xFF643FDB),
+                      ],
+                      begin: Alignment(0.0, -1.0),
+                      end: Alignment(0.0, 1.0),
+                    ),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Image(
@@ -72,5 +107,13 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
     ));
+  }
+}
+
+class NoGlowBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }
