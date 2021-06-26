@@ -1,4 +1,5 @@
 import 'package:diary_ui/app/modules/home/local_widgets/task_card_widget.dart';
+import 'package:diary_ui/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -14,7 +15,6 @@ class HomeView extends GetView<HomeController> {
         width: double.infinity,
         padding: EdgeInsets.symmetric(
           horizontal: 24,
-          vertical: 32,
         ),
         color: Color(0xFFF6F6F6),
         child: Stack(
@@ -23,37 +23,48 @@ class HomeView extends GetView<HomeController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.only(bottom: 32),
+                  margin: EdgeInsets.only(bottom: 32, top: 32),
                   child: Image(
                     image: AssetImage('assets/images/logo.png'),
                   ),
                 ),
-                TaskCardWidget(
-                  title: 'Get Started!',
-                  desc:
-                      // ignore: lines_longer_than_80_chars
-                      'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
-                ),
-                TaskCardWidget(
-                  title: 'Get Started!',
-                  desc:
-                      // ignore: lines_longer_than_80_chars
-                      'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
+                Expanded(
+                  child: ListView(
+                    children: [
+                      TaskCardWidget(
+                        title: 'Get Started!',
+                        desc:
+                            // ignore: lines_longer_than_80_chars
+                            'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
+                      ),
+                      TaskCardWidget(
+                        title: 'Get Started!',
+                        desc:
+                            // ignore: lines_longer_than_80_chars
+                            'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
             Positioned(
-              bottom: 0,
+              bottom: 24,
               right: 0,
-              child: Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: Color(0xFF7349FE),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Image(
-                  image: AssetImage('assets/images/add_icon.png'),
+              child: GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.TASK_DETAILS);
+                },
+                child: Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF7349FE),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Image(
+                    image: AssetImage('assets/images/add_icon.png'),
+                  ),
                 ),
               ),
             )
