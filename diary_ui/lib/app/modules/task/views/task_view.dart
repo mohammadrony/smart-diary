@@ -1,11 +1,13 @@
-import 'package:diary_ui/app/modules/task_details/local_widgets/todo_widget.dart';
+import 'package:diary_ui/app/data/model/task.dart';
+import 'package:diary_ui/app/data/provider/database_provider.dart';
+import 'package:diary_ui/app/modules/task/local_widgets/todo_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/task_details_controller.dart';
+import '../controllers/task_controller.dart';
 
-class TaskDetailsView extends GetView<TaskDetailsController> {
+class TaskView extends GetView<TaskController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +36,15 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
                         ),
                         Expanded(
                           child: TextField(
+                            onSubmitted: (value) async {
+                              print(value);
+                              if (value != '') {
+                                var _dbProvider = DatabaseProvider();
+                                var newTask = Task(title: value);
+                                await _dbProvider.insertTask(newTask);
+                                print('New task has been created');
+                              }
+                            },
                             decoration: InputDecoration(
                               hintText: 'Enter task title...',
                               border: InputBorder.none,
@@ -70,7 +81,7 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
                 right: 24,
                 child: GestureDetector(
                   onTap: () {
-                    // Get.toNamed(Routes.TASK_DETAILS);
+                    // Get.toNamed(Routes.TASK);
                   },
                   child: Container(
                     width: 60,

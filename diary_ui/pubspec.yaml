@@ -12,7 +12,10 @@ dependencies:
   get: 4.1.4
   get_storage: ^2.0.2
   google_fonts: ^2.1.0
+  path: ^1.8.0
   pedantic: ^1.11.0
+  sqflite: ^2.0.0+3
+  sqflite_common_ffi: ^2.0.0+1
 
 dev_dependencies:
   flutter_test:

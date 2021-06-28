@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class TaskDetailsController extends GetxController {
-  //TODO: Implement TaskDetailsController
+class TaskController extends GetxController {
+  //TODO: Implement TaskController
 
   final count = 0.obs;
   @override

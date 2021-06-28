@@ -1,3 +1,5 @@
+import 'package:diary_ui/app/data/model/task.dart';
+import 'package:diary_ui/app/data/provider/database_provider.dart';
 import 'package:diary_ui/app/modules/home/local_widgets/task_card_widget.dart';
 import 'package:diary_ui/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,8 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
+  final DatabaseProvider _dbProvider = DatabaseProvider();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,48 +33,23 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ),
                 Expanded(
-                  child: ScrollConfiguration(
-                    behavior: NoGlowBehavior(),
-                    child: ListView(
-                      children: [
-                        TaskCardWidget(
-                          title: 'Get Started!',
-                          desc:
-                              // ignore: lines_longer_than_80_chars
-                              'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
+                  child: FutureBuilder(
+                    future: _dbProvider.getTasks(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<Task>> snapshot) {
+                      return ScrollConfiguration(
+                        behavior: NoGlowBehavior(),
+                        child: ListView.builder(
+                          itemCount:
+                              snapshot.data == null ? 0 : snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return TaskCardWidget(
+                              title: snapshot.data![index].title,
+                            );
+                          },
                         ),
-                        TaskCardWidget(
-                          title: 'Get Started!',
-                          desc:
-                              // ignore: lines_longer_than_80_chars
-                              'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
-                        ),
-                        TaskCardWidget(
-                          title: 'Get Started!',
-                          desc:
-                              // ignore: lines_longer_than_80_chars
-                              'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
-                        ),
-                        TaskCardWidget(
-                          title: 'Get Started!',
-                          desc:
-                              // ignore: lines_longer_than_80_chars
-                              'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
-                        ),
-                        TaskCardWidget(
-                          title: 'Get Started!',
-                          desc:
-                              // ignore: lines_longer_than_80_chars
-                              'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
-                        ),
-                        TaskCardWidget(
-                          title: 'Get Started!',
-                          desc:
-                              // ignore: lines_longer_than_80_chars
-                              'Hello User! Welcome to Smart Diary app, This is a default task that you can edit or delete to start using the app.',
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -79,8 +58,9 @@ class HomeView extends GetView<HomeController> {
               bottom: 24,
               right: 0,
               child: GestureDetector(
-                onTap: () {
-                  Get.toNamed(Routes.TASK_DETAILS);
+                onTap: () async {
+                  await Get.toNamed(Routes.TASK);
+                  // print('back');
                 },
                 child: Container(
                   width: 60,
