@@ -1,13 +1,15 @@
+import 'dart:io';
+
+import 'package:diary_ui/app/data/services/task/service.dart';
 import 'package:get/get.dart';
-import '../todo_model.dart';
 
 class HomeController extends GetxController {
-  var todo = List<Todo>.filled(1, Todo()).obs;
+  var isLoading = true.obs;
+  var tasks = [].obs;
 
-  final count = 0.obs;
   @override
-  // ignore: unnecessary_overrides
-  void onInit() {
+  Future<void> onInit() async {
+    await getTasks();
     super.onInit();
   }
 
@@ -19,5 +21,14 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+
+  Future<void> getTasks() async {
+    try {
+      isLoading.value = true;
+      var tasklist = await TaskService.getTasks();
+      tasks.value = tasklist ?? [];
+    } finally {
+      isLoading.value = false;
+    }
+  }
 }

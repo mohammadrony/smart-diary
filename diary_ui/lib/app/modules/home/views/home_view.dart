@@ -1,6 +1,4 @@
-import 'package:diary_ui/app/data/model/task.dart';
-import 'package:diary_ui/app/data/provider/database_provider.dart';
-import 'package:diary_ui/app/modules/home/local_widgets/task_card_widget.dart';
+import 'package:diary_ui/app/modules/home/widgets/task_card_widget.dart';
 import 'package:diary_ui/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +7,6 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  final DatabaseProvider _dbProvider = DatabaseProvider();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,23 +29,17 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ),
                 Expanded(
-                  child: FutureBuilder(
-                    future: _dbProvider.getTasks(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<Task>> snapshot) {
-                      return ScrollConfiguration(
-                        behavior: NoGlowBehavior(),
-                        child: ListView.builder(
-                          itemCount:
-                              snapshot.data == null ? 0 : snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            return TaskCardWidget(
-                              title: snapshot.data![index].title,
-                            );
-                          },
-                        ),
-                      );
-                    },
+                  child: ScrollConfiguration(
+                    behavior: NoGlowBehavior(),
+                    child: Obx(() => controller.isLoading.value
+                        ? CircularProgressIndicator()
+                        : ListView.builder(
+                            itemCount: controller.tasks.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return TaskCardWidget(
+                                title: controller.tasks[index].title,
+                              );
+                            })),
                   ),
                 ),
               ],
@@ -60,7 +50,7 @@ class HomeView extends GetView<HomeController> {
               child: GestureDetector(
                 onTap: () async {
                   await Get.toNamed(Routes.TASK);
-                  // print('back');
+                  await controller.getTasks();
                 },
                 child: Container(
                   width: 60,

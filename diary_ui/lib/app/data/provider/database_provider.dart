@@ -4,10 +4,8 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseProvider {
   Future<Database> database() async {
-    var joinPath = join(await getDatabasesPath(), 'diary.db');
-    print('hello');
     return openDatabase(
-      joinPath,
+      join(await getDatabasesPath(), 'diary.db'),
       onCreate: (db, version) {
         return db.execute(
             // ignore: lines_longer_than_80_chars
@@ -17,7 +15,7 @@ class DatabaseProvider {
     );
   }
 
-  Future<void> insertTask(Task task) async {
+  Future<void> createTask(Task task) async {
     var _db = await database();
     await _db.insert(
       'tasks',

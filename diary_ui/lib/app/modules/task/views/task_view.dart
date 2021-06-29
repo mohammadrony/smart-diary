@@ -1,6 +1,5 @@
 import 'package:diary_ui/app/data/model/task.dart';
-import 'package:diary_ui/app/data/provider/database_provider.dart';
-import 'package:diary_ui/app/modules/task/local_widgets/todo_widget.dart';
+import 'package:diary_ui/app/modules/task/widgets/todo_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -37,12 +36,9 @@ class TaskView extends GetView<TaskController> {
                         Expanded(
                           child: TextField(
                             onSubmitted: (value) async {
-                              print(value);
                               if (value != '') {
-                                var _dbProvider = DatabaseProvider();
                                 var newTask = Task(title: value);
-                                await _dbProvider.insertTask(newTask);
-                                print('New task has been created');
+                                await controller.createTask(newTask);
                               }
                             },
                             decoration: InputDecoration(
