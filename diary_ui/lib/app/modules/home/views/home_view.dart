@@ -31,15 +31,20 @@ class HomeView extends GetView<HomeController> {
                 Expanded(
                   child: ScrollConfiguration(
                     behavior: NoGlowBehavior(),
-                    child: Obx(() => controller.isLoading.value
-                        ? CircularProgressIndicator()
-                        : ListView.builder(
-                            itemCount: controller.tasks.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return TaskCardWidget(
-                                title: controller.tasks[index].title,
-                              );
-                            })),
+                    child: Obx(() => ListView.builder(
+                        itemCount: controller.tasks.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Get.toNamed(Routes.TASK +
+                                  '?id=' +
+                                  controller.tasks[index].id.toString());
+                            },
+                            child: TaskCardWidget(
+                              title: controller.tasks[index].title,
+                            ),
+                          );
+                        })),
                   ),
                 ),
               ],

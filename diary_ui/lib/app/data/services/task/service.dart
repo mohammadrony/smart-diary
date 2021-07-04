@@ -3,8 +3,12 @@ import 'package:diary_ui/app/data/provider/database_provider.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class TaskService extends GetxService {
-  static Future<List<Task>?> getTasks() async {
+  static Future<List<Task>> getTasks() async {
     return await DatabaseProvider().getTasks();
+  }
+
+  static Future<Task> getTaskById(int id) async {
+    return await DatabaseProvider().getTaskById(id);
   }
 
   static Future<void> createTask(Task task) async {
