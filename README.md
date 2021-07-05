@@ -1,2 +1,2 @@
 # smart-diary
-A flutter project to manage students daily tasks.
+A developing project on flutter for students daily task management. In this project I'm using [getx](https://pub.dev/packages/get) package for state management, dependency injection and all those feature comes with it. And I'm also trying to implement [getx pattern](https://github.com/kauemurakami/getx_pattern) for this flutter application. Also using [sqlite database](https://pub.dev/packages/sqflite) for local storage.
