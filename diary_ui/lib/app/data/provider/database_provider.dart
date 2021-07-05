@@ -50,6 +50,22 @@ class DatabaseProvider {
     return id;
   }
 
+  Future<void> updateTask(Task task) async {
+    var _db = await database();
+    await _db.update(
+      'tasks',
+      task.toJson(),
+      where: 'id = ${task.id}',
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
+  }
+
+  Future<void> deleteTask(int id) async {
+    var _db = await database();
+    await _db.delete('todos', where: 'TaskId = $id');
+    await _db.delete('tasks', where: 'id = $id');
+  }
+
   Future<List<Todo>> getTodos(int taskId) async {
     var _db = await database();
     List<Map<String, dynamic>> todoMap = await _db.query(
@@ -70,5 +86,20 @@ class DatabaseProvider {
       todo.toJson(),
       conflictAlgorithm: ConflictAlgorithm.ignore,
     );
+  }
+
+  Future<void> updateTodo(Todo todo) async {
+    var _db = await database();
+    await _db.update(
+      'todos',
+      todo.toJson(),
+      where: 'id = ${todo.id}',
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
+  }
+
+  Future<void> deleteTodo(int id) async {
+    var _db = await database();
+    await _db.delete('todos', where: 'id = $id');
   }
 }

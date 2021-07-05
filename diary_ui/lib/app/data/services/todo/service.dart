@@ -10,4 +10,12 @@ class TodoService extends GetxService {
   static Future<void> createTodo(Todo todo) async {
     await DatabaseProvider().createTodo(todo);
   }
+
+  static Future<void> updateTodo(Todo todo) async {
+    await DatabaseProvider().updateTodo(todo);
+  }
+
+  static Future<void> deleteTodo(int id) async {
+    await DatabaseProvider().deleteTodo(id);
+  }
 }

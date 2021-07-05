@@ -9,9 +9,14 @@ class TaskController extends GetxController {
   var id;
   var task = Task().obs;
   var todos = [].obs;
+
   var titleFocus = FocusNode().obs;
   var descriptionFocus = FocusNode().obs;
   var todoFocus = FocusNode().obs;
+
+  final task_title_ctrl = TextEditingController();
+  final task_desc_ctrl = TextEditingController();
+  final todo_text_ctrl = TextEditingController();
 
   @override
   void onInit() async {
@@ -43,8 +48,24 @@ class TaskController extends GetxController {
     update();
   }
 
+  Future<void> updateTask(Task task) async {
+    await TaskService.updateTask(task);
+  }
+
+  Future<void> deleteTask(int id) async {
+    await TaskService.deleteTask(id);
+  }
+
   Future<void> createTodo(Todo todo) async {
     await TodoService.createTodo(todo);
+  }
+
+  Future<void> updateTodo(Todo todo) async {
+    await TodoService.updateTodo(todo);
+  }
+
+  Future<void> deleteTodo(int id) async {
+    await TodoService.deleteTodo(id);
   }
 
   @override

@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import '../controllers/task_controller.dart';
 
 class TaskView extends GetView<TaskController> {
-  final todo_text_ctrl = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -44,6 +43,8 @@ class TaskView extends GetView<TaskController> {
                             child: Obx(
                               () => TextField(
                                 focusNode: controller.titleFocus.value,
+                                controller: controller.task_title_ctrl
+                                  ..text = controller.task.value.title ?? '',
                                 onSubmitted: (value) async {
                                   if (value != '') {
                                     if (controller.id == 0) {
@@ -51,14 +52,14 @@ class TaskView extends GetView<TaskController> {
                                           Task(title: value, description: '');
                                       await controller.createTask(newTask);
                                     } else {
-                                      print('update task');
+                                      controller.task.value.title = value;
+                                      await controller
+                                          .updateTask(controller.task.value);
                                     }
                                     controller.descriptionFocus.value
                                         .requestFocus();
                                   }
                                 },
-                                controller: TextEditingController()
-                                  ..text = controller.task.value.title ?? '',
                                 decoration: InputDecoration(
                                   hintText: 'Enter task title...',
                                   border: InputBorder.none,
@@ -81,8 +82,16 @@ class TaskView extends GetView<TaskController> {
                             : Padding(
                                 padding: const EdgeInsets.only(bottom: 12.0),
                                 child: TextField(
+                                  controller: controller.task_desc_ctrl
+                                    ..text =
+                                        controller.task.value.description ?? '',
                                   focusNode: controller.descriptionFocus.value,
-                                  onSubmitted: (value) {
+                                  onSubmitted: (value) async {
+                                    if (value != '') {
+                                      controller.task.value.description = value;
+                                      await controller
+                                          .updateTask(controller.task.value);
+                                    }
                                     controller.todoFocus.value.requestFocus();
                                   },
                                   decoration: InputDecoration(
@@ -101,7 +110,12 @@ class TaskView extends GetView<TaskController> {
                             itemCount: controller.todos.length,
                             itemBuilder: (context, index) {
                               return GestureDetector(
-                                onTap: () {},
+                                onTap: () async {
+                                  controller.todos[index].isDone =
+                                      controller.todos[index].isDone ^ true;
+                                  await controller
+                                      .updateTodo(controller.todos[index]);
+                                },
                                 child: TodoWidget(
                                   text: controller.todos[index].title,
                                   isDone: controller.todos[index].isDone == 0
@@ -141,7 +155,7 @@ class TaskView extends GetView<TaskController> {
                                     ),
                                     Expanded(
                                       child: TextField(
-                                        controller: todo_text_ctrl,
+                                        controller: controller.todo_text_ctrl,
                                         focusNode: controller.todoFocus.value,
                                         onSubmitted: (value) async {
                                           if (value != '') {
@@ -154,7 +168,7 @@ class TaskView extends GetView<TaskController> {
                                                 .createTodo(newTodo);
                                             await controller
                                                 .getTodos(controller.id);
-                                            todo_text_ctrl.text = '';
+                                            controller.todo_text_ctrl.text = '';
                                             controller.todoFocus.value
                                                 .requestFocus();
                                           }
@@ -180,8 +194,11 @@ class TaskView extends GetView<TaskController> {
                             bottom: 24,
                             right: 24,
                             child: GestureDetector(
-                              onTap: () {
-                                // Get.toNamed(Routes.TASK);
+                              onTap: () async {
+                                if (controller.id != 0) {
+                                  await controller.deleteTask(controller.id);
+                                  Get.back();
+                                }
                               },
                               child: Container(
                                 width: 60,

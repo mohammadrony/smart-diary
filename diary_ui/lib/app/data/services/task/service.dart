@@ -14,4 +14,12 @@ class TaskService extends GetxService {
   static Future<int> createTask(Task task) async {
     return await DatabaseProvider().createTask(task);
   }
+
+  static Future<void> updateTask(Task task) async {
+    return await DatabaseProvider().updateTask(task);
+  }
+
+  static Future<void> deleteTask(int id) async {
+    return await DatabaseProvider().deleteTask(id);
+  }
 }

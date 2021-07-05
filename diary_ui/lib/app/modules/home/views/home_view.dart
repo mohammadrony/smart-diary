@@ -42,6 +42,7 @@ class HomeView extends GetView<HomeController> {
                             },
                             child: TaskCardWidget(
                               title: controller.tasks[index].title,
+                              desc: controller.tasks[index].description,
                             ),
                           );
                         })),

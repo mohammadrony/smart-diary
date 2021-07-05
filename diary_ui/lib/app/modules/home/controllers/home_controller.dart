@@ -21,5 +21,8 @@ class HomeController extends GetxController {
 
   Future<void> getTasks() async {
     tasks.value = await TaskService.getTasks();
+    print('------------------------');
+    print('and - ${tasks[0].title}');
+    print('------------------------');
   }
 }
