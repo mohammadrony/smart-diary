@@ -11,7 +11,7 @@ class TaskService extends GetxService {
     return await DatabaseProvider().getTaskById(id);
   }
 
-  static Future<void> createTask(Task task) async {
-    await DatabaseProvider().createTask(task);
+  static Future<int> createTask(Task task) async {
+    return await DatabaseProvider().createTask(task);
   }
 }

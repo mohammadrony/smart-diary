@@ -37,13 +37,17 @@ class DatabaseProvider {
     return tasks[0];
   }
 
-  Future<void> createTask(Task task) async {
+  Future<int> createTask(Task task) async {
+    var id = 0;
     var _db = await database();
-    await _db.insert(
-      'tasks',
-      task.toJson(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    await _db
+        .insert(
+          'tasks',
+          task.toJson(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        )
+        .then((value) => {id = value});
+    return id;
   }
 
   Future<List<Todo>> getTodos(int taskId) async {

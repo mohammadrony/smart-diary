@@ -33,7 +33,7 @@ class HomeView extends GetView<HomeController> {
                     behavior: NoGlowBehavior(),
                     child: Obx(() => ListView.builder(
                         itemCount: controller.tasks.length,
-                        itemBuilder: (BuildContext context, int index) {
+                        itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
                               Get.toNamed(Routes.TASK +

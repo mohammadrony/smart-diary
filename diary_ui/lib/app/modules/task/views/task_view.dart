@@ -8,159 +8,199 @@ import 'package:get/get.dart';
 import '../controllers/task_controller.dart';
 
 class TaskView extends GetView<TaskController> {
+  final todo_text_ctrl = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 24.0, bottom: 6.0),
-                    child: Row(
-                      children: [
-                        InkWell(
-                          onTap: () => {
-                            Get.back(),
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(24.0),
-                            child: Image(
-                              image: AssetImage(
-                                  'assets/images/back_arrow_icon.png'),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Obx(
-                            () => TextField(
-                              onSubmitted: (value) async {
-                                if (controller.id == 0) {
-                                  if (value != '') {
-                                    var newTask =
-                                        Task(title: value, description: '');
-                                    await controller.createTask(newTask);
-                                  }
-                                } else {
-                                  print('update task');
-                                }
-                              },
-                              controller: TextEditingController()
-                                ..text = controller.task.value.title ?? '',
-                              decoration: InputDecoration(
-                                hintText: 'Enter task title...',
-                                border: InputBorder.none,
-                              ),
-                              style: TextStyle(
-                                fontSize: 26.0,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF211551),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Enter description for the task...',
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 24.0),
-                      ),
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 20.0,
-                              height: 20.0,
-                              margin: EdgeInsets.only(right: 16.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6.0),
-                                color: Colors.transparent,
-                                border: Border.all(
-                                  color: Color(0xFF86829D),
-                                  width: 1.5,
-                                ),
-                              ),
+    return WillPopScope(
+      onWillPop: () async {
+        await Get.delete<TaskController>();
+        return true;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Container(
+            child: Stack(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 24.0, bottom: 6.0),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () => {
+                              Get.back(),
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(24.0),
                               child: Image(
-                                image:
-                                    AssetImage('assets/images/check_icon.png'),
+                                image: AssetImage(
+                                    'assets/images/back_arrow_icon.png'),
                               ),
                             ),
-                            Expanded(
-                              child: TextField(
+                          ),
+                          Expanded(
+                            child: Obx(
+                              () => TextField(
+                                focusNode: controller.titleFocus.value,
                                 onSubmitted: (value) async {
                                   if (value != '') {
-                                    var newTodo = Todo(
-                                      title: value,
-                                      isDone: 0,
-                                      TaskId: controller.id,
-                                    );
-                                    await controller.createTodo(newTodo);
-                                    await controller.getTodos(controller.id);
+                                    if (controller.id == 0) {
+                                      var newTask =
+                                          Task(title: value, description: '');
+                                      await controller.createTask(newTask);
+                                    } else {
+                                      print('update task');
+                                    }
+                                    controller.descriptionFocus.value
+                                        .requestFocus();
                                   }
                                 },
+                                controller: TextEditingController()
+                                  ..text = controller.task.value.title ?? '',
                                 decoration: InputDecoration(
-                                  hintText: 'Enter Todo item...',
+                                  hintText: 'Enter task title...',
                                   border: InputBorder.none,
+                                ),
+                                style: TextStyle(
+                                  fontSize: 26.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF211551),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  TodoWidget(text: 'hello', isDone: false),
-                  TodoWidget(text: 'hello', isDone: false),
-                  TodoWidget(text: 'hello', isDone: false),
-                  // Obx(
-                  //   () => ListView.builder(
-                  //     itemCount: controller.todos.length,
-                  //     itemBuilder: (BuildContext context, int index) {
-                  //       return TodoWidget(
-                  //         text: controller.todos[index].title,
-                  //         isDone: controller.todos[index].isDone == 0
-                  //             ? false
-                  //             : true,
-                  //       );
-                  //     },
-                  //   ),
-                  // ),
-                ],
-              ),
-              Positioned(
-                bottom: 24,
-                right: 24,
-                child: GestureDetector(
-                  onTap: () {
-                    // Get.toNamed(Routes.TASK);
-                  },
-                  child: Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFE3577),
-                      borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Image(
-                      image: AssetImage('assets/images/delete_icon.png'),
+                    GetBuilder<TaskController>(
+                      builder: (_) {
+                        return _.id == 0
+                            ? SizedBox.shrink()
+                            : Padding(
+                                padding: const EdgeInsets.only(bottom: 12.0),
+                                child: TextField(
+                                  focusNode: controller.descriptionFocus.value,
+                                  onSubmitted: (value) {
+                                    controller.todoFocus.value.requestFocus();
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText:
+                                        'Enter description for the task...',
+                                    border: InputBorder.none,
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 24.0),
+                                  ),
+                                ),
+                              );
+                      },
                     ),
-                  ),
+                    Obx(() => Expanded(
+                          child: ListView.builder(
+                            itemCount: controller.todos.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {},
+                                child: TodoWidget(
+                                  text: controller.todos[index].title,
+                                  isDone: controller.todos[index].isDone == 0
+                                      ? false
+                                      : true,
+                                ),
+                              );
+                            },
+                          ),
+                        )),
+                    GetBuilder<TaskController>(
+                      builder: (_) {
+                        return _.id == 0
+                            ? SizedBox.shrink()
+                            : Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 24.0),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 20.0,
+                                      height: 20.0,
+                                      margin: EdgeInsets.only(right: 16.0),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(6.0),
+                                        color: Colors.transparent,
+                                        border: Border.all(
+                                          color: Color(0xFF86829D),
+                                          width: 1.5,
+                                        ),
+                                      ),
+                                      child: Image(
+                                        image: AssetImage(
+                                            'assets/images/check_icon.png'),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: TextField(
+                                        controller: todo_text_ctrl,
+                                        focusNode: controller.todoFocus.value,
+                                        onSubmitted: (value) async {
+                                          if (value != '') {
+                                            var newTodo = Todo(
+                                              title: value,
+                                              isDone: 0,
+                                              TaskId: controller.id,
+                                            );
+                                            await controller
+                                                .createTodo(newTodo);
+                                            await controller
+                                                .getTodos(controller.id);
+                                            todo_text_ctrl.text = '';
+                                            controller.todoFocus.value
+                                                .requestFocus();
+                                          }
+                                        },
+                                        decoration: InputDecoration(
+                                          hintText: 'Enter Todo item...',
+                                          border: InputBorder.none,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                      },
+                    ),
+                  ],
                 ),
-              )
-            ],
+                GetBuilder<TaskController>(
+                  builder: (_) {
+                    return _.id == 0
+                        ? SizedBox.shrink()
+                        : Positioned(
+                            bottom: 24,
+                            right: 24,
+                            child: GestureDetector(
+                              onTap: () {
+                                // Get.toNamed(Routes.TASK);
+                              },
+                              child: Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFFE3577),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Image(
+                                  image: AssetImage(
+                                      'assets/images/delete_icon.png'),
+                                ),
+                              ),
+                            ),
+                          );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
