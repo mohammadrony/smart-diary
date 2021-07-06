@@ -35,15 +35,14 @@ class HomeView extends GetView<HomeController> {
                         itemCount: controller.tasks.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.TASK +
+                            onTap: () async {
+                              await Get.toNamed(Routes.TASK +
                                   '?id=' +
                                   controller.tasks[index].id.toString());
+                              await controller.getTasks();
                             },
-                            child: TaskCardWidget(
-                              title: controller.tasks[index].title,
-                              desc: controller.tasks[index].description,
-                            ),
+                            child:
+                                TaskCardWidget(task: controller.tasks[index]),
                           );
                         })),
                   ),

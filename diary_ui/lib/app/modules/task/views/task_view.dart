@@ -35,7 +35,8 @@ class TaskView extends GetView<TaskController> {
                               padding: const EdgeInsets.all(24.0),
                               child: Image(
                                 image: AssetImage(
-                                    'assets/images/back_arrow_icon.png'),
+                                  'assets/images/back_arrow_icon.png',
+                                ),
                               ),
                             ),
                           ),
@@ -46,8 +47,10 @@ class TaskView extends GetView<TaskController> {
                                 controller: controller.task_title_ctrl
                                   ..text = controller.task.value.title ?? '',
                                 onSubmitted: (value) async {
-                                  if (value != '') {
-                                    if (controller.id == 0) {
+                                  if (value.trim().isNotEmpty) {
+                                    if (controller.task.value.id == 0) {
+                                      controller.task.value.title =
+                                          value.trim();
                                       var newTask =
                                           Task(title: value, description: '');
                                       await controller.createTask(newTask);
@@ -77,22 +80,23 @@ class TaskView extends GetView<TaskController> {
                     ),
                     GetBuilder<TaskController>(
                       builder: (_) {
-                        return _.id == 0
+                        return _.task.value.id == 0
                             ? SizedBox.shrink()
                             : Padding(
                                 padding: const EdgeInsets.only(bottom: 12.0),
                                 child: TextField(
+                                  focusNode: controller.descriptionFocus.value,
                                   controller: controller.task_desc_ctrl
                                     ..text =
                                         controller.task.value.description ?? '',
-                                  focusNode: controller.descriptionFocus.value,
                                   onSubmitted: (value) async {
-                                    if (value != '') {
-                                      controller.task.value.description = value;
+                                    if (controller.task.value.id != 0) {
+                                      controller.task.value.description =
+                                          value.trim();
                                       await controller
                                           .updateTask(controller.task.value);
+                                      controller.todoFocus.value.requestFocus();
                                     }
-                                    controller.todoFocus.value.requestFocus();
                                   },
                                   decoration: InputDecoration(
                                     hintText:
@@ -112,15 +116,22 @@ class TaskView extends GetView<TaskController> {
                               return GestureDetector(
                                 onTap: () async {
                                   controller.todos[index].isDone =
-                                      controller.todos[index].isDone ^ true;
+                                      controller.todos[index].isDone == 1
+                                          ? 0
+                                          : 1;
                                   await controller
                                       .updateTodo(controller.todos[index]);
                                 },
-                                child: TodoWidget(
-                                  text: controller.todos[index].title,
-                                  isDone: controller.todos[index].isDone == 0
-                                      ? false
-                                      : true,
+                                child: GetBuilder<TaskController>(
+                                  builder: (_) {
+                                    return TodoWidget(
+                                      title: controller.todos[index].title,
+                                      isDone:
+                                          controller.todos[index].isDone == 0
+                                              ? false
+                                              : true,
+                                    );
+                                  },
                                 ),
                               );
                             },
@@ -128,7 +139,7 @@ class TaskView extends GetView<TaskController> {
                         )),
                     GetBuilder<TaskController>(
                       builder: (_) {
-                        return _.id == 0
+                        return _.task.value.id == 0
                             ? SizedBox.shrink()
                             : Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -158,16 +169,16 @@ class TaskView extends GetView<TaskController> {
                                         controller: controller.todo_text_ctrl,
                                         focusNode: controller.todoFocus.value,
                                         onSubmitted: (value) async {
-                                          if (value != '') {
+                                          if (value.trim().isNotEmpty) {
                                             var newTodo = Todo(
-                                              title: value,
+                                              title: value.trim(),
                                               isDone: 0,
-                                              TaskId: controller.id,
+                                              TaskId: controller.task.value.id,
                                             );
                                             await controller
                                                 .createTodo(newTodo);
-                                            await controller
-                                                .getTodos(controller.id);
+                                            await controller.getTodos(
+                                                controller.task.value.id ?? 0);
                                             controller.todo_text_ctrl.text = '';
                                             controller.todoFocus.value
                                                 .requestFocus();
@@ -188,15 +199,16 @@ class TaskView extends GetView<TaskController> {
                 ),
                 GetBuilder<TaskController>(
                   builder: (_) {
-                    return _.id == 0
+                    return _.task.value.id == 0
                         ? SizedBox.shrink()
                         : Positioned(
                             bottom: 24,
                             right: 24,
                             child: GestureDetector(
                               onTap: () async {
-                                if (controller.id != 0) {
-                                  await controller.deleteTask(controller.id);
+                                if (controller.task.value.id != 0) {
+                                  await controller.deleteTask(
+                                      controller.task.value.id ?? 0);
                                   Get.back();
                                 }
                               },

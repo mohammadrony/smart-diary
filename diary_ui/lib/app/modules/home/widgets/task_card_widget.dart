@@ -1,13 +1,9 @@
+import 'package:diary_ui/app/data/model/task.dart';
 import 'package:flutter/material.dart';
 
 class TaskCardWidget extends StatelessWidget {
-  final String? title;
-  final String? desc;
-  const TaskCardWidget({
-    Key? key,
-    this.title,
-    this.desc,
-  }) : super(key: key);
+  final Task task;
+  const TaskCardWidget({Key? key, required this.task}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +22,11 @@ class TaskCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            title ?? '(Unnamed Task)',
+            task.title == ''
+                ? '(Unnamed Task)'
+                : task.title!.length > 50
+                    ? task.title!.substring(0, 50) + '...'
+                    : task.title!,
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -36,7 +36,11 @@ class TaskCardWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 10),
             child: Text(
-              desc ?? 'No description added.',
+              task.description == ''
+                  ? 'No description added.'
+                  : task.description!.length > 100
+                      ? task.description!.substring(0, 100) + '...'
+                      : task.description!,
               style: TextStyle(
                 fontSize: 16,
                 color: Color(0xFF86829D),

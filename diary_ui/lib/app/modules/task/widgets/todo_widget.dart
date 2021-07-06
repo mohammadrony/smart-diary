@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TodoWidget extends StatelessWidget {
-  const TodoWidget({Key? key, this.text, this.isDone}) : super(key: key);
-  final String? text;
+  const TodoWidget({Key? key, this.title, this.isDone}) : super(key: key);
+  final String? title;
   final bool? isDone;
 
   @override
@@ -29,12 +29,14 @@ class TodoWidget extends StatelessWidget {
               image: AssetImage('assets/images/check_icon.png'),
             ),
           ),
-          Text(
-            text ?? '(Unnamed todo)',
-            style: TextStyle(
-              color: isDone == true ? Color(0xFF211551) : Color(0xFF86829D),
-              fontSize: 16.0,
-              fontWeight: isDone == true ? FontWeight.bold : FontWeight.w500,
+          Flexible(
+            child: Text(
+              title ?? '(Unnamed todo)',
+              style: TextStyle(
+                color: isDone == true ? Color(0xFF211551) : Color(0xFF86829D),
+                fontSize: 16.0,
+                fontWeight: isDone == true ? FontWeight.bold : FontWeight.w500,
+              ),
             ),
           ),
         ],

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TaskController extends GetxController {
-  var id;
   var task = Task().obs;
   var todos = [].obs;
 
@@ -20,11 +19,11 @@ class TaskController extends GetxController {
 
   @override
   void onInit() async {
-    id = int.parse(Get.parameters['id'] ?? '0');
+    task.value.id = int.parse(Get.parameters['id'] ?? '0');
     titleFocus.value.requestFocus();
-    if (id != 0) {
-      await getTaskById(id);
-      await getTodos(id);
+    if (task.value.id != 0) {
+      await getTaskById(task.value.id ?? 0);
+      await getTodos(task.value.id ?? 0);
     }
     super.onInit();
   }
@@ -37,6 +36,7 @@ class TaskController extends GetxController {
 
   Future<void> getTaskById(int id) async {
     task.value = await TaskService.getTaskById(id);
+    update();
   }
 
   Future<void> getTodos(int id) async {
@@ -44,7 +44,7 @@ class TaskController extends GetxController {
   }
 
   Future<void> createTask(Task task) async {
-    id = await TaskService.createTask(task);
+    this.task.value.id = await TaskService.createTask(task);
     update();
   }
 
@@ -62,6 +62,7 @@ class TaskController extends GetxController {
 
   Future<void> updateTodo(Todo todo) async {
     await TodoService.updateTodo(todo);
+    update();
   }
 
   Future<void> deleteTodo(int id) async {

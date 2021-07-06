@@ -1,7 +1,7 @@
 include: package:pedantic/analysis_options.yaml
 linter:
   rules:
-  # Style rules
+    # Style rules
     - camel_case_types
     - library_names
     - avoid_catches_without_on_clauses

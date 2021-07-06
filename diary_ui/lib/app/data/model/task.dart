@@ -1,5 +1,5 @@
 class Task {
-  int? id;
+  int? id = 0;
   String? title = '';
   String? description = '';
 
