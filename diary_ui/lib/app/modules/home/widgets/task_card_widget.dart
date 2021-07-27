@@ -24,9 +24,9 @@ class TaskCardWidget extends StatelessWidget {
           Text(
             task.title == ''
                 ? '(Unnamed Task)'
-                : task.title!.length > 50
-                    ? task.title!.substring(0, 50) + '...'
-                    : task.title!,
+                : task.title.length > 50
+                    ? task.title.substring(0, 50) + '...'
+                    : task.title,
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -38,9 +38,9 @@ class TaskCardWidget extends StatelessWidget {
             child: Text(
               task.description == ''
                   ? 'No description added.'
-                  : task.description!.length > 100
-                      ? task.description!.substring(0, 100) + '...'
-                      : task.description!,
+                  : task.description.length > 100
+                      ? task.description.substring(0, 100) + '...'
+                      : task.description,
               style: TextStyle(
                 fontSize: 16,
                 color: Color(0xFF86829D),

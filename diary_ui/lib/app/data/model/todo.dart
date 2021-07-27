@@ -1,9 +1,9 @@
 class Todo {
-  int? id;
-  String? title;
-  int? isDone;
-  int? TaskId;
-  Todo({this.id, this.title, this.isDone, this.TaskId});
+  String id = '';
+  String title = '';
+  int isDone = 0;
+  String TaskId = '';
+  Todo({this.id = '', this.title = '', this.isDone = 0, this.TaskId = ''});
 
   Todo.fromJson(Map<String, dynamic> json) {
     id = json['id'];

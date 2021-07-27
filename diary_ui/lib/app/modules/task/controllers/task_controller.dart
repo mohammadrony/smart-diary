@@ -8,6 +8,9 @@ import 'package:get/get.dart';
 class TaskController extends GetxController {
   var task = Task().obs;
   var todos = [].obs;
+  var error = false;
+  var errorMessage = '';
+  var isLoading = false;
 
   var titleFocus = FocusNode().obs;
   var descriptionFocus = FocusNode().obs;
@@ -19,11 +22,11 @@ class TaskController extends GetxController {
 
   @override
   void onInit() async {
-    task.value.id = int.parse(Get.parameters['id'] ?? '0');
+    task.value.id = Get.parameters['id'] ?? '';
     titleFocus.value.requestFocus();
-    if (task.value.id != 0) {
-      await getTaskById(task.value.id ?? 0);
-      await getTodos(task.value.id ?? 0);
+    if (task.value.id != '') {
+      await getTaskById(task.value.id);
+      await getTodos(task.value.id);
     }
     super.onInit();
   }
@@ -34,39 +37,93 @@ class TaskController extends GetxController {
     super.onReady();
   }
 
-  Future<void> getTaskById(int id) async {
-    task.value = await TaskService.getTaskById(id);
+  Future<void> getTaskById(String id) async {
+    isLoading = true;
+    var apiResponse = await TaskService.getTaskById(id);
+    if (apiResponse.error == true) {
+      error = true;
+      errorMessage = apiResponse.errorMessage;
+    } else {
+      task.value = apiResponse.data ?? Task();
+    }
+    isLoading = false;
     update();
   }
 
-  Future<void> getTodos(int id) async {
-    todos.value = await TodoService.getTodos(id);
+  Future<void> getTodos(String taskId) async {
+    isLoading = true;
+    var apiResponse = await TodoService.getTodos(taskId);
+    if (apiResponse.error == true) {
+      error = true;
+      errorMessage = apiResponse.errorMessage;
+    } else {
+      todos.value = apiResponse.data ?? [];
+    }
+    isLoading = false;
   }
 
   Future<void> createTask(Task task) async {
-    this.task.value.id = await TaskService.createTask(task);
+    isLoading = true;
+    var apiResponse = await TaskService.createTask(task);
+    if (apiResponse.error == true) {
+      error = true;
+      errorMessage = apiResponse.errorMessage;
+    } else {
+      this.task.value.id = apiResponse.data ?? '';
+    }
+    isLoading = false;
     update();
   }
 
   Future<void> updateTask(Task task) async {
-    await TaskService.updateTask(task);
+    isLoading = true;
+    var apiResponse = await TaskService.updateTask(task);
+    if (apiResponse.error == true) {
+      error = true;
+      errorMessage = apiResponse.errorMessage;
+    }
+    isLoading = false;
   }
 
-  Future<void> deleteTask(int id) async {
-    await TaskService.deleteTask(id);
+  Future<void> deleteTask(String id) async {
+    isLoading = true;
+    var apiResponse = await TaskService.deleteTask(id);
+    if (apiResponse.error == true) {
+      error = true;
+      errorMessage = apiResponse.errorMessage;
+    }
+    isLoading = false;
   }
 
   Future<void> createTodo(Todo todo) async {
-    await TodoService.createTodo(todo);
+    isLoading = true;
+    var apiResponse = await TodoService.createTodo(todo);
+    if (apiResponse.error == true) {
+      error = true;
+      errorMessage = apiResponse.errorMessage;
+    }
+    isLoading = false;
   }
 
   Future<void> updateTodo(Todo todo) async {
-    await TodoService.updateTodo(todo);
+    isLoading = true;
+    var apiResponse = await TodoService.updateTodo(todo);
+    if (apiResponse.error == true) {
+      error = true;
+      errorMessage = apiResponse.errorMessage;
+    }
+    isLoading = false;
     update();
   }
 
-  Future<void> deleteTodo(int id) async {
-    await TodoService.deleteTodo(id);
+  Future<void> deleteTodo(String id) async {
+    isLoading = true;
+    var apiResponse = await TodoService.deleteTodo(id);
+    if (apiResponse.error == true) {
+      error = true;
+      errorMessage = apiResponse.errorMessage;
+    }
+    isLoading = false;
   }
 
   @override

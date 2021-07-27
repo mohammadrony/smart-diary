@@ -2,7 +2,10 @@ import 'package:diary_ui/app/data/services/task/service.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
+  var error = false;
   var tasks = [].obs;
+  var isLoading = false;
+  var errorMessage = '';
 
   @override
   Future<void> onInit() async {
@@ -20,6 +23,14 @@ class HomeController extends GetxController {
   void onClose() {}
 
   Future<void> getTasks() async {
-    tasks.value = await TaskService.getTasks();
+    isLoading = true;
+    var apiResponse = await TaskService.getTasks();
+    if (apiResponse.error == true) {
+      error = true;
+      errorMessage = apiResponse.errorMessage;
+    } else {
+      tasks.value = apiResponse.data ?? [];
+    }
+    isLoading = false;
   }
 }

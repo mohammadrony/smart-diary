@@ -11,6 +11,7 @@ export class UserRoutes {
   }
   routes() {
     // For TEST only ! In production, you should use an Identity Provider !!
+    // - /api/user
     this.router.post('/register', this.userController.registerUser)
     this.router.post('/login', this.userController.authenticateUser)
   }

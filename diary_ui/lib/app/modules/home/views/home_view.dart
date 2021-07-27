@@ -38,7 +38,7 @@ class HomeView extends GetView<HomeController> {
                             onTap: () async {
                               await Get.toNamed(Routes.TASK +
                                   '?id=' +
-                                  controller.tasks[index].id.toString());
+                                  controller.tasks[index].id);
                               await controller.getTasks();
                             },
                             child:

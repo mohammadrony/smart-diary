@@ -20,8 +20,10 @@ if (process.env.NODE_ENV !== 'production') {
 const compression_1 = __importDefault(require("compression"));
 const cors_1 = __importDefault(require("cors"));
 const secrets_1 = require("./util/secrets");
-const productRoutes_1 = require("./routes/productRoutes");
-const userRoutes_1 = require("./routes/userRoutes");
+const ProductRoutes_1 = require("./routes/ProductRoutes");
+const TodoRoutes_1 = require("./routes/TodoRoutes");
+const TaskRoutes_1 = require("./routes/TaskRoutes");
+const UserRoutes_1 = require("./routes/UserRoutes");
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -30,8 +32,10 @@ class Server {
         this.mongo();
     }
     routes() {
-        this.app.use('/api/user', new userRoutes_1.UserRoutes().router);
-        this.app.use('/api/products', new productRoutes_1.ProductRoutes().router);
+        this.app.use('/api/user', new UserRoutes_1.UserRoutes().router);
+        this.app.use('/api/todo', new TodoRoutes_1.TodoRoutes().router);
+        this.app.use('/api/task', new TaskRoutes_1.TaskRoutes().router);
+        this.app.use('/api/products', new ProductRoutes_1.ProductRoutes().router);
     }
     config() {
         this.app.set('port', process.env.PORT || 3000);

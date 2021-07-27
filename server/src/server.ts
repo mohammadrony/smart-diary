@@ -9,8 +9,10 @@ import cors from 'cors'
 
 import { MONGODB_URI } from './util/secrets'
 
-import { ProductRoutes } from './routes/productRoutes'
-import { UserRoutes } from './routes/userRoutes'
+import { ProductRoutes } from './routes/ProductRoutes'
+import { TodoRoutes } from './routes/TodoRoutes'
+import { TaskRoutes } from './routes/TaskRoutes'
+import { UserRoutes } from './routes/UserRoutes'
 
 
 class Server {
@@ -25,6 +27,8 @@ class Server {
 
   public routes(): void {
     this.app.use('/api/user', new UserRoutes().router)
+    this.app.use('/api/todo', new TodoRoutes().router)
+    this.app.use('/api/task', new TaskRoutes().router)
     this.app.use('/api/products', new ProductRoutes().router)
   }
 

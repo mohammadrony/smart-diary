@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { ProductController } from '../controllers/productController'
-import { AuthController } from '../controllers/authController'
+import { AuthController } from '../controllers/AuthController'
 
 export class ProductRoutes {
   public router: Router
@@ -13,6 +13,7 @@ export class ProductRoutes {
   }
 
   routes() {
+    // - /api/products
     this.router.get('/', this.productController.getProducts)
     this.router.get('/:id', this.productController.getProduct)
     this.router.post('/', this.authController.authenticateJWT, this.productController.createProduct)

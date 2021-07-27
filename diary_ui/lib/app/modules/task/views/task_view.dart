@@ -45,10 +45,10 @@ class TaskView extends GetView<TaskController> {
                               () => TextField(
                                 focusNode: controller.titleFocus.value,
                                 controller: controller.task_title_ctrl
-                                  ..text = controller.task.value.title ?? '',
+                                  ..text = controller.task.value.title,
                                 onSubmitted: (value) async {
                                   if (value.trim().isNotEmpty) {
-                                    if (controller.task.value.id == 0) {
+                                    if (controller.task.value.id == '') {
                                       controller.task.value.title =
                                           value.trim();
                                       var newTask =
@@ -80,17 +80,16 @@ class TaskView extends GetView<TaskController> {
                     ),
                     GetBuilder<TaskController>(
                       builder: (_) {
-                        return _.task.value.id == 0
+                        return _.task.value.id == ''
                             ? SizedBox.shrink()
                             : Padding(
                                 padding: const EdgeInsets.only(bottom: 12.0),
                                 child: TextField(
                                   focusNode: controller.descriptionFocus.value,
                                   controller: controller.task_desc_ctrl
-                                    ..text =
-                                        controller.task.value.description ?? '',
+                                    ..text = controller.task.value.description,
                                   onSubmitted: (value) async {
-                                    if (controller.task.value.id != 0) {
+                                    if (controller.task.value.id != '') {
                                       controller.task.value.description =
                                           value.trim();
                                       await controller
@@ -139,7 +138,7 @@ class TaskView extends GetView<TaskController> {
                         )),
                     GetBuilder<TaskController>(
                       builder: (_) {
-                        return _.task.value.id == 0
+                        return _.task.value.id == ''
                             ? SizedBox.shrink()
                             : Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -178,7 +177,7 @@ class TaskView extends GetView<TaskController> {
                                             await controller
                                                 .createTodo(newTodo);
                                             await controller.getTodos(
-                                                controller.task.value.id ?? 0);
+                                                controller.task.value.id);
                                             controller.todo_text_ctrl.text = '';
                                             controller.todoFocus.value
                                                 .requestFocus();
@@ -199,16 +198,16 @@ class TaskView extends GetView<TaskController> {
                 ),
                 GetBuilder<TaskController>(
                   builder: (_) {
-                    return _.task.value.id == 0
+                    return _.task.value.id == ''
                         ? SizedBox.shrink()
                         : Positioned(
                             bottom: 24,
                             right: 24,
                             child: GestureDetector(
                               onTap: () async {
-                                if (controller.task.value.id != 0) {
-                                  await controller.deleteTask(
-                                      controller.task.value.id ?? 0);
+                                if (controller.task.value.id != '') {
+                                  await controller
+                                      .deleteTask(controller.task.value.id);
                                   Get.back();
                                 }
                               },
