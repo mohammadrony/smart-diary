@@ -3,7 +3,7 @@ A developing project for students daily task and note management. In this projec
 And node.js framework in backend with [typescript](https://www.typescriptlang.org/) language and [mongodb](https://www.mongodb.com/) database.
 
 ## Followed Tutorials
-[YouTube - TVAC Studio - Flutter - Todo App from Scratch](https://www.youtube.com/playlist?list=PLGCjwl1RrtcSlUrd_-Z-924b3ahWISiDh)
+[YouTube - TVAC Studio - Flutter - Todo App from Scratch](https://www.youtube.com/playlist?list=PLGCjwl1RrtcSlUrd_-Z-924b3ahWISiDh)\
 [YouTube - Programming Addict - Consuming a REST API with Flutter](https://www.youtube.com/playlist?list=PL_Wj0DgxTlJeLFYfRBfpFveEd9cQfIpDx)
 
 ## Backend Base Code Repository
