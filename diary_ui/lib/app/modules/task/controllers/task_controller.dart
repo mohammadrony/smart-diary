@@ -25,7 +25,7 @@ class TaskController extends GetxController {
     task.value.id = Get.parameters['id'] ?? '';
     titleFocus.value.requestFocus();
     if (task.value.id != '') {
-      await getTaskById(task.value.id);
+      await getTask(task.value.id);
       await getTodos(task.value.id);
     }
     super.onInit();
@@ -37,9 +37,9 @@ class TaskController extends GetxController {
     super.onReady();
   }
 
-  Future<void> getTaskById(String id) async {
+  Future<void> getTask(String id) async {
     isLoading = true;
-    var apiResponse = await TaskService.getTaskById(id);
+    var apiResponse = await TaskService.getTask(id);
     if (apiResponse.error == true) {
       error = true;
       errorMessage = apiResponse.errorMessage;
@@ -68,8 +68,6 @@ class TaskController extends GetxController {
     if (apiResponse.error == true) {
       error = true;
       errorMessage = apiResponse.errorMessage;
-    } else {
-      this.task.value.id = apiResponse.data ?? '';
     }
     isLoading = false;
     update();

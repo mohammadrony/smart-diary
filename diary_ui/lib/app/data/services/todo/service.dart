@@ -8,15 +8,15 @@ class TodoService extends GetxService {
     return await TodoProvider.getTodos(taskId);
   }
 
-  static Future<APIResponse<String>> createTodo(Todo todo) async {
+  static Future<APIResponse<bool>> createTodo(Todo todo) async {
     return await TodoProvider.createTodo(todo);
   }
 
-  static Future<APIResponse<String>> updateTodo(Todo todo) async {
+  static Future<APIResponse<bool>> updateTodo(Todo todo) async {
     return await TodoProvider.updateTodo(todo);
   }
 
-  static Future<APIResponse<String>> deleteTodo(String id) async {
+  static Future<APIResponse<bool>> deleteTodo(String id) async {
     return await TodoProvider.deleteTodo(id);
   }
 }

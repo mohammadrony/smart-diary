@@ -27,21 +27,53 @@ class TodoProvider {
         APIResponse<List<Todo>>(error: true, errorMessage: 'An error occured'));
   }
 
-  static Future<APIResponse<String>> createTodo(Todo todo) async {
-    // TODO: Impliment createTodo method
-    // ignore: await_only_futures
-    return await APIResponse<String>(data: 'create todo method called');
+  static Future<APIResponse<bool>> createTodo(Todo todo) async {
+    return http
+        .post(Uri.parse(DatabaseProvider.BASE_URL + '/api/todo/'),
+            body: json.encode(todo.toJson()))
+        .then((data) {
+      if (data.statusCode == 201) {
+        return APIResponse<bool>(data: true);
+      } else {
+        return APIResponse<bool>(
+          error: true,
+          errorMessage: 'An error occured',
+        );
+      }
+    }).catchError((_) =>
+            APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 
-  static Future<APIResponse<String>> updateTodo(Todo todo) async {
-    // TODO: Impliment updateTodo method
-    // ignore: await_only_futures
-    return await APIResponse<String>(data: 'update todo method called');
+  static Future<APIResponse<bool>> updateTodo(Todo todo) async {
+    return http
+        .put(Uri.parse(DatabaseProvider.BASE_URL + '/api/todo/' + todo.id),
+            body: json.encode(todo.toJson()))
+        .then((data) {
+      if (data.statusCode == 204) {
+        return APIResponse<bool>(data: true);
+      } else {
+        return APIResponse<bool>(
+          error: true,
+          errorMessage: 'An error occured',
+        );
+      }
+    }).catchError((_) =>
+            APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 
-  static Future<APIResponse<String>> deleteTodo(String id) async {
-    // TODO: Impliment deleteTodo method
-    // ignore: await_only_futures
-    return await APIResponse<String>(data: 'delete todo method called');
+  static Future<APIResponse<bool>> deleteTodo(String id) async {
+    return http
+        .delete(Uri.parse(DatabaseProvider.BASE_URL + '/api/todo/' + id))
+        .then((data) {
+      if (data.statusCode == 204) {
+        return APIResponse<bool>(data: true);
+      } else {
+        return APIResponse<bool>(
+          error: true,
+          errorMessage: 'An error occured',
+        );
+      }
+    }).catchError((_) =>
+            APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 }

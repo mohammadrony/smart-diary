@@ -31,7 +31,7 @@ class DatabaseProvider {
   //   );
   // }
 
-  // Future<Task> getTaskById(int id) async {
+  // Future<Task> getTask(int id) async {
   //   var _db = await database();
   //   var taskMap = await _db.query('tasks', where: 'id = $id');
   //   var tasks =
