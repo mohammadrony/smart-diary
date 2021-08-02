@@ -20,7 +20,7 @@ class TodoController {
     }
     getTodo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const todo = yield todo_1.Todo.findOne({ id: req.params.id });
+            const todo = yield todo_1.Todo.findById(req.params.id);
             if (todo === null) {
                 res.sendStatus(404);
             }
@@ -32,7 +32,7 @@ class TodoController {
     createTodo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const newTodo = new todo_1.Todo(req.body);
-            const todo = yield todo_1.Todo.findOne({ id: req.body.id });
+            const todo = yield todo_1.Todo.findById(req.body.id);
             if (todo === null) {
                 const result = yield newTodo.save();
                 if (result === null) {
@@ -49,19 +49,19 @@ class TodoController {
     }
     updateTodo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const todo = yield todo_1.Todo.findOneAndUpdate({ id: req.params.id }, req.body);
+            const todo = yield todo_1.Todo.findOneAndUpdate({ _id: req.params.id }, req.body);
             if (todo === null) {
                 res.sendStatus(404);
             }
             else {
-                const updatedTodo = Object.assign({ id: req.params.id }, req.body);
+                const updatedTodo = Object.assign({ _id: req.params.id }, req.body);
                 res.json({ status: res.status, data: updatedTodo });
             }
         });
     }
     deleteTodo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const todo = yield todo_1.Todo.findOneAndDelete({ id: req.params.id });
+            const todo = yield todo_1.Todo.findOneAndDelete({ _id: req.params.id });
             if (todo === null) {
                 res.sendStatus(404);
             }

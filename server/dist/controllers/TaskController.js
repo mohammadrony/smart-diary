@@ -20,7 +20,7 @@ class TaskController {
     }
     getTask(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const task = yield task_1.Task.findOne({ id: req.params.id });
+            const task = yield task_1.Task.findById(req.params.id);
             if (task === null) {
                 res.sendStatus(404);
             }
@@ -32,7 +32,10 @@ class TaskController {
     createTask(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const newTask = new task_1.Task(req.body);
-            const task = yield task_1.Task.findOne({ id: req.body.id });
+            console.log('---------------------');
+            console.log(req.body);
+            console.log('---------------------');
+            const task = yield task_1.Task.findById(req.body.id);
             if (task === null) {
                 const result = yield newTask.save();
                 if (result === null) {
@@ -49,19 +52,19 @@ class TaskController {
     }
     updateTask(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const task = yield task_1.Task.findOneAndUpdate({ id: req.params.id }, req.body);
+            const task = yield task_1.Task.findOneAndUpdate({ _id: req.params.id }, req.body);
             if (task === null) {
                 res.sendStatus(404);
             }
             else {
-                const updatedTask = Object.assign({ id: req.params.id }, req.body);
+                const updatedTask = Object.assign({ _id: req.params.id }, req.body);
                 res.json({ status: res.status, data: updatedTask });
             }
         });
     }
     deleteTask(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const task = yield task_1.Task.findOneAndDelete({ id: req.params.id });
+            const task = yield task_1.Task.findOneAndDelete({ _id: req.params.id });
             if (task === null) {
                 res.sendStatus(404);
             }

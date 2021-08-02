@@ -8,7 +8,7 @@ export class TaskController {
   }
 
   public async getTask(req: Request, res: Response): Promise<void> {
-    const task = await Task.findOne({ id: req.params.id })
+    const task = await Task.findById(req.params.id)
     if (task === null) {
       res.sendStatus(404)
     } else {
@@ -18,7 +18,7 @@ export class TaskController {
 
   public async createTask(req: Request, res: Response): Promise<void> {
     const newTask: ITask = new Task(req.body)
-    const task = await Task.findOne({ id: req.body.id })
+    const task = await Task.findById(req.body.id)
     if (task === null) {
       const result = await newTask.save()
       if (result === null) {
@@ -32,17 +32,17 @@ export class TaskController {
   }
 
   public async updateTask(req: Request, res: Response): Promise<void> {
-    const task = await Task.findOneAndUpdate({ id: req.params.id }, req.body)
+    const task = await Task.findOneAndUpdate({ _id: req.params.id }, req.body)
     if (task === null) {
       res.sendStatus(404)
     } else {
-      const updatedTask = { id: req.params.id, ...req.body }
+      const updatedTask = { _id: req.params.id, ...req.body }
       res.json({ status: res.status, data: updatedTask })
     }
   }
 
   public async deleteTask(req: Request, res: Response): Promise<void> {
-    const task = await Task.findOneAndDelete({ id: req.params.id })
+    const task = await Task.findOneAndDelete({ _id: req.params.id })
     if (task === null) {
       res.sendStatus(404)
     } else {

@@ -7,8 +7,12 @@ import 'package:http/http.dart' as http;
 
 class TaskProvider {
   static Future<APIResponse<List<Task>>> getTasks() async {
-    return http.get(Uri.parse(DatabaseProvider.BASE_URL + '/api/task/')).then(
-        (data) {
+    return http
+        .get(
+      Uri.parse(DatabaseProvider.BASE_URL + '/api/task/'),
+      headers: DatabaseProvider.headers,
+    )
+        .then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(data.body);
         List<Map<String, dynamic>> taskMap = jsonData;
@@ -23,13 +27,16 @@ class TaskProvider {
           errorMessage: 'An error occured',
         );
       }
-    }).catchError((_) =>
-        APIResponse<List<Task>>(error: true, errorMessage: 'An error occured'));
+    }).catchError((_) => APIResponse<List<Task>>(
+            error: true, errorMessage: 'An error occured'));
   }
 
   static Future<APIResponse<Task>> getTask(String id) async {
     return http
-        .get(Uri.parse(DatabaseProvider.BASE_URL + '/api/task/' + id))
+        .get(
+      Uri.parse(DatabaseProvider.BASE_URL + '/api/task/' + id),
+      headers: DatabaseProvider.headers,
+    )
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(data.body);
@@ -48,8 +55,11 @@ class TaskProvider {
 
   static Future<APIResponse<bool>> createTask(Task task) async {
     return http
-        .post(Uri.parse(DatabaseProvider.BASE_URL + '/api/task/'),
-            body: json.encode(task.toJson()))
+        .post(
+      Uri.parse(DatabaseProvider.BASE_URL + '/api/task/'),
+      body: json.encode(task.toJson()),
+      headers: DatabaseProvider.headers,
+    )
         .then((data) {
       if (data.statusCode == 201) {
         return APIResponse<bool>(data: true);
@@ -65,8 +75,11 @@ class TaskProvider {
 
   static Future<APIResponse<bool>> updateTask(Task task) async {
     return http
-        .put(Uri.parse(DatabaseProvider.BASE_URL + '/api/task/' + task.id),
-            body: json.encode(task.toJson()))
+        .put(
+      Uri.parse(DatabaseProvider.BASE_URL + '/api/task/' + task.id),
+      body: json.encode(task.toJson()),
+      headers: DatabaseProvider.headers,
+    )
         .then((data) {
       if (data.statusCode == 204) {
         return APIResponse<bool>(data: true);
@@ -82,7 +95,10 @@ class TaskProvider {
 
   static Future<APIResponse<bool>> deleteTask(String id) async {
     return http
-        .delete(Uri.parse(DatabaseProvider.BASE_URL + '/api/task/' + id))
+        .delete(
+      Uri.parse(DatabaseProvider.BASE_URL + '/api/task/' + id),
+      headers: DatabaseProvider.headers,
+    )
         .then((data) {
       if (data.statusCode == 204) {
         return APIResponse<bool>(data: true);

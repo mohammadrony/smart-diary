@@ -16,15 +16,19 @@ export class TaskRoutes {
     // - /api/task
     this.router.get('/', this.taskController.getTasks)
     this.router.get('/:id', this.taskController.getTask)
-    this.router.post('/', this.authController.authenticateJWT, this.taskController.createTask)
+    this.router.post(
+      '/', 
+      // this.authController.authenticateJWT, 
+      this.taskController.createTask
+    )
     this.router.put(
       '/:id',
-      this.authController.authenticateJWT,
+      // this.authController.authenticateJWT,
       this.taskController.updateTask
     )
     this.router.delete(
       '/:id',
-      this.authController.authenticateJWT,
+      // this.authController.authenticateJWT,
       this.taskController.deleteTask
     )
   }

@@ -12,11 +12,18 @@ class TodoRoutes {
         this.routes();
     }
     routes() {
+        // - /api/todo
         this.router.get('/', this.todoController.getTodos);
         this.router.get('/:id', this.todoController.getTodo);
-        this.router.post('/', this.authController.authenticateJWT, this.todoController.createTodo);
-        this.router.put('/:id', this.authController.authenticateJWT, this.todoController.updateTodo);
-        this.router.delete('/:id', this.authController.authenticateJWT, this.todoController.deleteTodo);
+        this.router.post('/', 
+        // this.authController.authenticateJWT,
+        this.todoController.createTodo);
+        this.router.put('/:id', 
+        // this.authController.authenticateJWT,
+        this.todoController.updateTodo);
+        this.router.delete('/:id', 
+        // this.authController.authenticateJWT,
+        this.todoController.deleteTodo);
     }
 }
 exports.TodoRoutes = TodoRoutes;

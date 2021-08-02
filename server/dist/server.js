@@ -40,7 +40,7 @@ class Server {
     config() {
         this.app.set('port', process.env.PORT || 3000);
         this.app.use(express_1.default.json());
-        this.app.use(express_1.default.urlencoded({ extended: false }));
+        this.app.use(express_1.default.urlencoded({ extended: true }));
         this.app.use(compression_1.default());
         this.app.use(cors_1.default());
     }

@@ -12,6 +12,7 @@ class ProductRoutes {
         this.routes();
     }
     routes() {
+        // - /api/products
         this.router.get('/', this.productController.getProducts);
         this.router.get('/:id', this.productController.getProduct);
         this.router.post('/', this.authController.authenticateJWT, this.productController.createProduct);

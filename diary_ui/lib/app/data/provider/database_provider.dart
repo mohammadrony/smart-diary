@@ -5,7 +5,11 @@
 
 class DatabaseProvider {
   static const BASE_URL = 'http://localhost:3000';
-
+  static const Map<String, String> headers = {
+    'Content-type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': ''
+  };
   // Future<Database> database() async {
   //   return openDatabase(
   //     join(await getDatabasesPath(), 'diary.db'),
