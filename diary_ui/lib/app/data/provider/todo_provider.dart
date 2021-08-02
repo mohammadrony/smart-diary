@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 class TodoProvider {
   static Future<APIResponse<List<Todo>>> getTodos(String taskId) async {
+    // TODO: check getTodos
     return http
         .get(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/todo'),
@@ -18,7 +19,7 @@ class TodoProvider {
         List<Map<String, dynamic>> todoMap = jsonData;
         final todos = List.generate(
           todoMap.length,
-          (index) => Todo.fromJson(todoMap[index]),
+          (index) => Todo.fromJsonMongo(todoMap[index]),
         );
         return APIResponse<List<Todo>>(data: todos);
       } else {
@@ -32,10 +33,11 @@ class TodoProvider {
   }
 
   static Future<APIResponse<bool>> createTodo(Todo todo) async {
+    // TODO: check createTodo
     return http
         .post(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/todo/'),
-      body: json.encode(todo.toJson()),
+      body: json.encode(todo.toJsonExceptId()),
       headers: DatabaseProvider.headers,
     )
         .then((data) {
@@ -52,6 +54,7 @@ class TodoProvider {
   }
 
   static Future<APIResponse<bool>> updateTodo(Todo todo) async {
+    // TODO: check updateTodo
     return http
         .put(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/todo/' + todo.id),
@@ -72,6 +75,7 @@ class TodoProvider {
   }
 
   static Future<APIResponse<bool>> deleteTodo(String id) async {
+    // TODO: check deleteTodo
     return http
         .delete(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/todo/' + id),

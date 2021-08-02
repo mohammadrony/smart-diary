@@ -11,9 +11,22 @@ class Task {
     description = json['description'];
   }
 
+  Task.fromJsonMongo(Map<String, dynamic> json) {
+    id = json['_id'];
+    title = json['title'];
+    description = json['description'];
+  }
+
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['id'] = id;
+    data['title'] = title;
+    data['description'] = description;
+    return data;
+  }
+
+  Map<String, dynamic> toJsonExceptId() {
+    final data = <String, dynamic>{};
     data['title'] = title;
     data['description'] = description;
     return data;

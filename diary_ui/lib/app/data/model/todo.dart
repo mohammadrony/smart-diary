@@ -12,9 +12,24 @@ class Todo {
     TaskId = json['TaskId'];
   }
 
+  Todo.fromJsonMongo(Map<String, dynamic> json) {
+    id = json['_id'];
+    title = json['title'];
+    isDone = json['isDone'];
+    TaskId = json['TaskId'];
+  }
+
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['id'] = id;
+    data['title'] = title;
+    data['isDone'] = isDone;
+    data['TaskId'] = TaskId;
+    return data;
+  }
+
+  Map<String, dynamic> toJsonExceptId() {
+    final data = <String, dynamic>{};
     data['title'] = title;
     data['isDone'] = isDone;
     data['TaskId'] = TaskId;

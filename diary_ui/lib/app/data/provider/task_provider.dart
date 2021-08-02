@@ -15,10 +15,12 @@ class TaskProvider {
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(data.body);
-        List<Map<String, dynamic>> taskMap = jsonData;
+        Map<String, dynamic> mappedData = jsonData;
+        List<dynamic> listedData = mappedData['tasks'];
+        // List<dynamic> == List<Map<String, dynamic>>
         final tasks = List.generate(
-          taskMap.length,
-          (index) => Task.fromJson(taskMap[index]),
+          listedData.length,
+          (index) => Task.fromJsonMongo(listedData[index]),
         );
         return APIResponse<List<Task>>(data: tasks);
       } else {
@@ -41,7 +43,7 @@ class TaskProvider {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(data.body);
         Map<String, dynamic> taskMap = jsonData;
-        final task = Task.fromJson(taskMap);
+        final task = Task.fromJsonMongo(taskMap);
         return APIResponse<Task>(data: task);
       } else {
         return APIResponse<Task>(
@@ -54,10 +56,11 @@ class TaskProvider {
   }
 
   static Future<APIResponse<bool>> createTask(Task task) async {
+    // TODO: check createTask
     return http
         .post(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/task/'),
-      body: json.encode(task.toJson()),
+      body: json.encode(task.toJsonExceptId()),
       headers: DatabaseProvider.headers,
     )
         .then((data) {

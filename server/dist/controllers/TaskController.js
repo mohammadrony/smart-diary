@@ -32,9 +32,6 @@ class TaskController {
     createTask(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const newTask = new task_1.Task(req.body);
-            console.log('---------------------');
-            console.log(req.body);
-            console.log('---------------------');
             const task = yield task_1.Task.findById(req.body.id);
             if (task === null) {
                 const result = yield newTask.save();
