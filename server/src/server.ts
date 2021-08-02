@@ -68,7 +68,10 @@ class Server {
     connection.on('error', (error: Error) => {
       console.log('Mongo Connection ERROR: ' + error)
     })
+    mongoose.set('useNewUrlParser', true)
     mongoose.set('useFindAndModify', false)
+    mongoose.set('useCreateIndex', true)
+    mongoose.set('useUnifiedTopology', true)
 
     const run = async () => {
       await mongoose.connect(MONGODB_URI, {

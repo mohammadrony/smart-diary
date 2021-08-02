@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import passport from 'passport'
-import '../auth/passportHandler'
+import '../auth/PassportHandler'
 
 export class AuthController {
   public authenticateJWT(req: Request, res: Response, next: NextFunction) {

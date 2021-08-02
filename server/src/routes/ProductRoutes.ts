@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { ProductController } from '../controllers/productController'
+import { ProductController } from '../controllers/ProductController'
 import { AuthController } from '../controllers/AuthController'
 
 export class ProductRoutes {

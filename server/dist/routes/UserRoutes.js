@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRoutes = void 0;
 const express_1 = require("express");
-const userController_1 = require("../controllers/userController");
+const UserController_1 = require("../controllers/UserController");
 class UserRoutes {
     constructor() {
-        this.userController = new userController_1.UserController();
+        this.userController = new UserController_1.UserController();
         this.router = express_1.Router();
         this.routes();
     }

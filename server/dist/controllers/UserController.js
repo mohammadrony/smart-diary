@@ -35,7 +35,7 @@ exports.UserController = void 0;
 const bcrypt_nodejs_1 = __importDefault(require("bcrypt-nodejs"));
 const jwt = __importStar(require("jsonwebtoken"));
 const passport_1 = __importDefault(require("passport"));
-require("../auth/passportHandler");
+require("../auth/PassportHandler");
 const user_1 = require("../models/user");
 const secrets_1 = require("../util/secrets");
 class UserController {
@@ -66,4 +66,4 @@ class UserController {
     }
 }
 exports.UserController = UserController;
-//# sourceMappingURL=userController.js.map
+//# sourceMappingURL=UserController.js.map

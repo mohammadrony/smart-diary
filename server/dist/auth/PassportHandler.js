@@ -47,4 +47,4 @@ passport_1.default.use(new JwtStrategy({
         }
     });
 }));
-//# sourceMappingURL=passportHandler.js.map
+//# sourceMappingURL=PassportHandler.js.map

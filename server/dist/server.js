@@ -72,7 +72,10 @@ class Server {
         connection.on('error', (error) => {
             console.log('Mongo Connection ERROR: ' + error);
         });
+        mongoose_1.default.set('useNewUrlParser', true);
         mongoose_1.default.set('useFindAndModify', false);
+        mongoose_1.default.set('useCreateIndex', true);
+        mongoose_1.default.set('useUnifiedTopology', true);
         const run = () => __awaiter(this, void 0, void 0, function* () {
             yield mongoose_1.default.connect(secrets_1.MONGODB_URI, {
                 useNewUrlParser: true,
