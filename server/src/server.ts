@@ -68,6 +68,7 @@ class Server {
     connection.on('error', (error: Error) => {
       console.log('Mongo Connection ERROR: ' + error)
     })
+    mongoose.set('useFindAndModify', false)
 
     const run = async () => {
       await mongoose.connect(MONGODB_URI, {

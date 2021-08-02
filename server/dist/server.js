@@ -72,6 +72,7 @@ class Server {
         connection.on('error', (error) => {
             console.log('Mongo Connection ERROR: ' + error);
         });
+        mongoose_1.default.set('useFindAndModify', false);
         const run = () => __awaiter(this, void 0, void 0, function* () {
             yield mongoose_1.default.connect(secrets_1.MONGODB_URI, {
                 useNewUrlParser: true,
