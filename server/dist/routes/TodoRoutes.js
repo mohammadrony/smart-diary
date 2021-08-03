@@ -13,8 +13,7 @@ class TodoRoutes {
     }
     routes() {
         // - /api/todo
-        this.router.get('/', this.todoController.getTodos);
-        this.router.get('/:id', this.todoController.getTodo);
+        this.router.get('/:taskId', this.todoController.getTodos);
         this.router.post('/', 
         // this.authController.authenticateJWT,
         this.todoController.createTodo);
@@ -24,6 +23,9 @@ class TodoRoutes {
         this.router.delete('/:id', 
         // this.authController.authenticateJWT,
         this.todoController.deleteTodo);
+        this.router.delete('/task/:taskId', 
+        // this.authController.authenticateJWT,
+        this.todoController.deleteTodoByTask);
     }
 }
 exports.TodoRoutes = TodoRoutes;

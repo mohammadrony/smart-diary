@@ -12,7 +12,7 @@ class TaskService extends GetxService {
     return await TaskProvider.getTask(id);
   }
 
-  static Future<APIResponse<bool>> createTask(Task task) async {
+  static Future<APIResponse<String>> createTask(Task task) async {
     return await TaskProvider.createTask(task);
   }
 

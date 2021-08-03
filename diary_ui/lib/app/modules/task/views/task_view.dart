@@ -206,6 +206,9 @@ class TaskView extends GetView<TaskController> {
                             child: GestureDetector(
                               onTap: () async {
                                 if (controller.task.value.id != '') {
+                                  await controller.deleteTodoByTask(
+                                      controller.task.value.id);
+
                                   await controller
                                       .deleteTask(controller.task.value.id);
                                   Get.back();

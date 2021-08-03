@@ -55,8 +55,7 @@ class TaskProvider {
             APIResponse<Task>(error: true, errorMessage: 'An error occured'));
   }
 
-  static Future<APIResponse<bool>> createTask(Task task) async {
-    // TODO: check createTask
+  static Future<APIResponse<String>> createTask(Task task) async {
     return http
         .post(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/task/'),
@@ -65,15 +64,18 @@ class TaskProvider {
     )
         .then((data) {
       if (data.statusCode == 201) {
-        return APIResponse<bool>(data: true);
+        final jsonData = jsonDecode(data.body);
+        Map<String, dynamic> taskMap = jsonData;
+        final task = Task.fromJsonMongo(taskMap['data']);
+        return APIResponse<String>(data: task.id);
       } else {
-        return APIResponse<bool>(
+        return APIResponse<String>(
           error: true,
           errorMessage: 'An error occured',
         );
       }
     }).catchError((_) =>
-            APIResponse<bool>(error: true, errorMessage: 'An error occured'));
+            APIResponse<String>(error: true, errorMessage: 'An error occured'));
   }
 
   static Future<APIResponse<bool>> updateTask(Task task) async {

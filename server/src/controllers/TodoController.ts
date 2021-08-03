@@ -3,7 +3,7 @@ import { ITodo, Todo } from '../models/todo'
 
 export class TodoController {
   public async getTodos(req: Request, res: Response): Promise<void> {
-    const todos = await Todo.find()
+    const todos = await Todo.find({TaskId: req.params.taskId})
     res.json({ todos })
   }
 
@@ -43,6 +43,15 @@ export class TodoController {
 
   public async deleteTodo(req: Request, res: Response): Promise<void> {
     const todo = await Todo.findOneAndDelete({ _id: req.params.id })
+    if (todo === null) {
+      res.sendStatus(404)
+    } else {
+      res.json({ response: 'Todo deleted Successfully' })
+    }
+  }
+
+  public async deleteTodoByTask(req: Request, res: Response): Promise<void> {
+    const todo = await Todo.deleteMany({ TaskId: req.params.taskId })
     if (todo === null) {
       res.sendStatus(404)
     } else {

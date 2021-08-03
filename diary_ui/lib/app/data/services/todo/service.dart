@@ -19,4 +19,8 @@ class TodoService extends GetxService {
   static Future<APIResponse<bool>> deleteTodo(String id) async {
     return await TodoProvider.deleteTodo(id);
   }
+
+  static Future<APIResponse<bool>> deleteTodoByTask(String taskId) async {
+    return await TodoProvider.deleteTodoByTask(taskId);
+  }
 }

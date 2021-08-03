@@ -14,7 +14,7 @@ const todo_1 = require("../models/todo");
 class TodoController {
     getTodos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const todos = yield todo_1.Todo.find();
+            const todos = yield todo_1.Todo.find({ TaskId: req.params.taskId });
             res.json({ todos });
         });
     }
@@ -62,6 +62,17 @@ class TodoController {
     deleteTodo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const todo = yield todo_1.Todo.findOneAndDelete({ _id: req.params.id });
+            if (todo === null) {
+                res.sendStatus(404);
+            }
+            else {
+                res.json({ response: 'Todo deleted Successfully' });
+            }
+        });
+    }
+    deleteTodoByTask(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const todo = yield todo_1.Todo.deleteMany({ TaskId: req.params.taskId });
             if (todo === null) {
                 res.sendStatus(404);
             }
