@@ -123,13 +123,7 @@ class TaskView extends GetView<TaskController> {
                                 },
                                 child: GetBuilder<TaskController>(
                                   builder: (_) {
-                                    return TodoWidget(
-                                      title: controller.todos[index].title,
-                                      isDone:
-                                          controller.todos[index].isDone == 0
-                                              ? false
-                                              : true,
-                                    );
+                                    return TodoWidget(index: index);
                                   },
                                 ),
                               );
