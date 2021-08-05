@@ -4,7 +4,8 @@
 // import 'package:sqflite/sqflite.dart';
 
 class DatabaseProvider {
-  static const BASE_URL = 'http://localhost:3000';
+  // static const BASE_URL = 'http://localhost:3000'; // For general use
+  static const BASE_URL = 'http://10.0.2.2:3000'; // For android emulator
   static const Map<String, String> headers = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
