@@ -43,10 +43,11 @@ class UserController {
         return __awaiter(this, void 0, void 0, function* () {
             const hashedPassword = bcrypt_nodejs_1.default.hashSync(req.body.password, bcrypt_nodejs_1.default.genSaltSync(10));
             yield user_1.User.create({
-                username: req.body.username,
+                email: req.body.email,
+                role: req.body.role,
                 password: hashedPassword,
             });
-            const token = jwt.sign({ username: req.body.username, scope: req.body.scope }, secrets_1.JWT_SECRET);
+            const token = jwt.sign({ email: req.body.email, scope: req.body.scope }, secrets_1.JWT_SECRET);
             res.status(200).send({ token: token });
         });
     }
@@ -59,7 +60,7 @@ class UserController {
                 return res.status(401).json({ status: 'error', code: 'unauthorized' });
             }
             else {
-                const token = jwt.sign({ username: user.username }, secrets_1.JWT_SECRET);
+                const token = jwt.sign({ email: user.email }, secrets_1.JWT_SECRET);
                 res.status(200).send({ token: token });
             }
         });

@@ -12,13 +12,13 @@ const secrets_1 = require("../util/secrets");
 const LocalStrategy = passport_local_1.default.Strategy;
 const JwtStrategy = passport_jwt_1.default.Strategy;
 const ExtractJwt = passport_jwt_1.default.ExtractJwt;
-passport_1.default.use(new LocalStrategy({ usernameField: 'username' }, (username, password, done) => {
-    user_1.User.findOne({ username: username.toLowerCase() }, (err, user) => {
+passport_1.default.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+    user_1.User.findOne({ email: email.toLowerCase() }, (err, user) => {
         if (err) {
             return done(err);
         }
         if (!user) {
-            return done(undefined, false, { message: `username ${username} not found.` });
+            return done(undefined, false, { message: `email ${email} not found.` });
         }
         user.comparePassword(password, (err, isMatch) => {
             if (err) {
@@ -27,7 +27,7 @@ passport_1.default.use(new LocalStrategy({ usernameField: 'username' }, (usernam
             if (isMatch) {
                 return done(undefined, user);
             }
-            return done(undefined, false, { message: 'Invalid username or password.' });
+            return done(undefined, false, { message: 'Invalid email or password.' });
         });
     });
 }));
@@ -35,7 +35,7 @@ passport_1.default.use(new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: secrets_1.JWT_SECRET,
 }, function (jwtToken, done) {
-    user_1.User.findOne({ username: jwtToken.username }, function (err, user) {
+    user_1.User.findOne({ email: jwtToken.email }, function (err, user) {
         if (err) {
             return done(err, false);
         }

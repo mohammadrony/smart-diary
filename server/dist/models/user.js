@@ -7,8 +7,20 @@ exports.User = exports.userSchema = void 0;
 const mongoose_1 = require("mongoose");
 const bcrypt_nodejs_1 = __importDefault(require("bcrypt-nodejs"));
 exports.userSchema = new mongoose_1.Schema({
-    username: String,
-    password: String,
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    name: String,
+    role: {
+        type: String,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
 });
 exports.userSchema.pre('save', function save(next) {
     const user = this;

@@ -11,11 +11,12 @@ export class UserController {
     const hashedPassword = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
 
     await User.create({
-      username: req.body.username,
+      email: req.body.email,
+      role: req.body.role,
       password: hashedPassword,
     })
 
-    const token = jwt.sign({ username: req.body.username, scope: req.body.scope }, JWT_SECRET)
+    const token = jwt.sign({ email: req.body.email, scope: req.body.scope }, JWT_SECRET)
     res.status(200).send({ token: token })
   }
 
@@ -26,7 +27,7 @@ export class UserController {
       if (!user) {
         return res.status(401).json({ status: 'error', code: 'unauthorized' })
       } else {
-        const token = jwt.sign({ username: user.username }, JWT_SECRET)
+        const token = jwt.sign({ email: user.email }, JWT_SECRET)
         res.status(200).send({ token: token })
       }
     })

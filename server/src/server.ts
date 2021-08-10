@@ -9,10 +9,13 @@ import cors from 'cors'
 
 import { MONGODB_URI } from './util/secrets'
 
-import { ProductRoutes } from './routes/ProductRoutes'
+import { UserRoutes } from './routes/UserRoutes'
 import { TodoRoutes } from './routes/TodoRoutes'
 import { TaskRoutes } from './routes/TaskRoutes'
-import { UserRoutes } from './routes/UserRoutes'
+import { CourseRoutes } from './routes/CourseRoutes'
+import { CourseTakeRoutes } from './routes/CourseTakeRoutes'
+import { PublishedTaskRoutes } from './routes/PublishedTaskRoutes'
+import { ProductRoutes } from './routes/ProductRoutes'
 
 
 class Server {
@@ -29,6 +32,9 @@ class Server {
     this.app.use('/api/user', new UserRoutes().router)
     this.app.use('/api/todo', new TodoRoutes().router)
     this.app.use('/api/task', new TaskRoutes().router)
+    this.app.use('/api/course', new CourseRoutes().router)
+    this.app.use('/api/course-take', new CourseTakeRoutes().router)
+    this.app.use('/api/published-task', new PublishedTaskRoutes().router)
     this.app.use('/api/products', new ProductRoutes().router)
   }
 

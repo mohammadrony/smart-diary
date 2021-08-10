@@ -20,10 +20,13 @@ if (process.env.NODE_ENV !== 'production') {
 const compression_1 = __importDefault(require("compression"));
 const cors_1 = __importDefault(require("cors"));
 const secrets_1 = require("./util/secrets");
-const ProductRoutes_1 = require("./routes/ProductRoutes");
+const UserRoutes_1 = require("./routes/UserRoutes");
 const TodoRoutes_1 = require("./routes/TodoRoutes");
 const TaskRoutes_1 = require("./routes/TaskRoutes");
-const UserRoutes_1 = require("./routes/UserRoutes");
+const CourseRoutes_1 = require("./routes/CourseRoutes");
+const CourseTakeRoutes_1 = require("./routes/CourseTakeRoutes");
+const PublishedTaskRoutes_1 = require("./routes/PublishedTaskRoutes");
+const ProductRoutes_1 = require("./routes/ProductRoutes");
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -35,6 +38,9 @@ class Server {
         this.app.use('/api/user', new UserRoutes_1.UserRoutes().router);
         this.app.use('/api/todo', new TodoRoutes_1.TodoRoutes().router);
         this.app.use('/api/task', new TaskRoutes_1.TaskRoutes().router);
+        this.app.use('/api/course', new CourseRoutes_1.CourseRoutes().router);
+        this.app.use('/api/course-take', new CourseTakeRoutes_1.CourseTakeRoutes().router);
+        this.app.use('/api/published-task', new PublishedTaskRoutes_1.PublishedTaskRoutes().router);
         this.app.use('/api/products', new ProductRoutes_1.ProductRoutes().router);
     }
     config() {

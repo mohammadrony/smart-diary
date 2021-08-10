@@ -7,7 +7,7 @@ exports.todoSchema = new mongoose_1.Schema({
     isDone: Number,
     description: String,
     dueDate: String,
-    TaskId: String,
+    TaskId: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Task' }],
 });
 exports.Todo = mongoose_1.model('Todo', exports.todoSchema);
 //# sourceMappingURL=todo.js.map

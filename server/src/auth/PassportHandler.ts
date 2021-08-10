@@ -10,13 +10,13 @@ const JwtStrategy = passportJwt.Strategy
 const ExtractJwt = passportJwt.ExtractJwt
 
 passport.use(
-  new LocalStrategy({ usernameField: 'username' }, (username, password, done) => {
-    User.findOne({ username: username.toLowerCase() }, (err: any, user: any) => {
+  new LocalStrategy({ usernameField: 'email' }, (email: String, password: String, done: any) => {
+    User.findOne({ email: email.toLowerCase() }, (err: any, user: any) => {
       if (err) {
         return done(err)
       }
       if (!user) {
-        return done(undefined, false, { message: `username ${username} not found.` })
+        return done(undefined, false, { message: `email ${email} not found.` })
       }
       user.comparePassword(password, (err: Error, isMatch: boolean) => {
         if (err) {
@@ -25,7 +25,7 @@ passport.use(
         if (isMatch) {
           return done(undefined, user)
         }
-        return done(undefined, false, { message: 'Invalid username or password.' })
+        return done(undefined, false, { message: 'Invalid email or password.' })
       })
     })
   })
@@ -38,7 +38,7 @@ passport.use(
       secretOrKey: JWT_SECRET,
     },
     function (jwtToken, done) {
-      User.findOne({ username: jwtToken.username }, function (err: any, user: any) {
+      User.findOne({ email: jwtToken.email }, function (err: any, user: any) {
         if (err) {
           return done(err, false)
         }

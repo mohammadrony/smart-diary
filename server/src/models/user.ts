@@ -2,13 +2,27 @@ import { Document, Schema, Model, model, Error } from 'mongoose'
 import bcrypt from 'bcrypt-nodejs'
 
 export interface IUser extends Document {
-  username: string
+  email: string
+  name: string
+  role: string
   password: string
 }
 
 export const userSchema: Schema = new Schema({
-  username: String,
-  password: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  name: String,
+  role: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
 })
 
 userSchema.pre<IUser>('save', function save(next) {

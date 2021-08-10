@@ -16,7 +16,11 @@ export class ProductRoutes {
     // - /api/products
     this.router.get('/', this.productController.getProducts)
     this.router.get('/:id', this.productController.getProduct)
-    this.router.post('/', this.authController.authenticateJWT, this.productController.createProduct)
+    this.router.post(
+      '/',
+      this.authController.authenticateJWT,
+      this.productController.createProduct,
+    )
     this.router.put(
       '/:id',
       this.authController.authenticateJWT,
