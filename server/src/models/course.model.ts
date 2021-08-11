@@ -26,11 +26,11 @@ export const courseSchema = new Schema({
     type: Number,
     required: true,
   },
-  DepartmentId: [{
+  DepartmentId: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'Department'
-  }]
+  }
 })
 
 export const Course: Model<ICourse> = model<ICourse>('Course', courseSchema)

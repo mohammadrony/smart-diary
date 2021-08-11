@@ -11,11 +11,11 @@ export const departmentSchema = new Schema({
     type: String,
     required: true
   },
-  InstituteId: [{
+  InstituteId: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'Institute'
-  }]
+  }
 })
 
 export const Department: Model<IDepartment> = model<IDepartment>('Department', departmentSchema)

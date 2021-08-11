@@ -8,16 +8,16 @@ export interface ICourseTeach extends Document {
 }
 
 export const courseTeachSchema = new Schema({
-  TeacherId: [{
+  TeacherId: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'Teacher'
-  }],
-  CourseId: [{
+  },
+  CourseId: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'Course'
-  }],
+  },
 })
 
 export const CourseTeach: Model<ICourseTeach> = model<ICourseTeach>('CourseTeach', courseTeachSchema)

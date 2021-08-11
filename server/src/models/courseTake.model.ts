@@ -8,16 +8,16 @@ export interface ICourseTake extends Document {
 }
 
 export const courseTakeSchema = new Schema({
-  StudentId: [{
+  StudentId: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'Student'
-  }],
-  CourseId: [{
+  },
+  CourseId: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'Course'
-  }],
+  },
 })
 
 export const CourseTake: Model<ICourseTake> = model<ICourseTake>('CourseTake', courseTakeSchema)

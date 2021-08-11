@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt-nodejs'
 import { NextFunction, Request, Response } from 'express'
 import * as jwt from 'jsonwebtoken'
 import passport from 'passport'
-import '../auth/TeacherPassportHandler'
+import '../auth/teacherPassport.handler'
 import { Teacher } from '../models/teacher.model'
 import { JWT_SECRET } from '../util/secrets'
 

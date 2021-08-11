@@ -25,11 +25,11 @@ export const teacherSchema: Schema = new Schema({
     type: String,
     required: true,
   },
-  DepartmentId: [{
+  DepartmentId: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'Department'
-  }],
+  },
   
 })
 

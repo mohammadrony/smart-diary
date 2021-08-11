@@ -14,10 +14,10 @@ export const todoSchema = new Schema({
   isDone: Number,
   description: String,
   dueDate: String,
-  TaskId: [{
+  TaskId: {
     type: Schema.Types.ObjectId,
     ref: 'Task'
-  }],
+  },
 })
 
 export const Todo: Model<ITodo> = model<ITodo>('Todo', todoSchema)
