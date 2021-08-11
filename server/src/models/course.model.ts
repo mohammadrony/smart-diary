@@ -1,11 +1,12 @@
 import { Document, Schema, Model, model, Error } from 'mongoose'
+import { IDepartment } from './department.model'
 
 export interface ICourse extends Document {
   courseId: String
   title: String
   session: String
   credit: Number
-  discipline: String
+  DepartmentId: IDepartment['_id']
 }
 
 export const courseSchema = new Schema({
@@ -25,10 +26,11 @@ export const courseSchema = new Schema({
     type: Number,
     required: true,
   },
-  discipline: {
-    type: String,
+  DepartmentId: [{
+    type: Schema.Types.ObjectId,
     required: true,
-  },
+    ref: 'Department'
+  }]
 })
 
 export const Course: Model<ICourse> = model<ICourse>('Course', courseSchema)

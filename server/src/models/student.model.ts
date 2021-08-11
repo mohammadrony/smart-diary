@@ -1,21 +1,26 @@
 import { Document, Schema, Model, model, Error } from 'mongoose'
 import bcrypt from 'bcrypt-nodejs'
+import { IDepartment } from './department.model'
 
-export interface IUser extends Document {
+export interface IStudent extends Document {
   email: string
+  stdId: string
   name: string
-  role: string
   password: string
+  DepartmentId: IDepartment['_id']
 }
 
-export const userSchema: Schema = new Schema({
+export const studentSchema: Schema = new Schema({
   email: {
     type: String,
     required: true,
     unique: true,
   },
-  name: String,
-  role: {
+  stdId: {
+    type: String,
+    required: true,
+  },
+  name: {
     type: String,
     required: true,
   },
@@ -23,10 +28,16 @@ export const userSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  DepartmentId: [{
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'Department'
+  }],
+  
 })
 
-userSchema.pre<IUser>('save', function save(next) {
-  const user = this
+studentSchema.pre<IStudent>('save', function save(next) {
+  const student = this
 
   bcrypt.genSalt(10, (err, salt) => {
     if (err) {
@@ -36,16 +47,16 @@ userSchema.pre<IUser>('save', function save(next) {
       if (err) {
         return next(err)
       }
-      user.password = hash
+      student.password = hash
       next()
     })
   })
 })
 
-userSchema.methods.comparePassword = function (candidatePassword: string, callback: any) {
+studentSchema.methods.comparePassword = function (candidatePassword: string, callback: any) {
   bcrypt.compare(candidatePassword, 'this.password', (err: Error, isMatch: boolean) => {
     callback(err, isMatch)
   })
 }
 
-export const User: Model<IUser> = model<IUser>('User', userSchema)
+export const Student: Model<IStudent> = model<IStudent>('Student', studentSchema)

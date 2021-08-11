@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TodoRoutes = void 0;
 const express_1 = require("express");
-const TodoController_1 = require("../controllers/TodoController");
+const todoController_1 = require("../controllers/todoController");
 const AuthController_1 = require("../controllers/AuthController");
 class TodoRoutes {
     constructor() {
-        this.todoController = new TodoController_1.TodoController();
+        this.todoController = new todoController_1.todoController();
         this.authController = new AuthController_1.AuthController();
         this.router = express_1.Router();
         this.routes();

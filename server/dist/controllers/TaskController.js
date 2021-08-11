@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TaskController = void 0;
+exports.taskController = void 0;
 const task_1 = require("../models/task");
-class TaskController {
+class taskController {
     getTasks(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const tasks = yield task_1.Task.find();
@@ -71,5 +71,5 @@ class TaskController {
         });
     }
 }
-exports.TaskController = TaskController;
-//# sourceMappingURL=TaskController.js.map
+exports.taskController = taskController;
+//# sourceMappingURL=taskController.js.map

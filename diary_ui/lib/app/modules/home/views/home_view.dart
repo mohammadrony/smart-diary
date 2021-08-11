@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
+  final List<String> choices = <String>['Settings', 'Profile', 'Signout'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +19,20 @@ class HomeView extends GetView<HomeController> {
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Diary'),
+            actions: [
+              PopupMenuButton<String>(
+                  onSelected: (String result) => {
+                        print(result),
+                      },
+                  itemBuilder: (BuildContext context) {
+                    return choices.map((String choice) {
+                      return PopupMenuItem<String>(
+                        value: choice,
+                        child: Text(choice),
+                      );
+                    }).toList();
+                  }),
+            ],
             bottom: const TabBar(
               tabs: <Widget>[
                 Tab(

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import { IProduct, Product } from '../models/product'
+import { IProduct, Product } from '../models/product.model'
 
-export class ProductController {
+export class productController {
   public async getProducts(req: Request, res: Response): Promise<void> {
     const products = await Product.find()
     res.json({ products })

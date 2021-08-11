@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TodoController = void 0;
+exports.todoController = void 0;
 const todo_1 = require("../models/todo");
-class TodoController {
+class todoController {
     getTodos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const todos = yield todo_1.Todo.find({ TaskId: req.params.taskId });
@@ -82,5 +82,5 @@ class TodoController {
         });
     }
 }
-exports.TodoController = TodoController;
-//# sourceMappingURL=TodoController.js.map
+exports.todoController = todoController;
+//# sourceMappingURL=todoController.js.map

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import { ITodo, Todo } from '../models/todo'
+import { ITodo, Todo } from '../models/todo.model'
 
-export class TodoController {
+export class todoController {
   public async getTodos(req: Request, res: Response): Promise<void> {
     const todos = await Todo.find({TaskId: req.params.taskId})
     res.json({ todos })

@@ -1,11 +1,11 @@
 import { Router } from 'express'
-import { CourseTakeController } from '../controllers/CourseTakeController'
-import { AuthController } from '../controllers/AuthController'
+import { courseTakeController } from '../controllers/courseTake.controller'
+import { authController } from '../controllers/auth.controller'
 
-export class CourseTakeRoutes {
+export class courseTakeRoutes {
   public router: Router
-  public courseTakeController: CourseTakeController = new CourseTakeController()
-  public authController: AuthController = new AuthController()
+  public courseTakeController: courseTakeController = new courseTakeController()
+  public authController: authController = new authController()
 
   constructor() {
     this.router = Router()
@@ -13,7 +13,7 @@ export class CourseTakeRoutes {
   }
 
   routes() {
-    // - /api/course-take
+    // - /api/courseTake
     this.router.get('/', this.courseTakeController.getCourseTakes)
     this.router.get('/:id', this.courseTakeController.getCourseTake)
     this.router.post(

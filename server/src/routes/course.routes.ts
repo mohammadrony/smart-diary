@@ -1,11 +1,11 @@
 import { Router } from 'express'
-import { CourseController } from '../controllers/CourseController'
-import { AuthController } from '../controllers/AuthController'
+import { courseController } from '../controllers/course.controller'
+import { authController } from '../controllers/auth.controller'
 
-export class CourseRoutes {
+export class courseRoutes {
   public router: Router
-  public courseController: CourseController = new CourseController()
-  public authController: AuthController = new AuthController()
+  public courseController: courseController = new courseController()
+  public authController: authController = new authController()
 
   constructor() {
     this.router = Router()

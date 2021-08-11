@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PublishedTaskController = void 0;
+exports.publishedtaskController = void 0;
 const published_task_1 = require("../models/published-task");
-class PublishedTaskController {
+class publishedtaskController {
     getPublishedTasks(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const publishedTasks = yield published_task_1.PublishedTask.find();
@@ -71,5 +71,5 @@ class PublishedTaskController {
         });
     }
 }
-exports.PublishedTaskController = PublishedTaskController;
-//# sourceMappingURL=PublishedTaskController.js.map
+exports.publishedtaskController = publishedtaskController;
+//# sourceMappingURL=publishedtaskController.js.map

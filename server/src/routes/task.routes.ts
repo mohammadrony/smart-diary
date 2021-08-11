@@ -1,11 +1,11 @@
 import { Router } from 'express'
-import { TaskController } from '../controllers/TaskController'
-import { AuthController } from '../controllers/AuthController'
+import { taskController } from '../controllers/task.controller'
+import { authController } from '../controllers/auth.controller'
 
-export class TaskRoutes {
+export class taskRoutes {
   public router: Router
-  public taskController: TaskController = new TaskController()
-  public authController: AuthController = new AuthController()
+  public taskController: taskController = new taskController()
+  public authController: authController = new authController()
 
   constructor() {
     this.router = Router()

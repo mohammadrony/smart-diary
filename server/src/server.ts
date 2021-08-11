@@ -9,13 +9,17 @@ import cors from 'cors'
 
 import { MONGODB_URI } from './util/secrets'
 
-import { UserRoutes } from './routes/UserRoutes'
-import { TodoRoutes } from './routes/TodoRoutes'
-import { TaskRoutes } from './routes/TaskRoutes'
-import { CourseRoutes } from './routes/CourseRoutes'
-import { CourseTakeRoutes } from './routes/CourseTakeRoutes'
-import { PublishedTaskRoutes } from './routes/PublishedTaskRoutes'
-import { ProductRoutes } from './routes/ProductRoutes'
+import { courseRoutes } from './routes/course.routes'
+import { courseTakeRoutes } from './routes/courseTake.routes'
+import { courseTeachRoutes } from './routes/courseTeach.routes'
+import { departmentRoutes } from './routes/department.routes'
+import { instituteRoutes } from './routes/institute.routes'
+import { productRoutes } from './routes/product.routes'
+import { publishedTaskRoutes } from './routes/publishedTask.routes'
+import { studentRoutes } from './routes/student.routes'
+import { taskRoutes } from './routes/task.routes'
+import { teacherRoutes } from './routes/teacher.routes'
+import { todoRoutes } from './routes/todo.routes'
 
 
 class Server {
@@ -29,13 +33,17 @@ class Server {
   }
 
   public routes(): void {
-    this.app.use('/api/user', new UserRoutes().router)
-    this.app.use('/api/todo', new TodoRoutes().router)
-    this.app.use('/api/task', new TaskRoutes().router)
-    this.app.use('/api/course', new CourseRoutes().router)
-    this.app.use('/api/course-take', new CourseTakeRoutes().router)
-    this.app.use('/api/published-task', new PublishedTaskRoutes().router)
-    this.app.use('/api/products', new ProductRoutes().router)
+    this.app.use('/api/course', new courseRoutes().router)
+    this.app.use('/api/courseTake', new courseTakeRoutes().router)
+    this.app.use('/api/courseTeach', new courseTeachRoutes().router)
+    this.app.use('/api/department', new departmentRoutes().router)
+    this.app.use('/api/institute', new instituteRoutes().router)
+    this.app.use('/api/products', new productRoutes().router)
+    this.app.use('/api/publishedTask', new publishedTaskRoutes().router)
+    this.app.use('/api/student', new studentRoutes().router)
+    this.app.use('/api/task', new taskRoutes().router)
+    this.app.use('/api/teacher', new teacherRoutes().router)
+    this.app.use('/api/todo', new todoRoutes().router)
   }
 
   public config(): void {

@@ -1,11 +1,11 @@
 import { Router } from 'express'
-import { TodoController } from '../controllers/TodoController'
-import { AuthController } from '../controllers/AuthController'
+import { todoController } from '../controllers/todo.controller'
+import { authController } from '../controllers/auth.controller'
 
-export class TodoRoutes {
+export class todoRoutes {
   public router: Router
-  public todoController: TodoController = new TodoController()
-  public authController: AuthController = new AuthController()
+  public todoController: todoController = new todoController()
+  public authController: authController = new authController()
 
   constructor() {
     this.router = Router()

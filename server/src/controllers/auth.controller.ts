@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express'
 import passport from 'passport'
-import '../auth/PassportHandler'
+import '../auth/StudentPassportHandler'
+import '../auth/TeacherPassportHandler'
 
-export class AuthController {
+export class authController {
   public authenticateJWT(req: Request, res: Response, next: NextFunction) {
     passport.authenticate('jwt', function (err, user, info) {
       if (err) {

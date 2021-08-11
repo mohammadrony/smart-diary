@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CourseTakeRoutes = void 0;
 const express_1 = require("express");
-const CourseTakeController_1 = require("../controllers/CourseTakeController");
+const courseTakeController_1 = require("../controllers/courseTakeController");
 const AuthController_1 = require("../controllers/AuthController");
 class CourseTakeRoutes {
     constructor() {
-        this.courseTakeController = new CourseTakeController_1.CourseTakeController();
+        this.courseTakeController = new courseTakeController_1.courseTakeController();
         this.authController = new AuthController_1.AuthController();
         this.router = express_1.Router();
         this.routes();

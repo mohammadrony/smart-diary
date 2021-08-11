@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CourseTakeController = void 0;
+exports.courseTakeController = void 0;
 const course_take_1 = require("../models/course-take");
-class CourseTakeController {
+class courseTakeController {
     getCourseTakes(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const courseTakes = yield course_take_1.CourseTake.find();
@@ -71,5 +71,5 @@ class CourseTakeController {
         });
     }
 }
-exports.CourseTakeController = CourseTakeController;
-//# sourceMappingURL=CourseTakeController.js.map
+exports.courseTakeController = courseTakeController;
+//# sourceMappingURL=courseTakeController.js.map

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import { IPublishedTask, PublishedTask } from '../models/published-task'
+import { IPublishedTask, PublishedTask } from '../models/publishedTask.model'
 
-export class PublishedTaskController {
+export class publishedtaskController {
   public async getPublishedTasks(req: Request, res: Response): Promise<void> {
     const publishedTasks = await PublishedTask.find()
     res.json({ publishedTasks })

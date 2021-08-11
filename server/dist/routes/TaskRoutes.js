@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskRoutes = void 0;
 const express_1 = require("express");
-const TaskController_1 = require("../controllers/TaskController");
+const taskController_1 = require("../controllers/taskController");
 const AuthController_1 = require("../controllers/AuthController");
 class TaskRoutes {
     constructor() {
-        this.taskController = new TaskController_1.TaskController();
+        this.taskController = new taskController_1.taskController();
         this.authController = new AuthController_1.AuthController();
         this.router = express_1.Router();
         this.routes();

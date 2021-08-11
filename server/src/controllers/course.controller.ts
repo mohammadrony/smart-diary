@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import { ICourse, Course } from '../models/course'
+import { ICourse, Course } from '../models/course.model'
 
-export class CourseController {
+export class courseController {
   public async getCourses(req: Request, res: Response): Promise<void> {
     const courses = await Course.find()
     res.json({ courses })

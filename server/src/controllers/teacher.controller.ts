@@ -2,15 +2,15 @@ import bcrypt from 'bcrypt-nodejs'
 import { NextFunction, Request, Response } from 'express'
 import * as jwt from 'jsonwebtoken'
 import passport from 'passport'
-import '../auth/PassportHandler'
-import { User } from '../models/user'
+import '../auth/TeacherPassportHandler'
+import { Teacher } from '../models/teacher.model'
 import { JWT_SECRET } from '../util/secrets'
 
-export class UserController {
-  public async registerUser(req: Request, res: Response): Promise<void> {
+export class teacherController {
+  public async registerTeacher(req: Request, res: Response): Promise<void> {
     const hashedPassword = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
 
-    await User.create({
+    await Teacher.create({
       email: req.body.email,
       role: req.body.role,
       password: hashedPassword,
@@ -20,14 +20,14 @@ export class UserController {
     res.status(200).send({ token: token })
   }
 
-  public authenticateUser(req: Request, res: Response, next: NextFunction) {
-    passport.authenticate('local', function (err, user, info) {
+  public authenticateTeacher(req: Request, res: Response, next: NextFunction) {
+    passport.authenticate('local', function (err, teacher, info) {
       // no async/await because passport works only with callback ..
       if (err) return next(err)
-      if (!user) {
+      if (!teacher) {
         return res.status(401).json({ status: 'error', code: 'unauthorized' })
       } else {
-        const token = jwt.sign({ email: user.email }, JWT_SECRET)
+        const token = jwt.sign({ email: teacher.email }, JWT_SECRET)
         res.status(200).send({ token: token })
       }
     })

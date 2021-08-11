@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import { ITask, Task } from '../models/task'
+import { ITask, Task } from '../models/task.model'
 
-export class TaskController {
+export class taskController {
   public async getTasks(req: Request, res: Response): Promise<void> {
     const tasks = await Task.find()
     res.json({ tasks })
@@ -18,6 +18,7 @@ export class TaskController {
 
   public async createTask(req: Request, res: Response): Promise<void> {
     const newTask: ITask = new Task(req.body)
+    
     const task = await Task.findById(req.body.id)
     if (task === null) {
       const result = await newTask.save()

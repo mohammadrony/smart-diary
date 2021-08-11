@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductController = void 0;
+exports.productController = void 0;
 const product_1 = require("../models/product");
-class ProductController {
+class productController {
     getProducts(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const products = yield product_1.Product.find();
@@ -71,5 +71,5 @@ class ProductController {
         });
     }
 }
-exports.ProductController = ProductController;
-//# sourceMappingURL=ProductController.js.map
+exports.productController = productController;
+//# sourceMappingURL=productController.js.map

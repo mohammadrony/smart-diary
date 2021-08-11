@@ -1,6 +1,6 @@
 import { Document, Schema, Model, model, Error } from 'mongoose'
-import { ITask } from './task'
-import { ICourse } from './course'
+import { ITask } from './task.model'
+import { ICourse } from './course.model'
 
 export interface IPublishedTask extends Document {
   TaskId: ITask['_id']
@@ -9,8 +9,16 @@ export interface IPublishedTask extends Document {
 }
 
 export const publishedTaskSchema = new Schema({
-  TaskId: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
-  CourseId: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
+  TaskId: [{
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'Task'
+  }],
+  CourseId: [{
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'Course'
+  }],
   todosBool: String,
 })
 
