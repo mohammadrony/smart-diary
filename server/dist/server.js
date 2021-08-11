@@ -20,13 +20,17 @@ if (process.env.NODE_ENV !== 'production') {
 const compression_1 = __importDefault(require("compression"));
 const cors_1 = __importDefault(require("cors"));
 const secrets_1 = require("./util/secrets");
-const UserRoutes_1 = require("./routes/UserRoutes");
-const TodoRoutes_1 = require("./routes/TodoRoutes");
-const TaskRoutes_1 = require("./routes/TaskRoutes");
-const CourseRoutes_1 = require("./routes/CourseRoutes");
-const CourseTakeRoutes_1 = require("./routes/CourseTakeRoutes");
-const PublishedTaskRoutes_1 = require("./routes/PublishedTaskRoutes");
-const ProductRoutes_1 = require("./routes/ProductRoutes");
+const course_routes_1 = require("./routes/course.routes");
+const courseTake_routes_1 = require("./routes/courseTake.routes");
+const courseTeach_routes_1 = require("./routes/courseTeach.routes");
+const department_routes_1 = require("./routes/department.routes");
+const institute_routes_1 = require("./routes/institute.routes");
+const product_routes_1 = require("./routes/product.routes");
+const publishedTask_routes_1 = require("./routes/publishedTask.routes");
+const student_routes_1 = require("./routes/student.routes");
+const task_routes_1 = require("./routes/task.routes");
+const teacher_routes_1 = require("./routes/teacher.routes");
+const todo_routes_1 = require("./routes/todo.routes");
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -35,13 +39,17 @@ class Server {
         this.mongo();
     }
     routes() {
-        this.app.use('/api/user', new UserRoutes_1.UserRoutes().router);
-        this.app.use('/api/todo', new TodoRoutes_1.TodoRoutes().router);
-        this.app.use('/api/task', new TaskRoutes_1.TaskRoutes().router);
-        this.app.use('/api/course', new CourseRoutes_1.CourseRoutes().router);
-        this.app.use('/api/course-take', new CourseTakeRoutes_1.CourseTakeRoutes().router);
-        this.app.use('/api/published-task', new PublishedTaskRoutes_1.PublishedTaskRoutes().router);
-        this.app.use('/api/products', new ProductRoutes_1.ProductRoutes().router);
+        this.app.use('/api/course', new course_routes_1.courseRoutes().router);
+        this.app.use('/api/courseTake', new courseTake_routes_1.courseTakeRoutes().router);
+        this.app.use('/api/courseTeach', new courseTeach_routes_1.courseTeachRoutes().router);
+        this.app.use('/api/department', new department_routes_1.departmentRoutes().router);
+        this.app.use('/api/institute', new institute_routes_1.instituteRoutes().router);
+        this.app.use('/api/products', new product_routes_1.productRoutes().router);
+        this.app.use('/api/publishedTask', new publishedTask_routes_1.publishedTaskRoutes().router);
+        this.app.use('/api/student', new student_routes_1.studentRoutes().router);
+        this.app.use('/api/task', new task_routes_1.taskRoutes().router);
+        this.app.use('/api/teacher', new teacher_routes_1.teacherRoutes().router);
+        this.app.use('/api/todo', new todo_routes_1.todoRoutes().router);
     }
     config() {
         this.app.set('port', process.env.PORT || 3000);
