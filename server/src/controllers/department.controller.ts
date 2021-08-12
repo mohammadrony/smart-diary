@@ -5,7 +5,7 @@ export class departmentController {
   public async getDepartments(req: Request, res: Response): Promise<void> {
     const departments = await Department.find({
       InstituteId: { $eq: req.params.instituteId }
-    })
+    }).populate({path: 'InstituteId'})
     res.json({ departments })
   }
 

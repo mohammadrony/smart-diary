@@ -14,7 +14,7 @@ export class departmentRoutes {
 
   routes() {
     // - /api/department
-    this.router.get('/', this.departmentController.getDepartments)
+    this.router.get('/:instituteId', this.departmentController.getDepartments)
     this.router.get('/:id', this.departmentController.getDepartment)
     this.router.post(
       '/', 
