@@ -9,6 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  custom_radio_grouped_button: ^2.0.0
   get: ^4.1.4
   get_storage: ^2.0.2
   google_fonts: ^2.1.0
