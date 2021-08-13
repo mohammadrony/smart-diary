@@ -16,6 +16,7 @@ export const todoSchema = new Schema({
   dueDate: String,
   TaskId: {
     type: Schema.Types.ObjectId,
+    required: true,
     ref: 'Task'
   },
 })

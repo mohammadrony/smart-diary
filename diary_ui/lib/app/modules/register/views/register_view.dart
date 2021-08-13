@@ -17,10 +17,6 @@ class RegisterView extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('RegisterView'),
-        centerTitle: true,
-      ),
       body: Center(
         child: Form(
           key: _formKey,

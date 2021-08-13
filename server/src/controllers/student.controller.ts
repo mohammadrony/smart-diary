@@ -12,7 +12,6 @@ export class studentController {
 
     await Student.create({
       email: req.body.email,
-      role: req.body.role,
       password: hashedPassword,
     })
 

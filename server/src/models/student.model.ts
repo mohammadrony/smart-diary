@@ -7,6 +7,7 @@ export interface IStudent extends Document {
   stdId: string
   name: string
   password: string
+  imageUrl: string
   DepartmentId: IDepartment['_id']
 }
 
@@ -16,21 +17,15 @@ export const studentSchema: Schema = new Schema({
     required: true,
     unique: true,
   },
-  stdId: {
-    type: String,
-    required: true,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
+  stdId: String,
+  name: String,
   password: {
     type: String,
     required: true,
   },
+  imageUrl: String,
   DepartmentId: {
     type: Schema.Types.ObjectId,
-    required: true,
     ref: 'Department'
   },
   

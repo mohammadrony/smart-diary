@@ -2,7 +2,7 @@ import { Document, Schema, Model, model, Error} from 'mongoose'
 
 export interface IInstitute extends Document {
   name: String
-  logo: String
+  logoUrl: String
   city: String
   country: String
 }
@@ -12,7 +12,7 @@ export const instituteSchema = new Schema ({
     type: String,
     required: true
   },
-  logo: String,
+  logoUrl: String,
   city: {
     type: String,
     required: true

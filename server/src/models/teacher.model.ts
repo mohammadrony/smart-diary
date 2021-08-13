@@ -7,6 +7,7 @@ export interface ITeacher extends Document {
   name: string
   phoneNo: string
   password: string
+  imageUrl: string
   DepartmentId: IDepartment['_id']
 }
 
@@ -16,18 +17,15 @@ export const teacherSchema: Schema = new Schema({
     required: true,
     unique: true,
   },
-  name: {
-    type: String,
-    required: true,
-  },
+  name: String,
   phoneNo: String,
   password: {
     type: String,
     required: true,
   },
+  imageUrl: String,
   DepartmentId: {
     type: Schema.Types.ObjectId,
-    required: true,
     ref: 'Department'
   },
   

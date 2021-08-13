@@ -17,10 +17,6 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('LoginView'),
-        centerTitle: true,
-      ),
       body: Center(
         child: Form(
           // key: _formKey,
@@ -67,7 +63,9 @@ class LoginView extends GetView<LoginController> {
                     FormVerticalSpace(),
                     LabelButton(
                       labelText: 'auth.resetPasswordLabelButton'.tr,
-                      onPressed: () => Get.toNamed(Routes.RESET_PASSWORD),
+                      onPressed: () => Get.toNamed(Routes.RESET_PASSWORD +
+                          '?email=' +
+                          controller.emailController.text),
                     ),
                     LabelButton(
                       labelText: 'auth.signUpLabelButton'.tr,

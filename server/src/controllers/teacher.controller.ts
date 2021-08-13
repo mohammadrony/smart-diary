@@ -12,7 +12,6 @@ export class teacherController {
 
     await Teacher.create({
       email: req.body.email,
-      role: req.body.role,
       password: hashedPassword,
     })
 

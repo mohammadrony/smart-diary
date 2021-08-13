@@ -14,6 +14,9 @@ import { courseTakeRoutes } from './routes/courseTake.routes'
 import { courseTeachRoutes } from './routes/courseTeach.routes'
 import { departmentRoutes } from './routes/department.routes'
 import { instituteRoutes } from './routes/institute.routes'
+import { noteMaterialRoutes } from './routes/noteMaterial.routes'
+import { noteSubjectRoutes } from './routes/noteSubject.routes'
+import { noteTopicRoutes } from './routes/noteTopic.routes'
 import { publishedTaskRoutes } from './routes/publishedTask.routes'
 import { studentRoutes } from './routes/student.routes'
 import { taskRoutes } from './routes/task.routes'
@@ -37,6 +40,9 @@ class Server {
     this.app.use('/api/courseTeach', new courseTeachRoutes().router)
     this.app.use('/api/department', new departmentRoutes().router)
     this.app.use('/api/institute', new instituteRoutes().router)
+    this.app.use('/api/noteMaterial', new noteMaterialRoutes().router)
+    this.app.use('/api/noteSubject', new noteSubjectRoutes().router)
+    this.app.use('/api/noteTopic', new noteTopicRoutes().router)
     this.app.use('/api/publishedTask', new publishedTaskRoutes().router)
     this.app.use('/api/student', new studentRoutes().router)
     this.app.use('/api/task', new taskRoutes().router)
