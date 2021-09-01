@@ -28,17 +28,17 @@ import { todoRoutes } from './routes/todo.routes'
 
 require('./auth/userPassportHandler')(passport)
 
-// class Server {
-//   public app: express.Application
+class Server {
+  public app: express.Application
 
-//   constructor() {
-//     this.app = express()
-//     this.config()
-//     this.routes()
-//     this.mongo()
-//   }
+  constructor() {
+    this.app = express()
+    this.config()
+    this.routes()
+    this.mongo()
+  }
 
-  // public config(): void {
+  public config(): void {
     app.set('port', process.env.PORT || 3000)
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
@@ -46,9 +46,9 @@ require('./auth/userPassportHandler')(passport)
     app.use(cors())
     app.use(passport.initialize())
     app.use(passport.session())
-  // }
+  }
 
-  // public routes(): void {
+  public routes(): void {
     app.use('/api/course', new courseRoutes().router)
     app.use('/api/courseTake', new courseTakeRoutes().router)
     app.use('/api/courseTeach', new courseTeachRoutes().router)
@@ -62,9 +62,9 @@ require('./auth/userPassportHandler')(passport)
     app.use('/api/task', new taskRoutes().router)
     app.use('/api/teacher', new teacherRoutes().router)
     app.use('/api/todo', new todoRoutes().router)
-  // }
+  }
 
-  // private mongo() {
+  private mongo() {
     const connection = mongoose.connection
     connection.on('connected', () => {
       console.log('Mongo Connection Established')
@@ -106,15 +106,15 @@ require('./auth/userPassportHandler')(passport)
       })
     }
     run().catch((error) => console.error(error))
-  // }
+  }
 
-  // public start(): void {
+  public start(): void {
     app.listen(app.get('port'), () => {
       console.log('API is running at http://localhost:%d', app.get('port'))
     })
-//   }
-// }
+  }
+}
 
-// const server = new Server()
+const server = new Server()
 
-// server.start()
+server.start()
