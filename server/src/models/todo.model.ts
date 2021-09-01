@@ -1,4 +1,4 @@
-import { Document, Schema, Model, model, Error, Date } from 'mongoose'
+import { Document, Schema, Model, model, Error } from 'mongoose'
 import { ITask } from './task.model'
 
 export interface ITodo extends Document {

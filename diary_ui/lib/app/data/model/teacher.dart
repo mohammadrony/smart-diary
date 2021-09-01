@@ -1,36 +1,36 @@
-class Student {
+class Teacher {
   String id = '';
   String email = '';
-  String stdId = '';
+  String phoneNo = '';
   String name = '';
   String password = '';
   String imageUrl = '';
   String DepartmentId = '';
 
-  Student({
+  Teacher({
     this.id = '',
     this.email = '',
-    this.stdId = '',
+    this.phoneNo = '',
     this.name = '',
     this.password = '',
     this.imageUrl = '',
     this.DepartmentId = '',
   });
 
-  Student.fromJson(Map<String, dynamic> json) {
+  Teacher.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     email = json['email'];
-    stdId = json['stdId'];
+    phoneNo = json['phoneNo'];
     name = json['name'];
     password = json['password'];
     imageUrl = json['imageUrl'];
     DepartmentId = json['DepartmentId'];
   }
 
-  Student.fromJsonMongo(Map<String, dynamic> json) {
+  Teacher.fromJsonMongo(Map<String, dynamic> json) {
     id = json['_id'];
     email = json['email'];
-    stdId = json['stdId'];
+    phoneNo = json['phoneNo'];
     name = json['name'];
     password = json['password'];
     imageUrl = json['imageUrl'];
@@ -41,7 +41,7 @@ class Student {
     final data = <String, dynamic>{};
     data['id'] = id;
     data['email'] = email;
-    data['stdId'] = stdId;
+    data['phoneNo'] = phoneNo;
     data['name'] = name;
     data['password'] = password;
     data['imageUrl'] = imageUrl;
@@ -52,7 +52,7 @@ class Student {
   Map<String, dynamic> toJsonExceptId() {
     final data = <String, dynamic>{};
     data['email'] = email;
-    data['stdId'] = stdId;
+    data['phoneNo'] = phoneNo;
     data['name'] = name;
     data['password'] = password;
     data['imageUrl'] = imageUrl;

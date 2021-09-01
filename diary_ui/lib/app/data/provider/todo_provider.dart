@@ -10,7 +10,7 @@ class TodoProvider {
     return http
         .get(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/todo/' + taskId),
-      headers: DatabaseProvider.headers,
+      headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
       if (data.statusCode == 200) {
@@ -38,7 +38,7 @@ class TodoProvider {
         .post(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/todo/'),
       body: json.encode(todo.toJsonExceptId()),
-      headers: DatabaseProvider.headers,
+      headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
       if (data.statusCode == 201) {
@@ -58,7 +58,7 @@ class TodoProvider {
         .put(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/todo/' + todo.id),
       body: json.encode(todo.toJson()),
-      headers: DatabaseProvider.headers,
+      headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
       if (data.statusCode == 204) {
@@ -77,7 +77,7 @@ class TodoProvider {
     return http
         .delete(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/todo/' + id),
-      headers: DatabaseProvider.headers,
+      headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
       if (data.statusCode == 204) {
@@ -96,7 +96,7 @@ class TodoProvider {
     return http
         .delete(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/todo/task/' + taskId),
-      headers: DatabaseProvider.headers,
+      headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
       if (data.statusCode == 204) {

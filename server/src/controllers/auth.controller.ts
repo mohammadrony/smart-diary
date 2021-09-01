@@ -1,18 +1,18 @@
 import { NextFunction, Request, Response } from 'express'
 import passport from 'passport'
-import '../auth/studentPassport.handler'
-import '../auth/teacherPassport.handler'
+import '../auth/userPassportHandler'
 
 export class authController {
   public authenticateJWT(req: Request, res: Response, next: NextFunction) {
     passport.authenticate('jwt', function (err, user, info) {
       if (err) {
-        console.log(err)
-        return res.status(401).json({ status: 'error', code: 'unauthorized' })
+        // return next(err)
+        return res.status(403).json({ status: 'error', code: 'authorization problem' })
       }
       if (!user) {
         return res.status(401).json({ status: 'error', code: 'unauthorized' })
       } else {
+        req.user = user
         return next()
       }
     })(req, res, next)
@@ -21,8 +21,8 @@ export class authController {
   public authorizeJWT(req: Request, res: Response, next: NextFunction) {
     passport.authenticate('jwt', function (err, user, jwtToken) {
       if (err) {
-        console.log(err)
-        return res.status(401).json({ status: 'error', code: 'unauthorized' })
+        // return next(err)
+        return res.status(403).json({ status: 'error', code: 'authorization problem' })
       }
       if (!user) {
         return res.status(401).json({ status: 'error', code: 'unauthorized' })

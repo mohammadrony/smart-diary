@@ -1,11 +1,23 @@
+import 'package:diary_ui/app/data/model/student.dart';
+import 'package:diary_ui/app/data/model/teacher.dart';
+import 'package:diary_ui/app/data/model/user_token.dart';
+import 'package:diary_ui/app/data/services/student/service.dart';
+import 'package:diary_ui/app/data/services/teacher/service.dart';
+import 'package:diary_ui/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
   //TODO: Implement RegisterController
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+
+  var userType = 'STUDENT';
+  var userTypePrivate = 'STUDENT';
+  var nameController = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var error = false;
+  var errorMessage = '';
+  var userToken = UserToken().obs;
 
   final count = 0.obs;
   @override
@@ -21,10 +33,42 @@ class RegisterController extends GetxController {
   @override
   void onClose() {}
 
-  void registerWithEmailAndPassword(BuildContext context) async {
-    // TODO: Impliment registerWithEmailAndPassword method
-    print('registerWithEmailAndPassword');
+  Future<void> registerUser() async {
     // showLoadingIndicator();
+    if (userType == 'STUDENT') {
+      var apiResponse = await StudentService.registerStudent(
+        Student(
+          name: nameController.text,
+          email: emailController.text,
+          password: passwordController.text,
+        ),
+      );
+      if (apiResponse.error == true) {
+        error = true;
+        errorMessage = apiResponse.errorMessage;
+      } else {
+        userToken.value = apiResponse.data ?? UserToken();
+        userTypePrivate = userType;
+      }
+      await Get.offAllNamed(Routes.HOME);
+    } else if (userType == 'TEACHER') {
+      var apiResponse = await TeacherService.registerTeacher(
+        Teacher(
+          name: nameController.text,
+          email: emailController.text,
+          password: passwordController.text,
+        ),
+      );
+      if (apiResponse.error == true) {
+        error = true;
+        errorMessage = apiResponse.errorMessage;
+      } else {
+        userToken.value = apiResponse.data ?? UserToken();
+        userTypePrivate = userType;
+      }
+    } else {
+      print('User type undefined.');
+    }
     // try {
     //   await _auth
     //       .createUserWithEmailAndPassword(

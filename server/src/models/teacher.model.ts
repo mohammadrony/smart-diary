@@ -1,5 +1,5 @@
 import { Document, Schema, Model, model, Error } from 'mongoose'
-import bcrypt from 'bcrypt-nodejs'
+import bcrypt from 'bcryptjs'
 import { IDepartment } from './department.model'
 
 export interface ITeacher extends Document {
@@ -34,22 +34,26 @@ export const teacherSchema: Schema = new Schema({
 teacherSchema.pre<ITeacher>('save', function save(next) {
   const teacher = this
 
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) {
-      return next(err)
-    }
-    bcrypt.hash(this.password, salt, undefined, (err: Error, hash) => {
+  if (teacher.isModified("password") || teacher.isNew) {
+    bcrypt.genSalt(10, (err, salt) => {
       if (err) {
         return next(err)
       }
-      teacher.password = hash
-      next()
+      bcrypt.hash(this.password, salt, (err: Error, hash) => {
+        if (err) {
+          return next(err)
+        }
+        teacher.password = hash
+        next()
+      })
     })
-  })
+  } else {
+    return next()
+  }
 })
 
-teacherSchema.methods.comparePassword = function (candidatePassword: string, callback: any) {
-  bcrypt.compare(candidatePassword, 'this.password', (err: Error, isMatch: boolean) => {
+teacherSchema.methods.comparePassword = function (candidatePassword: string, correctPassword: string, callback: any) {
+  bcrypt.compare(candidatePassword, correctPassword, (err: Error, isMatch: boolean) => {
     callback(err, isMatch)
   })
 }

@@ -20,17 +20,11 @@ export class departmentController {
 
   public async createDepartment(req: Request, res: Response): Promise<void> {
     const newDepartment: IDepartment = new Department(req.body)
-    
-    const department = await Department.findById(req.body.id)
-    if (department === null) {
-      const result = await newDepartment.save()
-      if (result === null) {
-        res.sendStatus(500)
-      } else {
-        res.status(201).json({ status: 201, data: result })
-      }
+    const result = await newDepartment.save()
+    if (result === null) {
+      res.sendStatus(500)
     } else {
-      res.sendStatus(422)
+      res.status(201).json({ status: 201, data: result })
     }
   }
 

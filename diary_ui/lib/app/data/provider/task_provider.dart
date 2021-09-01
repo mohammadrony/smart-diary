@@ -10,7 +10,7 @@ class TaskProvider {
     return http
         .get(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/task/'),
-      headers: DatabaseProvider.headers,
+      headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
       if (data.statusCode == 200) {
@@ -37,7 +37,7 @@ class TaskProvider {
     return http
         .get(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/task/' + id),
-      headers: DatabaseProvider.headers,
+      headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
       if (data.statusCode == 200) {
@@ -60,7 +60,7 @@ class TaskProvider {
         .post(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/task/'),
       body: json.encode(task.toJsonExceptId()),
-      headers: DatabaseProvider.headers,
+      headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
       if (data.statusCode == 201) {
@@ -83,7 +83,7 @@ class TaskProvider {
         .put(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/task/' + task.id),
       body: json.encode(task.toJson()),
-      headers: DatabaseProvider.headers,
+      headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
       if (data.statusCode == 204) {
@@ -102,7 +102,7 @@ class TaskProvider {
     return http
         .delete(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/task/' + id),
-      headers: DatabaseProvider.headers,
+      headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
       if (data.statusCode == 204) {

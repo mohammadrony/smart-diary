@@ -6,5 +6,6 @@ And node.js framework in backend with [typescript](https://www.typescriptlang.or
 [YouTube - TVAC Studio - Flutter - Todo App from Scratch](https://www.youtube.com/playlist?list=PLGCjwl1RrtcSlUrd_-Z-924b3ahWISiDh)\
 [YouTube - Programming Addict - Consuming a REST API with Flutter](https://www.youtube.com/playlist?list=PL_Wj0DgxTlJeLFYfRBfpFveEd9cQfIpDx)
 
-## Backend Base Code Repository
-[GitHub - Jerry Chong - node-express-mongo-passport-jwt-typescript](https://github.com/jerrychong25/node-express-mongo-passport-jwt-typescript)
+## Followed Repositories
+[GitHub - Jerry Chong - node-express-mongo-passport-jwt-typescript](https://github.com/jerrychong25/node-express-mongo-passport-jwt-typescript)\
+[GitHub - Delay - flutter-starter](https://github.com/delay/flutter_starter)

@@ -18,7 +18,7 @@ export class courseRoutes {
     this.router.get('/:id', this.courseController.getCourse)
     this.router.post(
       '/', 
-      // this.authController.authenticateJWT, 
+      this.authController.authenticateJWT, 
       this.courseController.createCourse
     )
     this.router.put(

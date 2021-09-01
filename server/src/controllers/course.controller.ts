@@ -18,16 +18,11 @@ export class courseController {
 
   public async createCourse(req: Request, res: Response): Promise<void> {
     const newCourse: ICourse = new Course(req.body)
-    const course = await Course.findById(req.body.id)
-    if (course === null) {
-      const result = await newCourse.save()
-      if (result === null) {
-        res.sendStatus(500)
-      } else {
-        res.status(201).json({ status: 201, data: result })
-      }
+    const result = await newCourse.save()
+    if (result === null) {
+      res.sendStatus(500)
     } else {
-      res.sendStatus(422)
+      res.status(201).json({ status: 201, data: result })
     }
   }
 

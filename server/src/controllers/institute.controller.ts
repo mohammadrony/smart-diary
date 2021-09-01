@@ -18,17 +18,11 @@ export class instituteController {
 
   public async createInstitute(req: Request, res: Response): Promise<void> {
     const newInstitute: IInstitute = new Institute(req.body)
-    
-    const institute = await Institute.findById(req.body.id)
-    if (institute === null) {
-      const result = await newInstitute.save()
-      if (result === null) {
-        res.sendStatus(500)
-      } else {
-        res.status(201).json({ status: 201, data: result })
-      }
+    const result = await newInstitute.save()
+    if (result === null) {
+      res.sendStatus(500)
     } else {
-      res.sendStatus(422)
+      res.status(201).json({ status: 201, data: result })
     }
   }
 

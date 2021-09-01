@@ -3,14 +3,17 @@
 // import 'package:path/path.dart';
 // import 'package:sqflite/sqflite.dart';
 
+import 'package:diary_ui/app/data/services/user/service.dart';
+
+// ignore: avoid_classes_with_only_static_members
 class DatabaseProvider {
   static const BASE_URL = 'http://localhost:3000'; // For general use
   // static const BASE_URL = 'http://10.0.2.2:3000'; // For android emulator
-  static const Map<String, String> headers = {
-    'Content-type': 'application/json',
-    'Accept': 'application/json',
-    'Authorization': ''
-  };
+  static Map<String, String> getHeaders() => {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + UserService.userToken.token
+      };
   // Future<Database> database() async {
   //   return openDatabase(
   //     join(await getDatabasesPath(), 'diary.db'),

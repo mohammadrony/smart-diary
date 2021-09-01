@@ -1,11 +1,11 @@
 import { Document, Schema, Model, model, Error } from 'mongoose'
-import bcrypt from 'bcrypt-nodejs'
+import bcrypt from 'bcryptjs'
 import { IDepartment } from './department.model'
 
 export interface IStudent extends Document {
   email: string
-  stdId: string
   name: string
+  stdId: string
   password: string
   imageUrl: string
   DepartmentId: IDepartment['_id']
@@ -17,8 +17,8 @@ export const studentSchema: Schema = new Schema({
     required: true,
     unique: true,
   },
-  stdId: String,
   name: String,
+  stdId: String,
   password: {
     type: String,
     required: true,
@@ -34,22 +34,26 @@ export const studentSchema: Schema = new Schema({
 studentSchema.pre<IStudent>('save', function save(next) {
   const student = this
 
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) {
-      return next(err)
-    }
-    bcrypt.hash(this.password, salt, undefined, (err: Error, hash) => {
+  if (student.isModified("password") || student.isNew) {
+    bcrypt.genSalt(10, (err, salt) => {
       if (err) {
         return next(err)
       }
-      student.password = hash
-      next()
+      bcrypt.hash(this.password, salt, (err: Error, hash) => {
+        if (err) {
+          return next(err)
+        }
+        student.password = hash
+        next()
+      })
     })
-  })
+  } else {
+    return next()
+  }
 })
 
-studentSchema.methods.comparePassword = function (candidatePassword: string, callback: any) {
-  bcrypt.compare(candidatePassword, 'this.password', (err: Error, isMatch: boolean) => {
+studentSchema.methods.comparePassword = function (candidatePassword: string, correctPassword: string, callback: any) {
+  bcrypt.compare(candidatePassword, correctPassword, (err: Error, isMatch: boolean) => {
     callback(err, isMatch)
   })
 }

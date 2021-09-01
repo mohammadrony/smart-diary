@@ -1,5 +1,8 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import passport from 'passport'
+const app = express()
+
 if(process.env.NODE_ENV !== 'production'){
 	require('dotenv').config()
 }
@@ -23,42 +26,45 @@ import { taskRoutes } from './routes/task.routes'
 import { teacherRoutes } from './routes/teacher.routes'
 import { todoRoutes } from './routes/todo.routes'
 
+require('./auth/userPassportHandler')(passport)
 
-class Server {
-  public app: express.Application
+// class Server {
+//   public app: express.Application
 
-  constructor() {
-    this.app = express()
-    this.config()
-    this.routes()
-    this.mongo()
-  }
+//   constructor() {
+//     this.app = express()
+//     this.config()
+//     this.routes()
+//     this.mongo()
+//   }
 
-  public routes(): void {
-    this.app.use('/api/course', new courseRoutes().router)
-    this.app.use('/api/courseTake', new courseTakeRoutes().router)
-    this.app.use('/api/courseTeach', new courseTeachRoutes().router)
-    this.app.use('/api/department', new departmentRoutes().router)
-    this.app.use('/api/institute', new instituteRoutes().router)
-    this.app.use('/api/noteMaterial', new noteMaterialRoutes().router)
-    this.app.use('/api/noteSubject', new noteSubjectRoutes().router)
-    this.app.use('/api/noteTopic', new noteTopicRoutes().router)
-    this.app.use('/api/publishedTask', new publishedTaskRoutes().router)
-    this.app.use('/api/student', new studentRoutes().router)
-    this.app.use('/api/task', new taskRoutes().router)
-    this.app.use('/api/teacher', new teacherRoutes().router)
-    this.app.use('/api/todo', new todoRoutes().router)
-  }
+  // public config(): void {
+    app.set('port', process.env.PORT || 3000)
+    app.use(express.json())
+    app.use(express.urlencoded({ extended: true }))
+    app.use(compression())
+    app.use(cors())
+    app.use(passport.initialize())
+    app.use(passport.session())
+  // }
 
-  public config(): void {
-    this.app.set('port', process.env.PORT || 3000)
-    this.app.use(express.json())
-    this.app.use(express.urlencoded({ extended: true }))
-    this.app.use(compression())
-    this.app.use(cors())
-  }
+  // public routes(): void {
+    app.use('/api/course', new courseRoutes().router)
+    app.use('/api/courseTake', new courseTakeRoutes().router)
+    app.use('/api/courseTeach', new courseTeachRoutes().router)
+    app.use('/api/department', new departmentRoutes().router)
+    app.use('/api/institute', new instituteRoutes().router)
+    app.use('/api/noteMaterial', new noteMaterialRoutes().router)
+    app.use('/api/noteSubject', new noteSubjectRoutes().router)
+    app.use('/api/noteTopic', new noteTopicRoutes().router)
+    app.use('/api/publishedTask', new publishedTaskRoutes().router)
+    app.use('/api/student', new studentRoutes().router)
+    app.use('/api/task', new taskRoutes().router)
+    app.use('/api/teacher', new teacherRoutes().router)
+    app.use('/api/todo', new todoRoutes().router)
+  // }
 
-  private mongo() {
+  // private mongo() {
     const connection = mongoose.connection
     connection.on('connected', () => {
       console.log('Mongo Connection Established')
@@ -100,15 +106,15 @@ class Server {
       })
     }
     run().catch((error) => console.error(error))
-  }
+  // }
 
-  public start(): void {
-    this.app.listen(this.app.get('port'), () => {
-      console.log('API is running at http://localhost:%d', this.app.get('port'))
+  // public start(): void {
+    app.listen(app.get('port'), () => {
+      console.log('API is running at http://localhost:%d', app.get('port'))
     })
-  }
-}
+//   }
+// }
 
-const server = new Server()
+// const server = new Server()
 
-server.start()
+// server.start()

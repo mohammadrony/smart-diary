@@ -18,7 +18,7 @@ export class taskRoutes {
     this.router.get('/:id', this.taskController.getTask)
     this.router.post(
       '/', 
-      // this.authController.authenticateJWT, 
+      this.authController.authenticateJWT,
       this.taskController.createTask
     )
     this.router.put(
