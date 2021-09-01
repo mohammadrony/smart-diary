@@ -12,7 +12,7 @@ class DatabaseProvider {
   static Map<String, String> getHeaders() => {
         'Content-type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer ' + UserService.userToken.token
+        'Authorization': 'Bearer ' + UserService.token
       };
   // Future<Database> database() async {
   //   return openDatabase(

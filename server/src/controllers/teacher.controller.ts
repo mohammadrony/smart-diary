@@ -7,16 +7,17 @@ import { Teacher } from '../models/teacher.model'
 import { JWT_SECRET } from '../util/secrets'
 
 export class teacherController {
-  public async registerTeacher(req: Request, res: Response): Promise<void> {
+  public async registerTeacher(req: Request, res: Response) {
 
-    await Teacher.create({
+    const teacher = await Teacher.create({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
     })
 
     const token = jwt.sign({ email: req.body.email, role: 'teacher' }, JWT_SECRET)
-    res.status(200).send({ token: token })
+    const result = { token: token, teacherId: teacher._id }
+    return res.status(200).send({ data: result })
   }
 
   public authenticateTeacher(req: Request, res: Response, next: NextFunction) {
@@ -30,7 +31,8 @@ export class teacherController {
         return res.status(401).json({ status: 'error', code: 'unauthorized' })
       } else {
         const token = jwt.sign({ email: teacher.email, role: 'teacher' }, JWT_SECRET)
-        return res.status(200).send({ token: token })
+        const result = { token: token, teacherId: teacher._id }
+        return res.status(200).send({ data: result })
       }
     })(req, res, next)
   }

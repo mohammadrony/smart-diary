@@ -57,8 +57,10 @@ class LoginView extends GetView<LoginController> {
                           unSelectedColor: Colors.black,
                           textStyle: TextStyle(fontSize: 16),
                         ),
-                        defaultSelected: 'STUDENT',
-                        radioButtonValue: (value) => {print(value)},
+                        defaultSelected: controller.userType,
+                        radioButtonValue: (value) {
+                          controller.userType = value.toString();
+                        },
                         selectedColor: Theme.of(context).accentColor,
                         width: (Get.width - 48) / 2,
                         enableShape: true,
@@ -109,8 +111,7 @@ class LoginView extends GetView<LoginController> {
                                       labelText: 'auth.signInButton'.tr,
                                       onPressed: () async {
                                         if (_formKey.currentState!.validate()) {
-                                          controller.loginWithEmailAndPassword(
-                                              context);
+                                          controller.loginUser();
                                         }
                                       }),
                                   FormVerticalSpace(),

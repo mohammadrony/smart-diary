@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:diary_ui/app/data/model/api_response.dart';
 import 'package:diary_ui/app/data/model/teacher.dart';
-import 'package:diary_ui/app/data/model/user_token.dart';
+import 'package:diary_ui/app/data/model/user_response.dart';
 import 'package:diary_ui/app/data/provider/database_provider.dart';
 import 'package:http/http.dart' as http;
 
 class TeacherProvider {
-  static Future<APIResponse<UserToken>> loginTeacher(Teacher teacher) async {
+  static Future<APIResponse<UserResponse>> loginTeacher(Teacher teacher) async {
     return http
         .post(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/teacher/login'),
@@ -17,20 +17,21 @@ class TeacherProvider {
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(data.body);
-        Map<String, dynamic> userTokenMap = jsonData;
-        final userToken = UserToken.fromJson(userTokenMap);
-        return APIResponse<UserToken>(data: userToken);
+        Map<String, dynamic> userResponseMap = jsonData;
+        final userResponse = UserResponse.fromJson(userResponseMap['data']);
+        return APIResponse<UserResponse>(data: userResponse);
       } else {
-        return APIResponse<UserToken>(
+        return APIResponse<UserResponse>(
           error: true,
           errorMessage: 'An error occured',
         );
       }
-    }).catchError((_) => APIResponse<UserToken>(
+    }).catchError((_) => APIResponse<UserResponse>(
             error: true, errorMessage: 'An error occured'));
   }
 
-  static Future<APIResponse<UserToken>> registerTeacher(Teacher teacher) async {
+  static Future<APIResponse<UserResponse>> registerTeacher(
+      Teacher teacher) async {
     return http
         .post(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/teacher/register'),
@@ -40,16 +41,16 @@ class TeacherProvider {
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(data.body);
-        Map<String, dynamic> userTokenMap = jsonData;
-        final userToken = UserToken.fromJson(userTokenMap['data']);
-        return APIResponse<UserToken>(data: userToken);
+        Map<String, dynamic> userResponseMap = jsonData;
+        final userResponse = UserResponse.fromJson(userResponseMap['data']);
+        return APIResponse<UserResponse>(data: userResponse);
       } else {
-        return APIResponse<UserToken>(
+        return APIResponse<UserResponse>(
           error: true,
           errorMessage: 'An error occured',
         );
       }
-    }).catchError((_) => APIResponse<UserToken>(
+    }).catchError((_) => APIResponse<UserResponse>(
             error: true, errorMessage: 'An error occured'));
   }
 

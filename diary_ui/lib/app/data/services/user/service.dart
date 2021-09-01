@@ -1,7 +1,8 @@
-import 'package:diary_ui/app/data/model/user_token.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class UserService extends GetxService {
-  static var userToken = UserToken();
+  static var token = '';
+  static var userType = '';
+  static var userId = '';
 }

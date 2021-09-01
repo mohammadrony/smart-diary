@@ -1,6 +1,5 @@
 import 'package:diary_ui/app/data/model/student.dart';
 import 'package:diary_ui/app/data/model/teacher.dart';
-import 'package:diary_ui/app/data/model/user_token.dart';
 import 'package:diary_ui/app/data/services/student/service.dart';
 import 'package:diary_ui/app/data/services/teacher/service.dart';
 import 'package:diary_ui/app/routes/app_pages.dart';
@@ -8,16 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
-  //TODO: Implement RegisterController
-
   var userType = 'STUDENT';
-  var userTypePrivate = 'STUDENT';
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var error = false;
   var errorMessage = '';
-  var userToken = UserToken().obs;
 
   final count = 0.obs;
   @override
@@ -47,10 +42,8 @@ class RegisterController extends GetxController {
         error = true;
         errorMessage = apiResponse.errorMessage;
       } else {
-        userToken.value = apiResponse.data ?? UserToken();
-        userTypePrivate = userType;
+        await Get.offAllNamed(Routes.HOME);
       }
-      await Get.offAllNamed(Routes.HOME);
     } else if (userType == 'TEACHER') {
       var apiResponse = await TeacherService.registerTeacher(
         Teacher(
@@ -63,8 +56,7 @@ class RegisterController extends GetxController {
         error = true;
         errorMessage = apiResponse.errorMessage;
       } else {
-        userToken.value = apiResponse.data ?? UserToken();
-        userTypePrivate = userType;
+        await Get.offAllNamed(Routes.HOME);
       }
     } else {
       print('User type undefined.');

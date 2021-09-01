@@ -1,11 +1,17 @@
+import 'package:diary_ui/app/data/model/student.dart';
+import 'package:diary_ui/app/data/model/teacher.dart';
+import 'package:diary_ui/app/data/services/student/service.dart';
+import 'package:diary_ui/app/data/services/teacher/service.dart';
+import 'package:diary_ui/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  //TODO: Implement LoginController
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  var userType = 'STUDENT';
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var error = false;
+  var errorMessage = '';
 
   final count = 0.obs;
   @override
@@ -21,9 +27,37 @@ class LoginController extends GetxController {
   @override
   void onClose() {}
 
-  void loginWithEmailAndPassword(BuildContext context) {
-    // TODO: Impliment loginInWithEmailAndPassword method
-    print('loginWithEmailAndPassword');
+  void loginUser() async {
+    // showLoadingIndicator();
+    if (userType == 'STUDENT') {
+      var apiResponse = await StudentService.loginStudent(
+        Student(
+          email: emailController.text,
+          password: passwordController.text,
+        ),
+      );
+      if (apiResponse.error == true) {
+        error = true;
+        errorMessage = apiResponse.errorMessage;
+      } else {
+        await Get.offAllNamed(Routes.HOME);
+      }
+    } else if (userType == 'TEACHER') {
+      var apiResponse = await TeacherService.loginTeacher(
+        Teacher(
+          email: emailController.text,
+          password: passwordController.text,
+        ),
+      );
+      if (apiResponse.error == true) {
+        error = true;
+        errorMessage = apiResponse.errorMessage;
+      } else {
+        await Get.offAllNamed(Routes.HOME);
+      }
+    } else {
+      print('User type undefined.');
+    }
     // showLoadingIndicator();
     // try {
     //   await _auth.signInWithEmailAndPassword(

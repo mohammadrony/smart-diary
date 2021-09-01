@@ -58,8 +58,9 @@ class RegisterView extends GetView<RegisterController> {
                           textStyle: TextStyle(fontSize: 16),
                         ),
                         defaultSelected: controller.userType,
-                        radioButtonValue: (value) =>
-                            {controller.userType = value.toString()},
+                        radioButtonValue: (value) {
+                          controller.userType = value.toString();
+                        },
                         selectedColor: Theme.of(context).accentColor,
                         width: (Get.width - 48) / 2,
                         enableShape: true,
