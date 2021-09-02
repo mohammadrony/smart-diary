@@ -10,9 +10,9 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/profile_controller.dart';
+import '../controllers/student_profile_controller.dart';
 
-class ProfileView extends GetView<ProfileController> {
+class StudentProfileView extends GetView<StudentProfileController> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override

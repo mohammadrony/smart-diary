@@ -5,7 +5,7 @@ import 'package:diary_ui/app/data/services/todo/service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TaskController extends GetxController {
+class StudentTaskController extends GetxController {
   var task = Task().obs;
   var todos = [].obs;
   var error = false;
@@ -24,7 +24,7 @@ class TaskController extends GetxController {
     task.value.id = Get.parameters['id'] ?? '';
     titleFocus.value.requestFocus();
     if (task.value.id != '') {
-      await getTask(task.value.id);
+      await getStudentTask(task.value.id);
       await getTodos(task.value.id);
     }
     super.onInit();
@@ -36,8 +36,8 @@ class TaskController extends GetxController {
     super.onReady();
   }
 
-  Future<void> getTask(String id) async {
-    var apiResponse = await TaskService.getTask(id);
+  Future<void> getStudentTask(String id) async {
+    var apiResponse = await TaskService.getStudentTask(id);
     if (apiResponse.error == true) {
       error = true;
       errorMessage = apiResponse.errorMessage;
@@ -58,7 +58,7 @@ class TaskController extends GetxController {
   }
 
   Future<void> createTask(Task task) async {
-    var apiResponse = await TaskService.createTask(task);
+    var apiResponse = await TaskService.createStudentTask(task);
     if (apiResponse.error == true) {
       error = true;
       errorMessage = apiResponse.errorMessage;
@@ -69,7 +69,7 @@ class TaskController extends GetxController {
   }
 
   Future<void> updateTask(Task task) async {
-    var apiResponse = await TaskService.updateTask(task);
+    var apiResponse = await TaskService.updateStudentTask(task);
     if (apiResponse.error == true) {
       error = true;
       errorMessage = apiResponse.errorMessage;
@@ -77,7 +77,7 @@ class TaskController extends GetxController {
   }
 
   Future<void> deleteTask(String id) async {
-    var apiResponse = await TaskService.deleteTask(id);
+    var apiResponse = await TaskService.deleteStudentTask(id);
     if (apiResponse.error == true) {
       error = true;
       errorMessage = apiResponse.errorMessage;

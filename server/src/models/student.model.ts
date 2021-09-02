@@ -1,4 +1,4 @@
-import { Document, Schema, Model, model, Error } from 'mongoose'
+import { Document, Schema, Model, model, Error, ObjectId } from 'mongoose'
 import bcrypt from 'bcryptjs'
 import { IDepartment } from './department.model'
 
@@ -17,7 +17,10 @@ export const studentSchema: Schema = new Schema({
     required: true,
     unique: true,
   },
-  name: String,
+  name: {
+    type: String,
+    required: true
+  },
   stdId: String,
   password: {
     type: String,
@@ -27,8 +30,7 @@ export const studentSchema: Schema = new Schema({
   DepartmentId: {
     type: Schema.Types.ObjectId,
     ref: 'Department'
-  },
-  
+  }
 })
 
 studentSchema.pre<IStudent>('save', function save(next) {

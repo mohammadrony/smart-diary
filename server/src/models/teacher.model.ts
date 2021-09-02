@@ -17,7 +17,10 @@ export const teacherSchema: Schema = new Schema({
     required: true,
     unique: true,
   },
-  name: String,
+  name: {
+    type: String,
+    required: true
+  },
   phoneNo: String,
   password: {
     type: String,
@@ -27,8 +30,7 @@ export const teacherSchema: Schema = new Schema({
   DepartmentId: {
     type: Schema.Types.ObjectId,
     ref: 'Department'
-  },
-  
+  }
 })
 
 teacherSchema.pre<ITeacher>('save', function save(next) {

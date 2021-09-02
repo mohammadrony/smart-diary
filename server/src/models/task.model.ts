@@ -12,7 +12,10 @@ export interface ITask extends Document {
 }
 
 export const taskSchema = new Schema({
-  title: String,
+  title: {
+    type: String,
+    required: true
+  },
   description: String,
   CourseId: {
     type: Schema.Types.ObjectId,

@@ -1,10 +1,17 @@
 import { Request, Response } from 'express'
+// import { Student } from '../models/student.model'
 import { ITask, Task } from '../models/task.model'
 
 export class taskController {
-  public async getTasks(req: Request, res: Response): Promise<void> {
-    const tasks = await Task.find()
-    res.json({ tasks })
+  public async getStudentTasks(req: Request, res: Response): Promise<void> {
+    // const student: typeof Student = <typeof Student>req.user
+    const tasks = await Task.find({ StudentId: req.user })
+    res.status(200).json({ data: tasks })
+  }
+
+  public async getTeacherTasks(req: Request, res: Response): Promise<void> {
+    const tasks = await Task.find({ TeacherId: req.user })
+    res.status(200).json({ data: tasks })
   }
 
   public async getTask(req: Request, res: Response): Promise<void> {
@@ -12,12 +19,22 @@ export class taskController {
     if (task === null) {
       res.sendStatus(404)
     } else {
-      res.json(task)
+      res.status(200).json({ data: task })
     }
   }
 
-  public async createTask(req: Request, res: Response): Promise<void> {
-    const newTask: ITask = new Task(req.body)
+  public async createStudentTask(req: Request, res: Response): Promise<void> {
+    const newTask: ITask = new Task({ StudentId: req.user, ...req.body })
+    const result = await newTask.save()
+    if (result === null) {
+      res.sendStatus(500)
+    } else {
+      res.status(201).json({ status: 201, data: result })
+    }
+  }
+
+  public async createTeacherTask(req: Request, res: Response): Promise<void> {
+    const newTask: ITask = new Task({ TeacherId: req.user, ...req.body })
     const result = await newTask.save()
     if (result === null) {
       res.sendStatus(500)

@@ -1,11 +1,11 @@
-import 'package:diary_ui/app/modules/home/controllers/home_controller.dart';
-import 'package:diary_ui/app/modules/home/widgets/task_card_widget.dart';
+import 'package:diary_ui/app/modules/student_home/controllers/student_home_controller.dart';
+import 'package:diary_ui/app/modules/student_home/widgets/task_card_widget.dart';
 import 'package:diary_ui/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-class TaskListView extends GetView<HomeController> {
+class TaskListView extends GetView<StudentHomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,10 +38,10 @@ class TaskListView extends GetView<HomeController> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () async {
-                              await Get.toNamed(Routes.TASK +
+                              await Get.toNamed(Routes.STUDENT_TASK +
                                   '?id=' +
                                   controller.tasks[index].id);
-                              await controller.getTasks();
+                              await controller.getStudentTasks();
                             },
                             child:
                                 TaskCardWidget(task: controller.tasks[index]),
@@ -56,8 +56,8 @@ class TaskListView extends GetView<HomeController> {
               right: 0,
               child: GestureDetector(
                 onTap: () async {
-                  await Get.toNamed(Routes.TASK);
-                  await controller.getTasks();
+                  await Get.toNamed(Routes.STUDENT_TASK);
+                  await controller.getStudentTasks();
                 },
                 child: Container(
                   width: 60,

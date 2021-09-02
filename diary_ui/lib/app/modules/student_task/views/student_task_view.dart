@@ -1,18 +1,18 @@
 import 'package:diary_ui/app/data/model/task.dart';
 import 'package:diary_ui/app/data/model/todo.dart';
-import 'package:diary_ui/app/modules/task/widgets/todo_widget.dart';
+import 'package:diary_ui/app/modules/student_task/widgets/todo_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/task_controller.dart';
+import '../controllers/student_task_controller.dart';
 
-class TaskView extends GetView<TaskController> {
+class StudentTaskView extends GetView<StudentTaskController> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        await Get.delete<TaskController>();
+        await Get.delete<StudentTaskController>();
         return true;
       },
       child: Scaffold(
@@ -45,7 +45,7 @@ class TaskView extends GetView<TaskController> {
                               () => TextField(
                                 focusNode: controller.titleFocus.value,
                                 controller: controller.task_title_ctrl
-                                  ..text = controller.task.value.title,
+                                  ..text = controller.task.value.title ?? '',
                                 onSubmitted: (value) async {
                                   if (value.trim().isNotEmpty) {
                                     if (controller.task.value.id == '') {
@@ -78,7 +78,7 @@ class TaskView extends GetView<TaskController> {
                         ],
                       ),
                     ),
-                    GetBuilder<TaskController>(
+                    GetBuilder<StudentTaskController>(
                       builder: (_) {
                         return _.task.value.id == ''
                             ? SizedBox.shrink()
@@ -87,7 +87,8 @@ class TaskView extends GetView<TaskController> {
                                 child: TextField(
                                   focusNode: controller.descriptionFocus.value,
                                   controller: controller.task_desc_ctrl
-                                    ..text = controller.task.value.description,
+                                    ..text =
+                                        controller.task.value.description ?? '',
                                   onSubmitted: (value) async {
                                     if (controller.task.value.id != '') {
                                       controller.task.value.description =
@@ -121,7 +122,7 @@ class TaskView extends GetView<TaskController> {
                                   await controller
                                       .updateTodo(controller.todos[index]);
                                 },
-                                child: GetBuilder<TaskController>(
+                                child: GetBuilder<StudentTaskController>(
                                   builder: (_) {
                                     return TodoWidget(index: index);
                                   },
@@ -130,7 +131,7 @@ class TaskView extends GetView<TaskController> {
                             },
                           ),
                         )),
-                    GetBuilder<TaskController>(
+                    GetBuilder<StudentTaskController>(
                       builder: (_) {
                         return _.task.value.id == ''
                             ? SizedBox.shrink()
@@ -190,7 +191,7 @@ class TaskView extends GetView<TaskController> {
                     ),
                   ],
                 ),
-                GetBuilder<TaskController>(
+                GetBuilder<StudentTaskController>(
                   builder: (_) {
                     return _.task.value.id == ''
                         ? SizedBox.shrink()

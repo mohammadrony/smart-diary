@@ -11,6 +11,7 @@ class StudentProvider {
     return http
         .post(
       Uri.parse(DatabaseProvider.BASE_URL + '/api/student/login'),
+      body: json.encode(student.toJsonExceptId()),
       headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
@@ -18,7 +19,6 @@ class StudentProvider {
         final jsonData = jsonDecode(data.body);
         Map<String, dynamic> userResponseMap = jsonData;
         final userResponse = UserResponse.fromJson(userResponseMap['data']);
-        print(userResponse);
         return APIResponse<UserResponse>(data: userResponse);
       } else {
         return APIResponse<UserResponse>(

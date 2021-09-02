@@ -12,7 +12,7 @@ export class authController {
       if (!user) {
         return res.status(401).json({ status: 'error', code: 'unauthorized' })
       } else {
-        req.user = user
+        req.user = user._id
         return next()
       }
     })(req, res, next)

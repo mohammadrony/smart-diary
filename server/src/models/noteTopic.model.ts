@@ -9,7 +9,10 @@ export interface INoteTopic extends Document {
 }
 
 export const noteTopicSchema = new Schema({
-  title: String,
+  title: {
+    type: String,
+    required: true
+  },
   createdBy: String,
   createdAt: String,
   NoteSubjectId: {

@@ -11,7 +11,7 @@ class StudentService extends GetxService {
     if (apiResponse.data != null) {
       UserService.token = apiResponse.data!.token;
       UserService.userType = 'student';
-      UserService.userId = apiResponse.data!.studentId;
+      UserService.userId = apiResponse.data!.studentId ?? '';
     } else {
       UserService.token = '';
       UserService.userType = '';
@@ -26,7 +26,7 @@ class StudentService extends GetxService {
     if (apiResponse.data != null) {
       UserService.token = apiResponse.data!.token;
       UserService.userType = 'student';
-      UserService.userId = apiResponse.data!.studentId;
+      UserService.userId = apiResponse.data!.studentId ?? '';
     } else {
       UserService.token = '';
       UserService.userType = '';

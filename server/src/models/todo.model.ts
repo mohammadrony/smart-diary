@@ -11,7 +11,10 @@ export interface ITodo extends Document {
 
 export const todoSchema = new Schema({
   title: String,
-  isDone: Number,
+  isDone: {
+    type: Number,
+    default: 0
+  },
   description: String,
   dueDate: String,
   TaskId: {

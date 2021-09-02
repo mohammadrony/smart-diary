@@ -4,23 +4,43 @@ import 'package:diary_ui/app/data/provider/task_provider.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class TaskService extends GetxService {
-  static Future<APIResponse<List<Task>>> getTasks() async {
-    return await TaskProvider.getTasks();
+  static Future<APIResponse<List<Task>>> getStudentTasks() async {
+    return await TaskProvider.getStudentTasks();
   }
 
-  static Future<APIResponse<Task>> getTask(String id) async {
+  static Future<APIResponse<List<Task>>> getTeacherTasks() async {
+    return await TaskProvider.getTeacherTasks();
+  }
+
+  static Future<APIResponse<Task>> getStudentTask(String id) async {
     return await TaskProvider.getTask(id);
   }
 
-  static Future<APIResponse<String>> createTask(Task task) async {
-    return await TaskProvider.createTask(task);
+  static Future<APIResponse<Task>> getTeacherTask(String id) async {
+    return await TaskProvider.getTask(id);
   }
 
-  static Future<APIResponse<bool>> updateTask(Task task) async {
+  static Future<APIResponse<String>> createStudentTask(Task task) async {
+    return await TaskProvider.createStudentTask(task);
+  }
+
+  static Future<APIResponse<String>> createTeacherTask(Task task) async {
+    return await TaskProvider.createTeacherTask(task);
+  }
+
+  static Future<APIResponse<bool>> updateStudentTask(Task task) async {
     return await TaskProvider.updateTask(task);
   }
 
-  static Future<APIResponse<bool>> deleteTask(String id) async {
+  static Future<APIResponse<bool>> updateTeacherTask(Task task) async {
+    return await TaskProvider.updateTask(task);
+  }
+
+  static Future<APIResponse<bool>> deleteStudentTask(String id) async {
+    return await TaskProvider.deleteTask(id);
+  }
+
+  static Future<APIResponse<bool>> deleteTeacherTask(String id) async {
     return await TaskProvider.deleteTask(id);
   }
 }

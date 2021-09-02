@@ -1,8 +1,9 @@
-import 'package:diary_ui/app/modules/task/controllers/task_controller.dart';
+// import 'package:date_format/date_format.dart';
+import 'package:diary_ui/app/modules/student_task/controllers/student_task_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
-class TodoWidget extends GetView<TaskController> {
+class TodoWidget extends GetView<StudentTaskController> {
   TodoWidget({Key? key, this.index = 0}) : super(key: key);
   final int index;
 
@@ -42,25 +43,26 @@ class TodoWidget extends GetView<TaskController> {
                       controller.todos[index].title,
                       style: TextStyle(
                         color: controller.todos[index].isDone == 1
-                            ? Color(0xFF211551)
-                            : Color(0xFF86829D),
+                            ? Color(0xFF86829D)
+                            : Color(0xFF211551),
                         fontSize: 16.0,
                         fontWeight: controller.todos[index].isDone == 1
-                            ? FontWeight.bold
+                            ? FontWeight.w500
                             : FontWeight.w500,
                       ),
                     ),
                   ),
                   Spacer(),
-                  GetBuilder<TaskController>(builder: (_) {
+                  GetBuilder<StudentTaskController>(builder: (_) {
                     return TextButton(
                       onPressed: () async {
                         var date = await showDatePicker(
                             context: context,
                             initialDate: DateTime.now(),
-                            firstDate: DateTime(1950),
+                            firstDate: DateTime(1990),
                             lastDate: DateTime(2100));
                         if (date.toString().length >= 10) {
+                          // formatDate(date, [dd, '/', mm, '/', yyyy]);
                           controller.todos[index].dueDate =
                               date.toString().substring(0, 10);
                           await controller.updateTodo(controller.todos[index]);
@@ -79,7 +81,7 @@ class TodoWidget extends GetView<TaskController> {
                 ],
               ),
               children: [
-                GetBuilder<TaskController>(builder: (_) {
+                GetBuilder<StudentTaskController>(builder: (_) {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16.0),

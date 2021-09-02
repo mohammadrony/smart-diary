@@ -4,23 +4,25 @@ part of 'app_pages.dart';
 abstract class Routes {
   Routes._();
 
-  static const HOME = _Paths.HOME;
-  static const TASK = _Paths.TASK;
   static const LOGIN = _Paths.LOGIN;
   static const REGISTER = _Paths.REGISTER;
-  static const WELCOME = _Paths.WELCOME;
   static const RESET_PASSWORD = _Paths.RESET_PASSWORD;
-  static const PROFILE = _Paths.PROFILE;
   static const SETTINGS = _Paths.SETTINGS;
+  static const STUDENT_HOME = _Paths.STUDENT_HOME;
+  static const STUDENT_PROFILE = _Paths.STUDENT_PROFILE;
+  static const STUDENT_TASK = _Paths.STUDENT_TASK;
+  static const WELCOME = _Paths.WELCOME;
+  static const TEACHER_HOME = _Paths.TEACHER_HOME;
 }
 
 abstract class _Paths {
-  static const HOME = '/home';
-  static const TASK = '/task';
   static const LOGIN = '/login';
   static const REGISTER = '/register';
-  static const WELCOME = '/welcome';
   static const RESET_PASSWORD = '/reset-password';
-  static const PROFILE = '/profile';
   static const SETTINGS = '/settings';
+  static const STUDENT_HOME = '/student-home';
+  static const STUDENT_PROFILE = '/student-profile';
+  static const STUDENT_TASK = '/student-task';
+  static const WELCOME = '/welcome';
+  static const TEACHER_HOME = '/teacher-home';
 }

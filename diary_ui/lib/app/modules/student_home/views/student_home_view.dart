@@ -1,13 +1,13 @@
-import 'package:diary_ui/app/modules/home/views/note_subject_view.dart';
-import 'package:diary_ui/app/modules/home/views/task_list_view.dart';
+import 'package:diary_ui/app/modules/student_home/views/note_subject_view.dart';
+import 'package:diary_ui/app/modules/student_home/views/task_list_view.dart';
 import 'package:diary_ui/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/home_controller.dart';
+import '../controllers/student_home_controller.dart';
 
-class HomeView extends GetView<HomeController> {
+class StudentHomeView extends GetView<StudentHomeController> {
   final List<String> choices = <String>['Settings', 'Profile', 'Signout'];
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class HomeView extends GetView<HomeController> {
                 actions: [
                   PopupMenuButton<String>(onSelected: (String result) {
                     if (result == 'Profile') {
-                      Get.toNamed(Routes.PROFILE);
+                      Get.toNamed(Routes.STUDENT_PROFILE);
                     } else if (result == 'Settings') {
                       Get.toNamed(Routes.SETTINGS);
                     }

@@ -40,7 +40,7 @@ class LoginController extends GetxController {
         error = true;
         errorMessage = apiResponse.errorMessage;
       } else {
-        await Get.offAllNamed(Routes.HOME);
+        await Get.offAllNamed(Routes.STUDENT_HOME);
       }
     } else if (userType == 'TEACHER') {
       var apiResponse = await TeacherService.loginTeacher(
@@ -53,7 +53,7 @@ class LoginController extends GetxController {
         error = true;
         errorMessage = apiResponse.errorMessage;
       } else {
-        await Get.offAllNamed(Routes.HOME);
+        await Get.offAllNamed(Routes.TEACHER_HOME);
       }
     } else {
       print('User type undefined.');

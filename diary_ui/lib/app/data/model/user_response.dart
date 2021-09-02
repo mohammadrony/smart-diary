@@ -1,7 +1,7 @@
 class UserResponse {
   String token = '';
-  String teacherId = '';
-  String studentId = '';
+  String? teacherId = '';
+  String? studentId = '';
 
   UserResponse({this.token = '', this.teacherId = '', this.studentId = ''});
 
