@@ -8,8 +8,8 @@ class TaskService extends GetxService {
     return await TaskProvider.getStudentTasks();
   }
 
-  static Future<APIResponse<List<Task>>> getTeacherTasks() async {
-    return await TaskProvider.getTeacherTasks();
+  static Future<APIResponse<List<Task>>> getCourseTasks(String CourseId) async {
+    return await TaskProvider.getCourseTasks(CourseId);
   }
 
   static Future<APIResponse<Task>> getStudentTask(String id) async {
@@ -24,8 +24,8 @@ class TaskService extends GetxService {
     return await TaskProvider.createStudentTask(task);
   }
 
-  static Future<APIResponse<String>> createTeacherTask(Task task) async {
-    return await TaskProvider.createTeacherTask(task);
+  static Future<APIResponse<String>> createCourseTask(Task task) async {
+    return await TaskProvider.createCourseTask(task);
   }
 
   static Future<APIResponse<bool>> updateStudentTask(Task task) async {

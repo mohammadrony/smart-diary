@@ -42,37 +42,53 @@ class StudentTaskView extends GetView<StudentTaskController> {
                           ),
                           Expanded(
                             child: Obx(
-                              () => TextField(
-                                focusNode: controller.titleFocus.value,
-                                controller: controller.task_title_ctrl
-                                  ..text = controller.task.value.title ?? '',
-                                onSubmitted: (value) async {
-                                  if (value.trim().isNotEmpty) {
-                                    if (controller.task.value.id == '') {
-                                      controller.task.value.title =
-                                          value.trim();
-                                      var newTask =
-                                          Task(title: value, description: '');
-                                      await controller.createTask(newTask);
-                                    } else {
-                                      controller.task.value.title = value;
-                                      await controller
-                                          .updateTask(controller.task.value);
-                                    }
-                                    controller.descriptionFocus.value
-                                        .requestFocus();
-                                  }
-                                },
-                                decoration: InputDecoration(
-                                  hintText: 'Enter task title...',
-                                  border: InputBorder.none,
-                                ),
-                                style: TextStyle(
-                                  fontSize: 26.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF211551),
-                                ),
-                              ),
+                              () => controller.task.value.CourseId == null
+                                  ? Obx(
+                                      () => TextField(
+                                        focusNode: controller.titleFocus.value,
+                                        controller: controller.task_title_ctrl
+                                          ..text =
+                                              controller.task.value.title ?? '',
+                                        onSubmitted: (value) async {
+                                          if (value.trim().isNotEmpty) {
+                                            if (controller.task.value.id ==
+                                                '') {
+                                              controller.task.value.title =
+                                                  value.trim();
+                                              var newTask = Task(
+                                                  title: value,
+                                                  description: '');
+                                              await controller
+                                                  .createTask(newTask);
+                                            } else {
+                                              controller.task.value.title =
+                                                  value;
+                                              await controller.updateTask(
+                                                  controller.task.value);
+                                            }
+                                            controller.descriptionFocus.value
+                                                .requestFocus();
+                                          }
+                                        },
+                                        decoration: InputDecoration(
+                                          hintText: 'Enter task title...',
+                                          border: InputBorder.none,
+                                        ),
+                                        style: TextStyle(
+                                          fontSize: 26.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFF211551),
+                                        ),
+                                      ),
+                                    )
+                                  : Text(
+                                      controller.task.value.title ?? '',
+                                      style: TextStyle(
+                                        fontSize: 26.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xFF211551),
+                                      ),
+                                    ),
                             ),
                           ),
                         ],
@@ -84,27 +100,47 @@ class StudentTaskView extends GetView<StudentTaskController> {
                             ? SizedBox.shrink()
                             : Padding(
                                 padding: const EdgeInsets.only(bottom: 12.0),
-                                child: TextField(
-                                  focusNode: controller.descriptionFocus.value,
-                                  controller: controller.task_desc_ctrl
-                                    ..text =
-                                        controller.task.value.description ?? '',
-                                  onSubmitted: (value) async {
-                                    if (controller.task.value.id != '') {
-                                      controller.task.value.description =
-                                          value.trim();
-                                      await controller
-                                          .updateTask(controller.task.value);
-                                      controller.todoFocus.value.requestFocus();
-                                    }
-                                  },
-                                  decoration: InputDecoration(
-                                    hintText:
-                                        'Enter description for the task...',
-                                    border: InputBorder.none,
-                                    contentPadding:
-                                        EdgeInsets.symmetric(horizontal: 24.0),
-                                  ),
+                                child: Obx(
+                                  () => controller.task.value.CourseId == null
+                                      ? TextField(
+                                          focusNode:
+                                              controller.descriptionFocus.value,
+                                          controller: controller.task_desc_ctrl
+                                            ..text = controller
+                                                    .task.value.description ??
+                                                '',
+                                          onSubmitted: (value) async {
+                                            if (controller.task.value.id !=
+                                                '') {
+                                              controller.task.value
+                                                  .description = value.trim();
+                                              await controller.updateTask(
+                                                  controller.task.value);
+                                              controller.todoFocus.value
+                                                  .requestFocus();
+                                            }
+                                          },
+                                          decoration: InputDecoration(
+                                            hintText:
+                                                'Enter description for the task...',
+                                            border: InputBorder.none,
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: 24.0),
+                                          ),
+                                        )
+                                      : Padding(
+                                          padding: const EdgeInsets.only(
+                                            left: 24.0,
+                                            right: 24.0,
+                                            top: 16.0,
+                                          ),
+                                          child: Text(
+                                            controller.task.value.description ??
+                                                '',
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                        ),
                                 ),
                               );
                       },
@@ -191,44 +227,27 @@ class StudentTaskView extends GetView<StudentTaskController> {
                     ),
                   ],
                 ),
-                GetBuilder<StudentTaskController>(
-                  builder: (_) {
-                    return _.task.value.id == ''
-                        ? SizedBox.shrink()
-                        : Positioned(
-                            bottom: 24,
-                            right: 24,
-                            child: GestureDetector(
-                              onTap: () async {
-                                if (controller.task.value.id != '') {
-                                  await controller.deleteTodoByTask(
-                                      controller.task.value.id);
-
-                                  await controller
-                                      .deleteTask(controller.task.value.id);
-                                  Get.back();
-                                }
-                              },
-                              child: Container(
-                                width: 60,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFFE3577),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Image(
-                                  image: AssetImage(
-                                      'assets/images/delete_icon.png'),
-                                ),
-                              ),
-                            ),
-                          );
-                  },
-                ),
               ],
             ),
           ),
         ),
+        floatingActionButton: GetBuilder<StudentTaskController>(builder: (_) {
+          return _.task.value.id == ''
+              ? SizedBox.shrink()
+              : FloatingActionButton.extended(
+                  label: Text('Delete Task'),
+                  onPressed: () async {
+                    await controller.deleteTodoByTask(controller.task.value.id);
+                    await controller.deleteTask(controller.task.value.id);
+                    Get.back();
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  backgroundColor: Colors.redAccent,
+                  icon: Icon(Icons.delete),
+                );
+        }),
       ),
     );
   }

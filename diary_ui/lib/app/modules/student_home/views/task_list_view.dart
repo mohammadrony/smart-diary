@@ -1,5 +1,5 @@
 import 'package:diary_ui/app/modules/student_home/controllers/student_home_controller.dart';
-import 'package:diary_ui/app/modules/student_home/widgets/task_card_widget.dart';
+import 'package:diary_ui/app/modules/student_home/widgets/student_task_card_widget.dart';
 import 'package:diary_ui/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +26,16 @@ class TaskListView extends GetView<StudentHomeController> {
                     children: [
                       Image(
                         image: AssetImage('assets/images/logo.png'),
-                      )
+                      ),
+                      SizedBox(width: 32),
+                      Text(
+                        'Your Tasks',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF211551),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -43,43 +52,14 @@ class TaskListView extends GetView<StudentHomeController> {
                                   controller.tasks[index].id);
                               await controller.getStudentTasks();
                             },
-                            child:
-                                TaskCardWidget(task: controller.tasks[index]),
+                            child: StudentTaskCardWidget(
+                                task: controller.tasks[index]),
                           );
                         })),
                   ),
                 ),
               ],
             ),
-            Positioned(
-              bottom: 24,
-              right: 0,
-              child: GestureDetector(
-                onTap: () async {
-                  await Get.toNamed(Routes.STUDENT_TASK);
-                  await controller.getStudentTasks();
-                },
-                child: Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    // color: Color(0xFF7349FE),
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0xFF7349FE),
-                        Color(0xFF643FDB),
-                      ],
-                      begin: Alignment(0.0, -1.0),
-                      end: Alignment(0.0, 1.0),
-                    ),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Image(
-                    image: AssetImage('assets/images/add_icon.png'),
-                  ),
-                ),
-              ),
-            )
           ],
         ),
       ),

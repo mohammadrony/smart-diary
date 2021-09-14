@@ -1,5 +1,6 @@
 import 'package:diary_ui/app/data/services/task/service.dart';
 import 'package:diary_ui/app/data/services/user/service.dart';
+import 'package:diary_ui/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class StudentHomeController extends GetxController {
@@ -33,5 +34,12 @@ class StudentHomeController extends GetxController {
       tasks.value = apiResponse.data ?? [];
     }
     isLoading = false;
+  }
+
+  void signout() {
+    UserService.token = '';
+    UserService.userId = '';
+    UserService.userType = '';
+    Get.offAllNamed(Routes.LOGIN);
   }
 }

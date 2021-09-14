@@ -13,6 +13,9 @@ abstract class Routes {
   static const STUDENT_TASK = _Paths.STUDENT_TASK;
   static const WELCOME = _Paths.WELCOME;
   static const TEACHER_HOME = _Paths.TEACHER_HOME;
+  static const TEACHER_COURSE = _Paths.TEACHER_COURSE;
+  static const TEACHER_TASK = _Paths.TEACHER_TASK;
+  static const TEACHER_PROFILE = _Paths.TEACHER_PROFILE;
 }
 
 abstract class _Paths {
@@ -25,4 +28,7 @@ abstract class _Paths {
   static const STUDENT_TASK = '/student-task';
   static const WELCOME = '/welcome';
   static const TEACHER_HOME = '/teacher-home';
+  static const TEACHER_COURSE = '/teacher-course';
+  static const TEACHER_TASK = '/teacher-task';
+  static const TEACHER_PROFILE = '/teacher-profile';
 }

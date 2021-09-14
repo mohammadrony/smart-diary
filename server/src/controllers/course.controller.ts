@@ -1,10 +1,19 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { ICourse, Course } from '../models/course.model'
+import { CourseTeach } from '../models/courseTeach.model'
 
 export class courseController {
-  public async getCourses(req: Request, res: Response): Promise<void> {
-    const courses = await Course.find()
-    res.json({ courses })
+  public async getStudentCourses(req: Request, res: Response): Promise<void> {
+    const courses = await Course.find({ StudentId: req.user })
+    res.status(200).json({ data: courses })
+  }
+
+  public async getTeacherCourses(req: Request, res: Response): Promise<void> {
+    const courseTeaches = await CourseTeach.find({  
+      TeacherId: req.user
+    }).populate({path: 'CourseId'})
+    const courses = courseTeaches.map((courseTeach) => courseTeach.CourseId)
+    res.status(200).json({ data: courses })
   }
 
   public async getCourse(req: Request, res: Response): Promise<void> {
@@ -12,17 +21,18 @@ export class courseController {
     if (course === null) {
       res.sendStatus(404)
     } else {
-      res.json(course)
+      res.status(200).json({ data: course })
     }
   }
 
-  public async createCourse(req: Request, res: Response): Promise<void> {
+  public async createCourse(req: Request, res: Response, next: NextFunction): Promise<void> {
     const newCourse: ICourse = new Course(req.body)
     const result = await newCourse.save()
+    req.body.CourseId = result._id
     if (result === null) {
       res.sendStatus(500)
     } else {
-      res.status(201).json({ status: 201, data: result })
+      next()
     }
   }
 

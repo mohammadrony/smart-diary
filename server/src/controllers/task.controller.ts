@@ -1,17 +1,39 @@
 import { Request, Response } from 'express'
-// import { Student } from '../models/student.model'
+import { ICourseTeach, CourseTeach } from '../models/courseTeach.model'
+import { ICourseTake, CourseTake } from '../models/courseTake.model'
 import { ITask, Task } from '../models/task.model'
 
 export class taskController {
   public async getStudentTasks(req: Request, res: Response): Promise<void> {
     // const student: typeof Student = <typeof Student>req.user
-    const tasks = await Task.find({ StudentId: req.user })
+    var tasks = []
+    tasks = await Task.find({ StudentId: req.user })
+
+    const courseTakes: ICourseTake[] = await CourseTake.find({ StudentId: req.user })
+    
+    for(var i=0;i<courseTakes.length;i++){
+      tasks = tasks.concat(await Task.find({ CourseId: courseTakes[i].CourseId }))
+    }
+    
+    tasks = tasks.sort((first, second) => 0 - (first._id > second._id ? -1 : 1));
+
     res.status(200).json({ data: tasks })
   }
 
-  public async getTeacherTasks(req: Request, res: Response): Promise<void> {
-    const tasks = await Task.find({ TeacherId: req.user })
-    res.status(200).json({ data: tasks })
+  public async getCourseTasks(req: Request, res: Response): Promise<void> {
+    const courseTeach: ICourseTeach[] = await CourseTeach.find({
+      TeacherId: req.user,
+      CourseId: req.params.CourseId
+    })
+    if(!courseTeach){
+      res.status(403).json({ status: 'error', data: 'You are not allowed to see these tasks' })
+    } else {
+      const tasks = await Task.find({
+        TeacherId: req.user,
+        CourseId: req.params.CourseId
+      })
+      res.status(200).json({ data: tasks })
+    }
   }
 
   public async getTask(req: Request, res: Response): Promise<void> {
@@ -33,7 +55,7 @@ export class taskController {
     }
   }
 
-  public async createTeacherTask(req: Request, res: Response): Promise<void> {
+  public async createCourseTask(req: Request, res: Response): Promise<void> {
     const newTask: ITask = new Task({ TeacherId: req.user, ...req.body })
     const result = await newTask.save()
     if (result === null) {

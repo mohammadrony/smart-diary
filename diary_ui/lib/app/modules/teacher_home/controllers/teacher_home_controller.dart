@@ -1,11 +1,18 @@
+import 'package:diary_ui/app/data/model/api_response.dart';
+import 'package:diary_ui/app/data/services/course/service.dart';
+import 'package:diary_ui/app/data/services/user/service.dart';
+import 'package:diary_ui/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class TeacherHomeController extends GetxController {
-  //TODO: Implement TeacherHomeController
+  var courses = [].obs;
+  var isLoading = false;
+  var error = false;
+  var errorMessage = '';
 
-  final count = 0.obs;
   @override
   void onInit() {
+    getTeacherCourses();
     super.onInit();
   }
 
@@ -16,5 +23,23 @@ class TeacherHomeController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+
+  Future<void> getTeacherCourses() async {
+    isLoading = true;
+    var apiResponse = await CourseService.getTeacherCourses();
+    if (apiResponse.error == true) {
+      error = true;
+      errorMessage = apiResponse.errorMessage;
+    } else {
+      courses.value = apiResponse.data ?? [];
+    }
+    isLoading = false;
+  }
+
+  void signout() {
+    UserService.token = '';
+    UserService.userId = '';
+    UserService.userType = '';
+    Get.offAllNamed(Routes.LOGIN);
+  }
 }

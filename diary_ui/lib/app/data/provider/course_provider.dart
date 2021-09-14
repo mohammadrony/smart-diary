@@ -1,15 +1,15 @@
 import 'dart:convert';
 
 import 'package:diary_ui/app/data/model/api_response.dart';
-import 'package:diary_ui/app/data/model/task.dart';
+import 'package:diary_ui/app/data/model/course.dart';
 import 'package:diary_ui/app/data/provider/database_provider.dart';
 import 'package:http/http.dart' as http;
 
-class TaskProvider {
-  static Future<APIResponse<List<Task>>> getStudentTasks() async {
+class CourseProvider {
+  static Future<APIResponse<List<Course>>> getStudentCourses() async {
     return http
         .get(
-      Uri.parse(DatabaseProvider.BASE_URL + '/api/task/student'),
+      Uri.parse(DatabaseProvider.BASE_URL + '/api/course/student'),
       headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
@@ -17,30 +17,25 @@ class TaskProvider {
         final jsonData = jsonDecode(data.body);
         Map<String, dynamic> mappedData = jsonData;
         List<dynamic> listedData = mappedData['data'];
-        // List<dynamic> == List<Map<String, dynamic>>
-        // var listedTask = [];
-        // for (var i = 0; i < listedData.length; i++) {
-        //   listedTask.add(Map<String, dynamic>.from(listedData[i]));
-        // }
-        final tasks = List.generate(
+        final courses = List.generate(
           listedData.length,
-          (index) => Task.fromJsonMongo(listedData[index]),
+          (index) => Course.fromJsonMongo(listedData[index]),
         );
-        return APIResponse<List<Task>>(data: tasks);
+        return APIResponse<List<Course>>(data: courses);
       } else {
-        return APIResponse<List<Task>>(
+        return APIResponse<List<Course>>(
           error: true,
           errorMessage: 'An error occured',
         );
       }
-    }).catchError((_) => APIResponse<List<Task>>(
+    }).catchError((_) => APIResponse<List<Course>>(
             error: true, errorMessage: 'An error occured'));
   }
 
-  static Future<APIResponse<List<Task>>> getCourseTasks(String CourseId) async {
+  static Future<APIResponse<List<Course>>> getTeacherCourses() async {
     return http
         .get(
-      Uri.parse(DatabaseProvider.BASE_URL + '/api/task/course/' + CourseId),
+      Uri.parse(DatabaseProvider.BASE_URL + '/api/course/teacher'),
       headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
@@ -48,56 +43,56 @@ class TaskProvider {
         final jsonData = jsonDecode(data.body);
         Map<String, dynamic> mappedData = jsonData;
         List<dynamic> listedData = mappedData['data'];
-        final tasks = List.generate(
+        final courses = List.generate(
           listedData.length,
-          (index) => Task.fromJsonMongo(listedData[index]),
+          (index) => Course.fromJsonMongo(listedData[index]),
         );
-        return APIResponse<List<Task>>(data: tasks);
+        return APIResponse<List<Course>>(data: courses);
       } else {
-        return APIResponse<List<Task>>(
+        return APIResponse<List<Course>>(
           error: true,
           errorMessage: 'An error occured',
         );
       }
-    }).catchError((_) => APIResponse<List<Task>>(
+    }).catchError((_) => APIResponse<List<Course>>(
             error: true, errorMessage: 'An error occured'));
   }
 
-  static Future<APIResponse<Task>> getTask(String id) async {
+  static Future<APIResponse<Course>> getCourse(String id) async {
     return http
         .get(
-      Uri.parse(DatabaseProvider.BASE_URL + '/api/task/' + id),
+      Uri.parse(DatabaseProvider.BASE_URL + '/api/course/' + id),
       headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(data.body);
-        Map<String, dynamic> taskMap = jsonData;
-        final task = Task.fromJsonMongo(taskMap['data']);
-        return APIResponse<Task>(data: task);
+        Map<String, dynamic> courseMap = jsonData;
+        final course = Course.fromJsonMongo(courseMap['data']);
+        return APIResponse<Course>(data: course);
       } else {
-        return APIResponse<Task>(
+        return APIResponse<Course>(
           error: true,
           errorMessage: 'An error occured',
         );
       }
     }).catchError((_) =>
-            APIResponse<Task>(error: true, errorMessage: 'An error occured'));
+            APIResponse<Course>(error: true, errorMessage: 'An error occured'));
   }
 
-  static Future<APIResponse<String>> createStudentTask(Task task) async {
+  static Future<APIResponse<String>> createStudentCourse(Course course) async {
     return http
         .post(
-      Uri.parse(DatabaseProvider.BASE_URL + '/api/task/student'),
-      body: json.encode(task.toJsonExceptId()),
+      Uri.parse(DatabaseProvider.BASE_URL + '/api/course/student'),
+      body: json.encode(course.toJsonExceptId()),
       headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
       if (data.statusCode == 201) {
         final jsonData = jsonDecode(data.body);
-        Map<String, dynamic> taskMap = jsonData;
-        final task = Task.fromJsonMongo(taskMap['data']);
-        return APIResponse<String>(data: task.id);
+        Map<String, dynamic> courseMap = jsonData;
+        final course = Course.fromJsonMongo(courseMap['data']);
+        return APIResponse<String>(data: course.id);
       } else {
         return APIResponse<String>(
           error: true,
@@ -108,19 +103,19 @@ class TaskProvider {
             APIResponse<String>(error: true, errorMessage: 'An error occured'));
   }
 
-  static Future<APIResponse<String>> createCourseTask(Task task) async {
+  static Future<APIResponse<String>> createTeacherCourse(Course course) async {
     return http
         .post(
-      Uri.parse(DatabaseProvider.BASE_URL + '/api/task/course'),
-      body: json.encode(task.toJsonExceptId()),
+      Uri.parse(DatabaseProvider.BASE_URL + '/api/course/teacher'),
+      body: json.encode(course.toJsonExceptId()),
       headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
       if (data.statusCode == 201) {
         final jsonData = jsonDecode(data.body);
-        Map<String, dynamic> taskMap = jsonData;
-        final task = Task.fromJsonMongo(taskMap['data']);
-        return APIResponse<String>(data: task.id);
+        Map<String, dynamic> courseMap = jsonData;
+        final course = Course.fromJsonMongo(courseMap['data']);
+        return APIResponse<String>(data: course.id);
       } else {
         return APIResponse<String>(
           error: true,
@@ -131,11 +126,11 @@ class TaskProvider {
             APIResponse<String>(error: true, errorMessage: 'An error occured'));
   }
 
-  static Future<APIResponse<bool>> updateTask(Task task) async {
+  static Future<APIResponse<bool>> updateCourse(Course course) async {
     return http
         .put(
-      Uri.parse(DatabaseProvider.BASE_URL + '/api/task/' + task.id),
-      body: json.encode(task.toJsonExceptId()),
+      Uri.parse(DatabaseProvider.BASE_URL + '/api/course/' + course.id),
+      body: json.encode(course.toJsonExceptId()),
       headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {
@@ -151,10 +146,10 @@ class TaskProvider {
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 
-  static Future<APIResponse<bool>> deleteTask(String id) async {
+  static Future<APIResponse<bool>> deleteCourse(String id) async {
     return http
         .delete(
-      Uri.parse(DatabaseProvider.BASE_URL + '/api/task/' + id),
+      Uri.parse(DatabaseProvider.BASE_URL + '/api/course/' + id),
       headers: DatabaseProvider.getHeaders(),
     )
         .then((data) {

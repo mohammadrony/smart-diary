@@ -17,17 +17,15 @@ export class courseTeachController {
   }
 
   public async createCourseTeach(req: Request, res: Response): Promise<void> {
-    const newCourseTeach: ICourseTeach = new CourseTeach(req.body)
-    const courseTeach = await CourseTeach.findById(req.body.id)
-    if (courseTeach === null) {
-      const result = await newCourseTeach.save()
-      if (result === null) {
-        res.sendStatus(500)
-      } else {
-        res.status(201).json({ status: 201, data: result })
-      }
+    const newCourseTeach: ICourseTeach = new CourseTeach({
+      CourseId: req.body.CourseId,
+      TeacherId: req.user
+    })
+    const result = await newCourseTeach.save()
+    if (result === null) {
+      res.sendStatus(500)
     } else {
-      res.sendStatus(422)
+      res.status(201).json({ status: 201, data: result })
     }
   }
 

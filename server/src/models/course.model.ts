@@ -2,15 +2,15 @@ import { Document, Schema, Model, model, Error } from 'mongoose'
 import { IDepartment } from './department.model'
 
 export interface ICourse extends Document {
-  courseId: String
+  courseCode: String
   title: String
   session: String
-  credit: Number
+  credit: String
   DepartmentId: IDepartment['_id']
 }
 
 export const courseSchema = new Schema({
-  courseId: {
+  courseCode: {
     type: String,
     required: true,
   },
@@ -23,7 +23,7 @@ export const courseSchema = new Schema({
     required: true,
   },
   credit: {
-    type: Number,
+    type: String,
     required: true,
   },
   DepartmentId: {

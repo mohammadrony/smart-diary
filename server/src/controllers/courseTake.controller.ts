@@ -18,16 +18,11 @@ export class courseTakeController {
 
   public async createCourseTake(req: Request, res: Response): Promise<void> {
     const newCourseTake: ICourseTake = new CourseTake(req.body)
-    const courseTake = await CourseTake.findById(req.body.id)
-    if (courseTake === null) {
-      const result = await newCourseTake.save()
-      if (result === null) {
-        res.sendStatus(500)
-      } else {
-        res.status(201).json({ status: 201, data: result })
-      }
+    const result = await newCourseTake.save()
+    if (result === null) {
+      res.sendStatus(500)
     } else {
-      res.sendStatus(422)
+      res.status(201).json({ status: 201, data: result })
     }
   }
 

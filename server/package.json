@@ -1,5 +1,5 @@
 {
-  "name": "node-express-mongo-passport-jwt-typescript",
+  "name": "smart-diary-backend",
   "version": "1.0.0",
   "scripts": {
     "start": "npm run serve",

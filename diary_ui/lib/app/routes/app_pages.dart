@@ -14,8 +14,14 @@ import 'package:diary_ui/app/modules/student_profile/bindings/student_profile_bi
 import 'package:diary_ui/app/modules/student_profile/views/student_profile_view.dart';
 import 'package:diary_ui/app/modules/student_task/bindings/student_task_binding.dart';
 import 'package:diary_ui/app/modules/student_task/views/student_task_view.dart';
+import 'package:diary_ui/app/modules/teacher_course/bindings/teacher_course_binding.dart';
+import 'package:diary_ui/app/modules/teacher_course/views/teacher_course_view.dart';
 import 'package:diary_ui/app/modules/teacher_home/bindings/teacher_home_binding.dart';
 import 'package:diary_ui/app/modules/teacher_home/views/teacher_home_view.dart';
+import 'package:diary_ui/app/modules/teacher_profile/bindings/teacher_profile_binding.dart';
+import 'package:diary_ui/app/modules/teacher_profile/views/teacher_profile_view.dart';
+import 'package:diary_ui/app/modules/teacher_task/bindings/teacher_task_binding.dart';
+import 'package:diary_ui/app/modules/teacher_task/views/teacher_task_view.dart';
 import 'package:diary_ui/app/modules/welcome/bindings/welcome_binding.dart';
 import 'package:diary_ui/app/modules/welcome/views/welcome_view.dart';
 
@@ -71,6 +77,21 @@ class AppPages {
       name: _Paths.TEACHER_HOME,
       page: () => TeacherHomeView(),
       binding: TeacherHomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.TEACHER_COURSE,
+      page: () => TeacherCourseView(),
+      binding: TeacherCourseBinding(),
+    ),
+    GetPage(
+      name: _Paths.TEACHER_TASK,
+      page: () => TeacherTaskView(),
+      binding: TeacherTaskBinding(),
+    ),
+    GetPage(
+      name: _Paths.TEACHER_PROFILE,
+      page: () => TeacherProfileView(),
+      binding: TeacherProfileBinding(),
     ),
   ];
 }

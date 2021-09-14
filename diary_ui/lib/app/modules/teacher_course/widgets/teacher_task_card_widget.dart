@@ -1,9 +1,9 @@
 import 'package:diary_ui/app/data/model/task.dart';
 import 'package:flutter/material.dart';
 
-class TaskCardWidget extends StatelessWidget {
+class TeacherTaskCardWidget extends StatelessWidget {
   final Task task;
-  const TaskCardWidget({Key? key, required this.task}) : super(key: key);
+  const TeacherTaskCardWidget({Key? key, required this.task}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

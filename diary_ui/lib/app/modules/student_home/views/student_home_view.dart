@@ -1,3 +1,4 @@
+import 'package:diary_ui/app/data/services/user/service.dart';
 import 'package:diary_ui/app/modules/student_home/views/note_subject_view.dart';
 import 'package:diary_ui/app/modules/student_home/views/task_list_view.dart';
 import 'package:diary_ui/app/routes/app_pages.dart';
@@ -9,6 +10,7 @@ import '../controllers/student_home_controller.dart';
 
 class StudentHomeView extends GetView<StudentHomeController> {
   final List<String> choices = <String>['Settings', 'Profile', 'Signout'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +29,9 @@ class StudentHomeView extends GetView<StudentHomeController> {
                     } else if (result == 'Settings') {
                       Get.toNamed(Routes.SETTINGS);
                     }
+                    if (result == 'Signout') {
+                      controller.signout();
+                    }
                   }, itemBuilder: (BuildContext context) {
                     return choices.map((String choice) {
                       return PopupMenuItem<String>(
@@ -36,32 +41,44 @@ class StudentHomeView extends GetView<StudentHomeController> {
                     }).toList();
                   }),
                 ],
-                bottom: const TabBar(
-                  tabs: <Widget>[
-                    Tab(
-                      text: 'Notifications',
-                    ),
-                    Tab(
-                      text: 'Tasks',
-                    ),
-                    Tab(
-                      text: 'Notes',
-                    ),
-                  ],
-                ),
+                // bottom: const TabBar(
+                //   tabs: <Widget>[
+                //     Tab(
+                //       text: 'Notifications',
+                //     ),
+                //     Tab(
+                //       text: 'Tasks',
+                //     ),
+                //     Tab(
+                //       text: 'Notes',
+                //     ),
+                //   ],
+                // ),
               ),
-              body: TabBarView(
-                children: <Widget>[
-                  Center(
-                    child: Text('Notifications'),
-                  ),
-                  Center(
-                    child: TaskListView(),
-                  ),
-                  Center(
-                    child: NoteSubjectView(),
-                  ),
-                ],
+              body: TaskListView(),
+              // TabBarView(
+              //   children: <Widget>[
+              //     Center(
+              //       child: Text('Notifications'),
+              //     ),
+              //     Center(
+              //       child: TaskListView(),
+              //     ),
+              //     Center(
+              //       child: NoteSubjectView(),
+              //     ),
+              //   ],
+              // ),
+              floatingActionButton: FloatingActionButton.extended(
+                label: Text('New Task'),
+                onPressed: () async {
+                  await Get.toNamed(Routes.STUDENT_TASK);
+                  await controller.getStudentTasks();
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                icon: Icon(Icons.add),
               ),
             ),
           ),

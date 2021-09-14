@@ -18,9 +18,9 @@ export class taskRoutes {
       this.authController.authenticateJWT,
       this.taskController.getStudentTasks
     )
-    this.router.get('/teacher',
+    this.router.get('/course/:CourseId',
       this.authController.authenticateJWT,
-      this.taskController.getTeacherTasks
+      this.taskController.getCourseTasks
     )
     this.router.get('/:id',
       this.authController.authenticateJWT,
@@ -30,9 +30,9 @@ export class taskRoutes {
       this.authController.authenticateJWT,
       this.taskController.createStudentTask
     )
-    this.router.post('/teacher', 
+    this.router.post('/course', 
       this.authController.authenticateJWT,
-      this.taskController.createTeacherTask
+      this.taskController.createCourseTask
     )
     this.router.put('/:id',
       this.authController.authenticateJWT,
