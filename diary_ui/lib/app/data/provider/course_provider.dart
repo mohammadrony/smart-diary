@@ -58,6 +58,32 @@ class CourseProvider {
             error: true, errorMessage: 'An error occured'));
   }
 
+  static Future<APIResponse<List<Course>>> getDepartmentCourses() async {
+    return http
+        .get(
+      Uri.parse(DatabaseProvider.BASE_URL + '/api/course/department'),
+      headers: DatabaseProvider.getHeaders(),
+    )
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = jsonDecode(data.body);
+        Map<String, dynamic> mappedData = jsonData;
+        List<dynamic> listedData = mappedData['data'];
+        final courses = List.generate(
+          listedData.length,
+          (index) => Course.fromJsonMongo(listedData[index]),
+        );
+        return APIResponse<List<Course>>(data: courses);
+      } else {
+        return APIResponse<List<Course>>(
+          error: true,
+          errorMessage: 'An error occured',
+        );
+      }
+    }).catchError((_) => APIResponse<List<Course>>(
+            error: true, errorMessage: 'An error occured'));
+  }
+
   static Future<APIResponse<Course>> getCourse(String id) async {
     return http
         .get(

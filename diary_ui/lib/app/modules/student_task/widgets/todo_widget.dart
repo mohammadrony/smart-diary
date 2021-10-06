@@ -56,16 +56,20 @@ class TodoWidget extends GetView<StudentTaskController> {
                   GetBuilder<StudentTaskController>(builder: (_) {
                     return TextButton(
                       onPressed: () async {
-                        var date = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1990),
-                            lastDate: DateTime(2100));
-                        if (date.toString().length >= 10) {
-                          // formatDate(date, [dd, '/', mm, '/', yyyy]);
-                          controller.todos[index].dueDate =
-                              date.toString().substring(0, 10);
-                          await controller.updateTodo(controller.todos[index]);
+                        if (controller.task.value.CourseId == null ||
+                            controller.task.value.CourseId == '') {
+                          var date = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1990),
+                              lastDate: DateTime(2100));
+                          if (date.toString().length >= 10) {
+                            // formatDate(date, [dd, '/', mm, '/', yyyy]);
+                            controller.todos[index].dueDate =
+                                date.toString().substring(0, 10);
+                            await controller
+                                .updateTodo(controller.todos[index]);
+                          }
                         }
                       },
                       style: ButtonStyle(
@@ -82,48 +86,58 @@ class TodoWidget extends GetView<StudentTaskController> {
               ),
               children: [
                 GetBuilder<StudentTaskController>(builder: (_) {
-                  return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: TextField(
-                        minLines: 1,
-                        maxLines: 10,
-                        controller: descriptionController
-                          ..text = controller.todos[index].description,
-                        decoration: InputDecoration(
-                          hintText: 'Add a description',
-                        ),
-                      ),
-                    ),
-                  );
-                }),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 8.0,
-                      ),
-                      child: TextButton(
-                        onPressed: () async {
-                          controller.todos[index].description =
-                              descriptionController.text;
-                          await controller.updateTodo(controller.todos[index]);
-                          controller.todoFocus.value.requestFocus();
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.blueAccent,
+                  return _.task.value.CourseId == null ||
+                          _.task.value.CourseId == ''
+                      ? Padding(
+                          padding: const EdgeInsets.only(left: 16.0),
+                          child: TextField(
+                            minLines: 1,
+                            maxLines: 10,
+                            controller: descriptionController
+                              ..text = controller.todos[index].description,
+                            decoration: InputDecoration(
+                              hintText: 'Add a description',
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          'Save',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                        )
+                      : Text(controller.todos[index].description == ''
+                          ? ''
+                          : controller.todos[index].description);
+                }),
+                GetBuilder<StudentTaskController>(builder: (_) {
+                  return _.task.value.CourseId == null ||
+                          _.task.value.CourseId == ''
+                      ? Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                                vertical: 8.0,
+                              ),
+                              child: TextButton(
+                                onPressed: () async {
+                                  controller.todos[index].description =
+                                      descriptionController.text;
+                                  await controller
+                                      .updateTodo(controller.todos[index]);
+                                  controller.todoFocus.value.requestFocus();
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                    Colors.blueAccent,
+                                  ),
+                                ),
+                                child: Text(
+                                  'Save',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      : SizedBox.shrink();
+                }),
               ],
             ),
           ),

@@ -1,5 +1,5 @@
 {
-  "name": "smart-diary-backend",
+  "name": "smart-diary-backend-server",
   "version": "1.0.0",
   "scripts": {
     "start": "npm run serve",

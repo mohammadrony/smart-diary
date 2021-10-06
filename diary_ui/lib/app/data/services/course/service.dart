@@ -12,6 +12,10 @@ class CourseService extends GetxService {
     return await CourseProvider.getTeacherCourses();
   }
 
+  static Future<APIResponse<List<Course>>> getDepartmentCourses() async {
+    return await CourseProvider.getDepartmentCourses();
+  }
+
   static Future<APIResponse<Course>> getCourse(String id) async {
     return await CourseProvider.getCourse(id);
   }

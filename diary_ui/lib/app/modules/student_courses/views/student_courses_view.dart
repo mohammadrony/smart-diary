@@ -1,15 +1,19 @@
-import 'package:diary_ui/app/modules/student_home/controllers/student_home_controller.dart';
-import 'package:diary_ui/app/modules/student_home/widgets/student_task_card_widget.dart';
+import 'package:diary_ui/app/modules/student_courses/widgets/student_course_card_widget.dart';
 import 'package:diary_ui/app/routes/app_pages.dart';
 import 'package:diary_ui/app/widgets/no_glow_behavior.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-class TaskListView extends GetView<StudentHomeController> {
+import '../controllers/student_courses_controller.dart';
+
+class StudentCoursesView extends GetView<StudentCoursesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Diary'),
+      ),
       body: Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(
@@ -32,7 +36,7 @@ class TaskListView extends GetView<StudentHomeController> {
                         ),
                         SizedBox(width: 32),
                         Text(
-                          'Your Tasks',
+                          'Your Courses',
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
@@ -47,17 +51,12 @@ class TaskListView extends GetView<StudentHomeController> {
                   child: ScrollConfiguration(
                     behavior: NoGlowBehavior(),
                     child: Obx(() => ListView.builder(
-                        itemCount: controller.tasks.length,
+                        itemCount: controller.courses.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () async {
-                              await Get.toNamed(Routes.STUDENT_TASK +
-                                  '?id=' +
-                                  controller.tasks[index].id);
-                              await controller.getStudentTasks();
-                            },
-                            child: StudentTaskCardWidget(
-                                task: controller.tasks[index]),
+                            onTap: () {},
+                            child: StudentCourseCardWidget(
+                                course: controller.courses[index]),
                           );
                         })),
                   ),
@@ -67,6 +66,18 @@ class TaskListView extends GetView<StudentHomeController> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text('Add Course'),
+        onPressed: () async {
+          await Get.toNamed(Routes.STUDENT_COURSE_ADD);
+          await controller.getStudentCourses();
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        icon: Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:diary_ui/app/modules/teacher_home/widgets/teacher_course_card_widget.dart';
 import 'package:diary_ui/app/routes/app_pages.dart';
+import 'package:diary_ui/app/widgets/no_glow_behavior.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -101,13 +102,5 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
-  }
-}
-
-class NoGlowBehavior extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection) {
-    return child;
   }
 }

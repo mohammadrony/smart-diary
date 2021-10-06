@@ -8,6 +8,10 @@ import 'package:diary_ui/app/modules/reset_password/bindings/reset_password_bind
 import 'package:diary_ui/app/modules/reset_password/views/reset_password_view.dart';
 import 'package:diary_ui/app/modules/settings/bindings/settings_binding.dart';
 import 'package:diary_ui/app/modules/settings/views/settings_view.dart';
+import 'package:diary_ui/app/modules/student_course_add/bindings/student_course_add_binding.dart';
+import 'package:diary_ui/app/modules/student_course_add/views/student_course_add_view.dart';
+import 'package:diary_ui/app/modules/student_courses/bindings/student_courses_binding.dart';
+import 'package:diary_ui/app/modules/student_courses/views/student_courses_view.dart';
 import 'package:diary_ui/app/modules/student_home/bindings/student_home_binding.dart';
 import 'package:diary_ui/app/modules/student_home/views/student_home_view.dart';
 import 'package:diary_ui/app/modules/student_profile/bindings/student_profile_binding.dart';
@@ -92,6 +96,16 @@ class AppPages {
       name: _Paths.TEACHER_PROFILE,
       page: () => TeacherProfileView(),
       binding: TeacherProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.STUDENT_COURSES,
+      page: () => StudentCoursesView(),
+      binding: StudentCoursesBinding(),
+    ),
+    GetPage(
+      name: _Paths.STUDENT_COURSE_ADD,
+      page: () => StudentCourseAddView(),
+      binding: StudentCourseAddBinding(),
     ),
   ];
 }

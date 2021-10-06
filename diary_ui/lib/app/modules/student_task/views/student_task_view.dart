@@ -42,7 +42,7 @@ class StudentTaskView extends GetView<StudentTaskController> {
                           ),
                           Expanded(
                             child: Obx(
-                              () => controller.task.value.CourseId == null
+                              () => controller.task.value.CourseId == ''
                                   ? Obx(
                                       () => TextField(
                                         focusNode: controller.titleFocus.value,
@@ -101,7 +101,7 @@ class StudentTaskView extends GetView<StudentTaskController> {
                             : Padding(
                                 padding: const EdgeInsets.only(bottom: 12.0),
                                 child: Obx(
-                                  () => controller.task.value.CourseId == null
+                                  () => controller.task.value.CourseId == ''
                                       ? TextField(
                                           focusNode:
                                               controller.descriptionFocus.value,
@@ -151,12 +151,14 @@ class StudentTaskView extends GetView<StudentTaskController> {
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () async {
-                                  controller.todos[index].isDone =
-                                      controller.todos[index].isDone == 1
-                                          ? 0
-                                          : 1;
-                                  await controller
-                                      .updateTodo(controller.todos[index]);
+                                  if (controller.task.value.CourseId == '') {
+                                    controller.todos[index].isDone =
+                                        controller.todos[index].isDone == 1
+                                            ? 0
+                                            : 1;
+                                    await controller
+                                        .updateTodo(controller.todos[index]);
+                                  }
                                 },
                                 child: GetBuilder<StudentTaskController>(
                                   builder: (_) {
@@ -169,7 +171,8 @@ class StudentTaskView extends GetView<StudentTaskController> {
                         )),
                     GetBuilder<StudentTaskController>(
                       builder: (_) {
-                        return _.task.value.id == ''
+                        return _.task.value.id == '' ||
+                                _.task.value.CourseId != ''
                             ? SizedBox.shrink()
                             : Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -232,21 +235,23 @@ class StudentTaskView extends GetView<StudentTaskController> {
           ),
         ),
         floatingActionButton: GetBuilder<StudentTaskController>(builder: (_) {
-          return _.task.value.id == ''
-              ? SizedBox.shrink()
-              : FloatingActionButton.extended(
-                  label: Text('Delete Task'),
-                  onPressed: () async {
-                    await controller.deleteTodoByTask(controller.task.value.id);
-                    await controller.deleteTask(controller.task.value.id);
-                    Get.back();
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  backgroundColor: Colors.redAccent,
-                  icon: Icon(Icons.delete),
-                );
+          if (_.task.value.id == '' || _.task.value.CourseId != '') {
+            return SizedBox.shrink();
+          } else {
+            return FloatingActionButton.extended(
+              label: Text('Delete Task'),
+              onPressed: () async {
+                await controller.deleteTodoByTask(controller.task.value.id);
+                await controller.deleteTask(controller.task.value.id);
+                Get.back();
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              backgroundColor: Colors.redAccent,
+              icon: Icon(Icons.delete),
+            );
+          }
         }),
       ),
     );

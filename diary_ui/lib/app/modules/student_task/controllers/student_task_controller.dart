@@ -43,6 +43,7 @@ class StudentTaskController extends GetxController {
       errorMessage = apiResponse.errorMessage;
     } else {
       task.value = apiResponse.data ?? Task();
+      task.value.CourseId ??= '';
     }
     update();
   }

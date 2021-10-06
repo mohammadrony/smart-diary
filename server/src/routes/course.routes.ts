@@ -24,6 +24,10 @@ export class courseRoutes {
     this.authController.authenticateJWT,
     this.courseController.getTeacherCourses
   )
+  this.router.get('/department',
+    this.authController.authenticateJWT,
+    this.courseController.getDepartmentCourses
+  )
   this.router.get('/:id',
     this.authController.authenticateJWT,
     this.courseController.getCourse

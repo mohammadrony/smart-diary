@@ -10,7 +10,7 @@ class StudentTaskCardWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        vertical: 32,
+        vertical: 16,
         horizontal: 24,
       ),
       margin: EdgeInsets.only(bottom: 20),
@@ -31,21 +31,6 @@ class StudentTaskCardWidget extends StatelessWidget {
               fontSize: 22,
               fontWeight: FontWeight.bold,
               color: Color(0xFF211551),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Text(
-              task.description == null || task.description == ''
-                  ? 'No description added.'
-                  : task.description!.length > 100
-                      ? task.description!.substring(0, 100) + '...'
-                      : task.description!,
-              style: TextStyle(
-                fontSize: 16,
-                color: Color(0xFF86829D),
-                height: 1.5,
-              ),
             ),
           ),
         ],

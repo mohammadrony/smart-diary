@@ -1,5 +1,3 @@
-import 'package:diary_ui/app/data/services/user/service.dart';
-import 'package:diary_ui/app/modules/student_home/views/note_subject_view.dart';
 import 'package:diary_ui/app/modules/student_home/views/task_list_view.dart';
 import 'package:diary_ui/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +7,12 @@ import 'package:get/get.dart';
 import '../controllers/student_home_controller.dart';
 
 class StudentHomeView extends GetView<StudentHomeController> {
-  final List<String> choices = <String>['Settings', 'Profile', 'Signout'];
+  final List<String> choices = <String>[
+    'Settings',
+    'Profile',
+    'Courses',
+    'Signout',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +24,16 @@ class StudentHomeView extends GetView<StudentHomeController> {
             length: 3,
             child: Scaffold(
               appBar: AppBar(
-                title: const Text('Diary'),
+                title: const Text('Tasks'),
                 actions: [
                   PopupMenuButton<String>(onSelected: (String result) {
-                    if (result == 'Profile') {
-                      Get.toNamed(Routes.STUDENT_PROFILE);
-                    } else if (result == 'Settings') {
+                    if (result == 'Settings') {
                       Get.toNamed(Routes.SETTINGS);
-                    }
-                    if (result == 'Signout') {
+                    } else if (result == 'Profile') {
+                      Get.toNamed(Routes.STUDENT_PROFILE);
+                    } else if (result == 'Courses') {
+                      Get.toNamed(Routes.STUDENT_COURSES);
+                    } else if (result == 'Signout') {
                       controller.signout();
                     }
                   }, itemBuilder: (BuildContext context) {

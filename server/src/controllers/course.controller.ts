@@ -1,10 +1,15 @@
 import { NextFunction, Request, Response } from 'express'
+import { Student } from '../models/student.model'
 import { ICourse, Course } from '../models/course.model'
+import { CourseTake } from '../models/courseTake.model'
 import { CourseTeach } from '../models/courseTeach.model'
 
 export class courseController {
   public async getStudentCourses(req: Request, res: Response): Promise<void> {
-    const courses = await Course.find({ StudentId: req.user })
+    const courseTakes = await CourseTake.find({  
+      StudentId: req.user
+    }).populate({path: 'CourseId'})
+    const courses = courseTakes.map((courseTake) => courseTake.CourseId)
     res.status(200).json({ data: courses })
   }
 
@@ -13,6 +18,14 @@ export class courseController {
       TeacherId: req.user
     }).populate({path: 'CourseId'})
     const courses = courseTeaches.map((courseTeach) => courseTeach.CourseId)
+    res.status(200).json({ data: courses })
+  }
+
+  public async getDepartmentCourses(req: Request, res: Response): Promise<void> {
+    const student = await Student.findById(req.user)
+    const courses = await Course.find({  
+      DepartmentId: student.DepartmentId
+    })
     res.status(200).json({ data: courses })
   }
 
