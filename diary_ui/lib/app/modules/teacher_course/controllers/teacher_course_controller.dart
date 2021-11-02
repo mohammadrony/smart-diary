@@ -59,7 +59,6 @@ class TeacherCourseController extends GetxController {
       errorMessage = apiResponse.errorMessage;
     } else {
       tasks.value = apiResponse.data ?? [];
-      print(tasks);
     }
     isLoading = false;
   }
