@@ -15,7 +15,7 @@ class StudentTaskCardWidget extends StatelessWidget {
       ),
       margin: EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: task.CourseId == null ? Colors.white : Colors.blue[100],
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(

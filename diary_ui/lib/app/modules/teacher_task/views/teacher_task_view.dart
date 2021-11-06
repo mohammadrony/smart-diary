@@ -198,19 +198,25 @@ class TeacherTaskView extends GetView<TeacherTaskController> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          label: Text('Delete Task'),
-          onPressed: () async {
-            await controller.deleteTodoByTask(controller.task.value.id);
-            await controller.deleteTask(controller.task.value.id);
-            Get.back();
-          },
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          icon: Icon(Icons.delete),
-          backgroundColor: Colors.redAccent,
-        ),
+        floatingActionButton: GetBuilder<TeacherTaskController>(builder: (_) {
+          if (_.task.value.id == '') {
+            return SizedBox.shrink();
+          } else {
+            return FloatingActionButton.extended(
+              label: Text('Delete Task'),
+              onPressed: () async {
+                await controller.deleteTodoByTask(controller.task.value.id);
+                await controller.deleteTask(controller.task.value.id);
+                Get.back();
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              icon: Icon(Icons.delete),
+              backgroundColor: Colors.redAccent,
+            );
+          }
+        }),
       ),
     );
   }
