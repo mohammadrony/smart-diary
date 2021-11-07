@@ -18,6 +18,7 @@ abstract class Routes {
   static const TEACHER_PROFILE = _Paths.TEACHER_PROFILE;
   static const STUDENT_COURSES = _Paths.STUDENT_COURSES;
   static const STUDENT_COURSE_ADD = _Paths.STUDENT_COURSE_ADD;
+  static const STUDENT_NOTIFICATION = _Paths.STUDENT_NOTIFICATION;
 }
 
 abstract class _Paths {
@@ -35,4 +36,5 @@ abstract class _Paths {
   static const TEACHER_PROFILE = '/teacher-profile';
   static const STUDENT_COURSES = '/student-courses';
   static const STUDENT_COURSE_ADD = '/student-course-add';
+  static const STUDENT_NOTIFICATION = '/student-notification';
 }

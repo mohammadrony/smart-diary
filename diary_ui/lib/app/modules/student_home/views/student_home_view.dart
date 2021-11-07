@@ -26,6 +26,12 @@ class StudentHomeView extends GetView<StudentHomeController> {
               appBar: AppBar(
                 title: const Text('Tasks'),
                 actions: [
+                  IconButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.STUDENT_NOTIFICATION);
+                    },
+                    icon: Icon(Icons.notifications),
+                  ),
                   PopupMenuButton<String>(onSelected: (String result) {
                     if (result == 'Settings') {
                       Get.toNamed(Routes.SETTINGS);

@@ -14,6 +14,8 @@ import 'package:diary_ui/app/modules/student_courses/bindings/student_courses_bi
 import 'package:diary_ui/app/modules/student_courses/views/student_courses_view.dart';
 import 'package:diary_ui/app/modules/student_home/bindings/student_home_binding.dart';
 import 'package:diary_ui/app/modules/student_home/views/student_home_view.dart';
+import 'package:diary_ui/app/modules/student_notification/bindings/student_notification_binding.dart';
+import 'package:diary_ui/app/modules/student_notification/views/student_notification_view.dart';
 import 'package:diary_ui/app/modules/student_profile/bindings/student_profile_binding.dart';
 import 'package:diary_ui/app/modules/student_profile/views/student_profile_view.dart';
 import 'package:diary_ui/app/modules/student_task/bindings/student_task_binding.dart';
@@ -106,6 +108,11 @@ class AppPages {
       name: _Paths.STUDENT_COURSE_ADD,
       page: () => StudentCourseAddView(),
       binding: StudentCourseAddBinding(),
+    ),
+    GetPage(
+      name: _Paths.STUDENT_NOTIFICATION,
+      page: () => StudentNotificationView(),
+      binding: StudentNotificationBinding(),
     ),
   ];
 }
