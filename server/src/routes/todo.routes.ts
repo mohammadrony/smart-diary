@@ -14,6 +14,8 @@ export class todoRoutes {
 
   routes() {
     // - /api/todo
+    this.router.get('/upcoming', this.todoController.getUpcomingTodos)
+    this.router.get('/due', this.todoController.getDueTodos)
     this.router.get('/:taskId', this.todoController.getTodos)
     this.router.post(
       '/',

@@ -1,3 +1,4 @@
+import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:diary_ui/app/modules/student_notification/widgets/student_notification_card_widget.dart';
 import 'package:diary_ui/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class StudentNotificationView extends GetView<StudentNotificationController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notifications'),
+        title: Text('Your Todos'),
       ),
       body: Container(
         margin: EdgeInsets.only(
@@ -21,33 +22,77 @@ class StudentNotificationView extends GetView<StudentNotificationController> {
         ),
         child: Column(
           children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Text(
-                  '--- Upcoming Tasks ---',
-                  style: TextStyle(fontSize: 20),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 24, top: 12),
+              child: Obx(
+                () => CustomRadioButton(
+                  elevation: 0,
+                  absoluteZeroSpacing: true,
+                  unSelectedColor: Theme.of(context).canvasColor,
+                  buttonLables: [
+                    'Upcoming Todos (${controller.upcomingTodos.length})',
+                    'Due Todos (${controller.dueTodos.length})',
+                  ],
+                  buttonValues: [
+                    'UPCOMING',
+                    'DUE',
+                  ],
+                  buttonTextStyle: ButtonTextStyle(
+                    selectedColor: Colors.white,
+                    unSelectedColor: Colors.black,
+                    textStyle: TextStyle(fontSize: 16),
+                  ),
+                  defaultSelected: 'UPCOMING',
+                  radioButtonValue: (value) async {
+                    if (value == 'UPCOMING') {
+                      controller.selectedType = 'UPCOMING';
+                      controller.todos.value = [];
+                      controller.todos.value =
+                          List.from(controller.upcomingTodos);
+                    } else if (value == 'DUE') {
+                      controller.selectedType = 'DUE';
+                      controller.todos.value = [];
+                      controller.todos.value = List.from(controller.dueTodos);
+                    }
+                  },
+                  selectedColor: Theme.of(context).accentColor,
+                  width: (Get.width - 48) / 2,
+                  enableShape: true,
                 ),
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                  itemCount: 7,
-                  itemBuilder: (context, index) {
-                    // return Text('hello world');
-                    return GestureDetector(
-                      onTap: () async {
-                        print('hello student');
-                        // await Get.toNamed(Routes.STUDENT_TASK +
-                        //     '?id=' +
-                        //     controller.notifications[index].id);
-                        // await controller.getStudentNotifications();
-                      },
-                      child: StudentNotificationCardWidget(
-                          // task: controller.notifications[index]
-                          ),
-                    );
-                  }),
+              child: Obx(
+                () => controller.todos.isEmpty
+                    ? controller.selectedType == 'UPCOMING'
+                        ? Text(
+                            '... No Upcoming Todo ...',
+                            style: TextStyle(
+                              fontSize: 22,
+                            ),
+                          )
+                        : Text(
+                            '... No Due Todo ...',
+                            style: TextStyle(
+                              fontSize: 22,
+                            ),
+                          )
+                    : Obx(
+                        () => ListView.builder(
+                            itemCount: controller.todos.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () async {
+                                  await Get.toNamed(Routes.STUDENT_TASK +
+                                      '?id=' +
+                                      controller.todos[index].TaskId);
+                                },
+                                child: StudentNotificationCardWidget(
+                                    todo: controller.todos[index]),
+                              );
+                            }),
+                      ),
+              ),
             ),
           ],
         ),

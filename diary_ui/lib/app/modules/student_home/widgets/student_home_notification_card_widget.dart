@@ -1,24 +1,26 @@
 import 'package:diary_ui/app/data/model/todo.dart';
 import 'package:flutter/material.dart';
 
-class StudentNotificationCardWidget extends StatelessWidget {
+class StudentHomeNotificationCardWidget extends StatelessWidget {
   final Todo todo;
-  const StudentNotificationCardWidget({Key? key, required this.todo})
-      : super(key: key);
+  StudentHomeNotificationCardWidget({
+    Key? key,
+    required this.todo,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        vertical: 16,
-        horizontal: 24,
+        vertical: 12,
+        horizontal: 20,
       ),
       margin: EdgeInsets.only(bottom: 2),
       decoration: BoxDecoration(
         // color: notification.CourseId == null ? Colors.white : Colors.blue[100],
         color: Colors.blue[100],
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,11 +28,11 @@ class StudentNotificationCardWidget extends StatelessWidget {
           Row(
             children: [
               Text(
-                todo.title.length > 30
-                    ? todo.title.substring(0, 30) + '...'
+                todo.title.length > 20
+                    ? todo.title.substring(0, 20) + '...'
                     : todo.title,
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF211551),
                 ),
@@ -39,20 +41,20 @@ class StudentNotificationCardWidget extends StatelessWidget {
               Text(
                 todo.dueDate,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   color: Color(0xFF211551),
                 ),
               ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 8),
             child: Text(
-              todo.description.length > 70
-                  ? todo.description.substring(0, 70) + '...'
+              todo.description.length > 50
+                  ? todo.description.substring(0, 50) + '...'
                   : todo.description,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 color: Color(0xFF86829D),
                 height: 1.5,
               ),

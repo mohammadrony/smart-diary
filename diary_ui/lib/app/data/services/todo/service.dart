@@ -8,6 +8,17 @@ class TodoService extends GetxService {
     return await TodoProvider.getTodos(taskId);
   }
 
+  static Future<APIResponse<List<Todo>>> getUpcomingTodos(
+      int upcomingTodoLimit, String today, String fewDaysFromNow) async {
+    return await TodoProvider.getUpcomingTodos(
+        upcomingTodoLimit, today, fewDaysFromNow);
+  }
+
+  static Future<APIResponse<List<Todo>>> getDueTodos(
+      int dueTodoLimit, String today, String fewDaysBack) async {
+    return await TodoProvider.getDueTodos(dueTodoLimit, today, fewDaysBack);
+  }
+
   static Future<APIResponse<bool>> createTodo(Todo todo) async {
     return await TodoProvider.createTodo(todo);
   }

@@ -1,4 +1,5 @@
 import 'package:diary_ui/app/data/services/task/service.dart';
+import 'package:diary_ui/app/data/services/todo/service.dart';
 import 'package:diary_ui/app/data/services/user/service.dart';
 import 'package:diary_ui/app/routes/app_pages.dart';
 import 'package:get/get.dart';
@@ -8,10 +9,13 @@ class StudentHomeController extends GetxController {
   var tasks = [].obs;
   var isLoading = false;
   var errorMessage = '';
+  var upcomingTodos = [].obs;
+  var upcomingTodoLimit = 7;
 
   @override
   Future<void> onInit() async {
     await getStudentTasks();
+    await getUpcomingTodos();
     super.onInit();
   }
 
@@ -32,6 +36,23 @@ class StudentHomeController extends GetxController {
       errorMessage = apiResponse.errorMessage;
     } else {
       tasks.value = apiResponse.data ?? [];
+    }
+    isLoading = false;
+  }
+
+  Future<void> getUpcomingTodos() async {
+    isLoading = true;
+    var now = DateTime.now();
+    var today = now.toString().substring(0, 10);
+    var threeDaysFromNow =
+        now.add(const Duration(days: 3)).toString().substring(0, 10);
+    var apiResponse = await TodoService.getUpcomingTodos(
+        upcomingTodoLimit, today, threeDaysFromNow);
+    if (apiResponse.error == true) {
+      error = true;
+      errorMessage = apiResponse.errorMessage;
+    } else {
+      upcomingTodos.value = apiResponse.data ?? [];
     }
     isLoading = false;
   }

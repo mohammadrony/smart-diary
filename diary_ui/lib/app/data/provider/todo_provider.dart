@@ -33,6 +33,74 @@ class TodoProvider {
             error: true, errorMessage: 'An error occured'));
   }
 
+  static Future<APIResponse<List<Todo>>> getUpcomingTodos(
+      int upcomingTodoLimit, String today, String fewDaysFromNow) async {
+    return http
+        .get(
+      Uri.parse(DatabaseProvider.BASE_URL +
+          '/api/todo/upcoming?limit=' +
+          upcomingTodoLimit.toString() +
+          '&today=' +
+          today +
+          '&endDay=' +
+          fewDaysFromNow),
+      headers: DatabaseProvider.getHeaders(),
+    )
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = jsonDecode(data.body);
+        Map<String, dynamic> mappedData = jsonData;
+        List<dynamic> listedData = mappedData['todos'];
+        // List<dynamic> == List<Map<String, dynamic>>
+        final todos = List.generate(
+          listedData.length,
+          (index) => Todo.fromJsonMongo(listedData[index]),
+        );
+        return APIResponse<List<Todo>>(data: todos);
+      } else {
+        return APIResponse<List<Todo>>(
+          error: true,
+          errorMessage: 'An error occured',
+        );
+      }
+    }).catchError((_) => APIResponse<List<Todo>>(
+            error: true, errorMessage: 'An error occured'));
+  }
+
+  static Future<APIResponse<List<Todo>>> getDueTodos(
+      int upcomingTodoLimit, String today, String fewDaysBack) async {
+    return http
+        .get(
+      Uri.parse(DatabaseProvider.BASE_URL +
+          '/api/todo/due?limit=' +
+          upcomingTodoLimit.toString() +
+          '&today=' +
+          today +
+          '&startDay=' +
+          fewDaysBack),
+      headers: DatabaseProvider.getHeaders(),
+    )
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = jsonDecode(data.body);
+        Map<String, dynamic> mappedData = jsonData;
+        List<dynamic> listedData = mappedData['todos'];
+        // List<dynamic> == List<Map<String, dynamic>>
+        final todos = List.generate(
+          listedData.length,
+          (index) => Todo.fromJsonMongo(listedData[index]),
+        );
+        return APIResponse<List<Todo>>(data: todos);
+      } else {
+        return APIResponse<List<Todo>>(
+          error: true,
+          errorMessage: 'An error occured',
+        );
+      }
+    }).catchError((_) => APIResponse<List<Todo>>(
+            error: true, errorMessage: 'An error occured'));
+  }
+
   static Future<APIResponse<bool>> createTodo(Todo todo) async {
     return http
         .post(

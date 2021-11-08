@@ -17,6 +17,7 @@ export const todoSchema = new Schema({
   },
   description: String,
   dueDate: String,
+  notified: String,
   TaskId: {
     type: Schema.Types.ObjectId,
     required: true,

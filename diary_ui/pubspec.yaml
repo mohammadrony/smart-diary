@@ -8,6 +8,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  badges: ^2.0.1
   cupertino_icons: ^1.0.2
   custom_radio_grouped_button: ^2.0.0
   date_format: ^2.0.4

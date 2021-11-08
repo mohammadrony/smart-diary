@@ -7,6 +7,22 @@ export class todoController {
     res.json({ todos })
   }
 
+  public async getUpcomingTodos(req: Request, res: Response): Promise<void> {
+    const upcomingTodoLimit = parseInt(req.query.limit.toString())
+    const today:any = req.query.today
+    const endDay:any = req.query.endDay
+    const todos = await Todo.find({dueDate: {$gte: today, $lte: endDay}}).sort([['dueDate', 'descending']]).limit(upcomingTodoLimit)
+    res.json({ todos })
+  }
+
+  public async getDueTodos(req: Request, res: Response): Promise<void> {
+    const dueTodoLimit = parseInt(req.query.limit.toString())
+    const today:any = req.query.today
+    const startDay:any = req.query.startDay
+    const todos = await Todo.find({dueDate: {$gte: startDay, $lte: today}}).sort([['dueDate', 'descending']]).limit(dueTodoLimit)
+    res.json({ todos })
+  }
+
   public async getTodo(req: Request, res: Response): Promise<void> {
     const todo = await Todo.findById(req.params.id)
     if (todo === null) {

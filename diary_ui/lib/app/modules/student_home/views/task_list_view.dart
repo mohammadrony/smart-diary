@@ -55,6 +55,7 @@ class TaskListView extends GetView<StudentHomeController> {
                                   '?id=' +
                                   controller.tasks[index].id);
                               await controller.getStudentTasks();
+                              await controller.getUpcomingTodos();
                             },
                             child: StudentTaskCardWidget(
                                 task: controller.tasks[index]),
