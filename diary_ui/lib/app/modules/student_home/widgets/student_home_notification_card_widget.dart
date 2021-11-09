@@ -50,9 +50,11 @@ class StudentHomeNotificationCardWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8),
             child: Text(
-              todo.description.length > 50
-                  ? todo.description.substring(0, 50) + '...'
-                  : todo.description,
+              todo.description.isNotEmpty
+                  ? todo.description.length > 50
+                      ? todo.description.substring(0, 50) + '...'
+                      : todo.description
+                  : 'No description added.',
               style: TextStyle(
                 fontSize: 14,
                 color: Color(0xFF86829D),

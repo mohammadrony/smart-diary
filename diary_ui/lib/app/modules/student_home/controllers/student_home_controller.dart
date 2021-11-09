@@ -2,6 +2,7 @@ import 'package:diary_ui/app/data/services/task/service.dart';
 import 'package:diary_ui/app/data/services/todo/service.dart';
 import 'package:diary_ui/app/data/services/user/service.dart';
 import 'package:diary_ui/app/routes/app_pages.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class StudentHomeController extends GetxController {
@@ -11,6 +12,7 @@ class StudentHomeController extends GetxController {
   var errorMessage = '';
   var upcomingTodos = [].obs;
   var upcomingTodoLimit = 7;
+  var startup = true;
 
   @override
   Future<void> onInit() async {
@@ -53,6 +55,12 @@ class StudentHomeController extends GetxController {
       errorMessage = apiResponse.errorMessage;
     } else {
       upcomingTodos.value = apiResponse.data ?? [];
+      if (startup && upcomingTodos.isNotEmpty) {
+        Get.snackbar('You have ${upcomingTodos.length} new todos',
+            'Starting from ${upcomingTodos[0].dueDate}',
+            backgroundColor: Colors.white);
+        startup = false;
+      }
     }
     isLoading = false;
   }

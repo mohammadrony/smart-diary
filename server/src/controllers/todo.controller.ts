@@ -11,7 +11,7 @@ export class todoController {
     const upcomingTodoLimit = parseInt(req.query.limit.toString())
     const today:any = req.query.today
     const endDay:any = req.query.endDay
-    const todos = await Todo.find({dueDate: {$gte: today, $lte: endDay}}).sort([['dueDate', 'descending']]).limit(upcomingTodoLimit)
+    const todos = await Todo.find({dueDate: {$gte: today, $lte: endDay}}).sort([['dueDate', 'ascending']]).limit(upcomingTodoLimit)
     res.json({ todos })
   }
 
