@@ -33,7 +33,7 @@ class StudentHomeView extends GetView<StudentHomeController> {
                       onPressed: () {
                         // Get.toNamed(Routes.STUDENT_NOTIFICATION);
                         Get.defaultDialog(
-                          title: 'Few Upcoming Todos',
+                          title: 'Upcoming Todos',
                           content: Container(
                             height: Get.height / 2,
                             width: Get.width / 2,
@@ -67,7 +67,7 @@ class StudentHomeView extends GetView<StudentHomeController> {
                                               );
                                             },
                                           )
-                                        : Text('No Recent Task.'),
+                                        : Text('No New Todo.'),
                                   ),
                                 ],
                               ),
@@ -79,7 +79,7 @@ class StudentHomeView extends GetView<StudentHomeController> {
                                 Get.back();
                                 await Get.toNamed(Routes.STUDENT_NOTIFICATION);
                               },
-                              child: Text('More Upcoming Todos'),
+                              child: Text('See More'),
                             ),
                           ],
                         );

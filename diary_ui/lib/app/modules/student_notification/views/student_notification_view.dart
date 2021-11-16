@@ -66,15 +66,15 @@ class StudentNotificationView extends GetView<StudentNotificationController> {
                 () => controller.todos.isEmpty
                     ? controller.selectedType == 'UPCOMING'
                         ? Text(
-                            '... No Upcoming Todo ...',
+                            'No new todo.',
                             style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 16,
                             ),
                           )
                         : Text(
-                            '... No Due Todo ...',
+                            'No due todo.',
                             style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 16,
                             ),
                           )
                     : Obx(
