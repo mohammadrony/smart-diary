@@ -9,3 +9,19 @@ And node.js framework in backend with [typescript](https://www.typescriptlang.or
 ## Followed Repositories
 [GitHub - Jerry Chong - node-express-mongo-passport-jwt-typescript](https://github.com/jerrychong25/node-express-mongo-passport-jwt-typescript)\
 [GitHub - Delay - flutter-starter](https://github.com/delay/flutter_starter)
+
+## Run Backend
+```
+cd server
+npm install
+npx tsc
+npm start
+```
+## Run Frontend
+```
+cd diary_ui
+flutter pub get
+flutter run
+```
+## Error to resolve
+When back from Create course page in `diary_ui/lib/app/modules/teacher_home/views/teacher_home_view.dart` file **Backend crash** maybe after receiving **wrong parameter** related to mongodb **_id**.

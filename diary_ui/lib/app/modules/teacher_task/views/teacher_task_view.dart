@@ -93,7 +93,7 @@ class TeacherTaskView extends GetView<TeacherTaskController> {
                                     ..text =
                                         controller.task.value.description ?? '',
                                   onSubmitted: (value) async {
-                                    if (controller.task.value.id != '') {
+                                    if (controller.task.value.id.trim() != '') {
                                       controller.task.value.description =
                                           value.trim();
                                       await controller

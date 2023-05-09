@@ -25,7 +25,7 @@ class TeacherTaskController extends GetxController {
     task.value.id = Get.parameters['id'] ?? '';
     courseId = Get.parameters['courseId'] ?? '';
     titleFocus.value.requestFocus();
-    if (task.value.id != '') {
+    if (task.value.id.trim() != '') {
       await getTeacherTask(task.value.id);
       await getTodos(task.value.id);
     }

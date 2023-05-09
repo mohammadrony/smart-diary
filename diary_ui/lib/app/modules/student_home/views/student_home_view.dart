@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:diary_ui/app/modules/student_home/views/task_list_view.dart';
 import 'package:diary_ui/app/modules/student_home/widgets/student_home_notification_card_widget.dart';
 import 'package:diary_ui/app/routes/app_pages.dart';
@@ -90,12 +90,14 @@ class StudentHomeView extends GetView<StudentHomeController> {
                       ),
                       child: controller.upcomingTodos.isEmpty
                           ? Icon(Icons.notifications)
-                          : Badge(
+                          : badges.Badge(
                               badgeContent: Text(
                                 controller.upcomingTodos.length.toString(),
                                 style: TextStyle(fontSize: 12),
                               ),
-                              padding: EdgeInsets.all(4),
+                              badgeStyle: badges.BadgeStyle(
+                                padding: EdgeInsets.all(4),
+                              ),
                               child: Icon(
                                 Icons.notifications,
                               ),

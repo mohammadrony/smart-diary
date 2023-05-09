@@ -26,8 +26,10 @@ class TeacherCourseController extends GetxController {
   @override
   void onInit() async {
     course.value.id = Get.parameters['id'] ?? '';
-    await getCourseDetails();
-    await getCourseTasks();
+    if (course.value.id.trim() != '') {
+      await getCourseDetails();
+      await getCourseTasks();
+    }
     super.onInit();
   }
 

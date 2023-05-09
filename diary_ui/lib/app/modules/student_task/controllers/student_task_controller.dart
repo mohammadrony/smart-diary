@@ -23,7 +23,7 @@ class StudentTaskController extends GetxController {
   void onInit() async {
     task.value.id = Get.parameters['id'] ?? '';
     titleFocus.value.requestFocus();
-    if (task.value.id != '') {
+    if (task.value.id.trim() != '') {
       await getStudentTask(task.value.id);
       await getTodos(task.value.id);
     }
