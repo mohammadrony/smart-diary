@@ -64,4 +64,31 @@ class TeacherCourseController extends GetxController {
     }
     isLoading = false;
   }
+
+  Future<void> createCourse(Course course) async {
+    var apiResponse = await CourseService.createTeacherCourse(course);
+    if (apiResponse.error == true) {
+      error = true;
+      errorMessage = apiResponse.errorMessage;
+    } else {
+      this.course.value.id = apiResponse.data ?? '';
+    }
+    update();
+  }
+
+  Future<void> updateCourse(Course course) async {
+    var apiResponse = await CourseService.updateTeacherCourse(course);
+    if (apiResponse.error == true) {
+      error = true;
+      errorMessage = apiResponse.errorMessage;
+    }
+  }
+
+  Future<void> deleteCourse(String id) async {
+    var apiResponse = await CourseService.deleteTeacherCourse(id);
+    if (apiResponse.error == true) {
+      error = true;
+      errorMessage = apiResponse.errorMessage;
+    }
+  }
 }

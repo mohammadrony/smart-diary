@@ -34,7 +34,7 @@ class TeacherCourseCardWidget extends StatelessWidget {
               ),
               SizedBox.shrink(),
               Text(
-                course.session ?? '',
+                course.courseCode ?? '',
                 style: TextStyle(
                   fontSize: 16,
                   color: Color(0xFF6E7389),

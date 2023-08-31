@@ -20,24 +20,12 @@ class CourseService extends GetxService {
     return await CourseProvider.getCourse(id);
   }
 
-  static Future<APIResponse<String>> createStudentCourse(Course course) async {
-    return await CourseProvider.createStudentCourse(course);
-  }
-
   static Future<APIResponse<String>> createTeacherCourse(Course course) async {
     return await CourseProvider.createTeacherCourse(course);
   }
 
-  static Future<APIResponse<bool>> updateStudentCourse(Course course) async {
-    return await CourseProvider.updateCourse(course);
-  }
-
   static Future<APIResponse<bool>> updateTeacherCourse(Course course) async {
     return await CourseProvider.updateCourse(course);
-  }
-
-  static Future<APIResponse<bool>> deleteStudentCourse(String id) async {
-    return await CourseProvider.deleteCourse(id);
   }
 
   static Future<APIResponse<bool>> deleteTeacherCourse(String id) async {
