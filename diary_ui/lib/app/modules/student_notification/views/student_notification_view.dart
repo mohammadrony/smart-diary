@@ -55,7 +55,7 @@ class StudentNotificationView extends GetView<StudentNotificationController> {
                       controller.todos.value = List.from(controller.dueTodos);
                     }
                   },
-                  selectedColor: Theme.of(context).accentColor,
+                  selectedColor: Theme.of(context).colorScheme.secondary,
                   width: (Get.width - 48) / 2,
                   enableShape: true,
                 ),

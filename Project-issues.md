@@ -2,6 +2,10 @@
 
 ## Application feature update
 
+### Students notification for todos
+
+- Add query on specific users task for upcoming and due todos.
+
 ### Create Course pre-requisites
 
 - Create Department

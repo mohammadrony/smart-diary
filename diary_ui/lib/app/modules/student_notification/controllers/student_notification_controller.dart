@@ -46,7 +46,7 @@ class StudentNotificationController extends GetxController {
     isLoading = true;
     var now = DateTime.now();
     var today = now.toString().substring(0, 10);
-    var fewDaysBack = DateTime(2010).toString().substring(0, 10);
+    var fewDaysBack = DateTime(2020).toString().substring(0, 10);
     var apiResponse =
         await TodoService.getDueTodos(dueTodoLimit, today, fewDaysBack);
     if (apiResponse.error == true) {

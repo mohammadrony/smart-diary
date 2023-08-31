@@ -61,7 +61,7 @@ class LoginView extends GetView<LoginController> {
                         radioButtonValue: (value) {
                           controller.userType = value.toString();
                         },
-                        selectedColor: Theme.of(context).accentColor,
+                        selectedColor: Theme.of(context).colorScheme.secondary,
                         width: (Get.width - 48) / 2,
                         enableShape: true,
                       ),

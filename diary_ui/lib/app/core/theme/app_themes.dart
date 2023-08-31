@@ -76,14 +76,14 @@ class AppThemes {
 
   //text theme for light theme
   static final TextTheme _lightTextTheme = TextTheme(
-    headline1: TextStyle(fontSize: 20.0, color: _lightTextColor),
-    bodyText1: TextStyle(fontSize: 16.0, color: _lightTextColor),
-    bodyText2: TextStyle(fontSize: 14.0, color: Colors.grey),
-    button: TextStyle(
+    displayLarge: TextStyle(fontSize: 20.0, color: _lightTextColor),
+    bodyLarge: TextStyle(fontSize: 16.0, color: _lightTextColor),
+    bodyMedium: TextStyle(fontSize: 14.0, color: Colors.grey),
+    labelLarge: TextStyle(
         fontSize: 15.0, color: _lightTextColor, fontWeight: FontWeight.w600),
-    headline6: TextStyle(fontSize: 16.0, color: _lightTextColor),
-    subtitle1: TextStyle(fontSize: 16.0, color: _lightTextColor),
-    caption: TextStyle(fontSize: 12.0, color: _lightBackgroundAppBarColor),
+    titleLarge: TextStyle(fontSize: 16.0, color: _lightTextColor),
+    titleMedium: TextStyle(fontSize: 16.0, color: _lightTextColor),
+    bodySmall: TextStyle(fontSize: 12.0, color: _lightBackgroundAppBarColor),
   );
 
   //the light theme
@@ -97,11 +97,11 @@ class AppThemes {
     appBarTheme: AppBarTheme(
       color: _lightBackgroundAppBarColor,
       iconTheme: IconThemeData(color: _lightTextColor),
-      textTheme: _lightTextTheme,
+      toolbarTextStyle: _lightTextTheme.bodyMedium,
+      titleTextStyle: _lightTextTheme.titleLarge,
     ),
     colorScheme: ColorScheme.light(
       primary: _lightPrimaryColor,
-      primaryVariant: _lightBackgroundColor,
       // secondary: _lightSecondaryColor,
     ),
     snackBarTheme: SnackBarThemeData(
@@ -162,21 +162,19 @@ class AppThemes {
       fontWeight: FontWeight.w100);*/
 
   static final TextTheme _darkTextTheme = TextTheme(
-    headline1: TextStyle(fontSize: 20.0, color: _darkTextColor),
-    bodyText1: TextStyle(fontSize: 16.0, color: _darkTextColor),
-    bodyText2: TextStyle(fontSize: 14.0, color: Colors.grey),
-    button: TextStyle(
+    displayLarge: TextStyle(fontSize: 20.0, color: _darkTextColor),
+    bodyLarge: TextStyle(fontSize: 16.0, color: _darkTextColor),
+    bodyMedium: TextStyle(fontSize: 14.0, color: Colors.grey),
+    labelLarge: TextStyle(
         fontSize: 15.0, color: _darkTextColor, fontWeight: FontWeight.w600),
-    headline6: TextStyle(fontSize: 16.0, color: _darkTextColor),
-    subtitle1: TextStyle(fontSize: 16.0, color: _darkTextColor),
-    caption: TextStyle(fontSize: 12.0, color: _darkBackgroundAppBarColor),
+    titleLarge: TextStyle(fontSize: 16.0, color: _darkTextColor),
+    titleMedium: TextStyle(fontSize: 16.0, color: _darkTextColor),
+    bodySmall: TextStyle(fontSize: 12.0, color: _darkBackgroundAppBarColor),
   );
 
   //the dark theme
   static final ThemeData darkTheme = ThemeData(
-    brightness: Brightness.dark,
-    //primarySwatch: _darkPrimaryColor, //cant be Color on MaterialColor so it can compute different shades.
-    accentColor: _darkPrimaryColor, //prefix icon color form input on focus
+    brightness: Brightness.dark, //prefix icon color form input on focus
 
     fontFamily: font1,
     scaffoldBackgroundColor: _darkBackgroundColor,
@@ -186,13 +184,8 @@ class AppThemes {
     appBarTheme: AppBarTheme(
       color: _darkBackgroundAppBarColor,
       iconTheme: IconThemeData(color: _darkTextColor),
-      textTheme: _darkTextTheme,
-    ),
-    colorScheme: ColorScheme.dark(
-      primary: _darkPrimaryColor,
-      primaryVariant: _darkBackgroundColor,
-
-      // secondary: _darkSecondaryColor,
+      toolbarTextStyle: _darkTextTheme.bodyMedium,
+      titleTextStyle: _darkTextTheme.titleLarge,
     ),
     snackBarTheme: SnackBarThemeData(
         contentTextStyle: TextStyle(color: Colors.white),
@@ -237,5 +230,10 @@ class AppThemes {
       fillColor: _darkInputFillColor,
       //focusColor: _darkBorderActiveColor,
     ),
+    colorScheme: ColorScheme.dark(
+      primary: _darkPrimaryColor,
+
+      // secondary: _darkSecondaryColor,
+    ).copyWith(secondary: _darkPrimaryColor),
   );
 }

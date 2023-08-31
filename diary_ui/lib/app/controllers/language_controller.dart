@@ -51,7 +51,7 @@ class LanguageController extends GetxController {
     language.value = value;
     await store.write('language', value);
     if (getLocale != null) {
-      Get.updateLocale(getLocale!);
+      await Get.updateLocale(getLocale!);
     }
     update();
   }
